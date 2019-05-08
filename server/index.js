@@ -1,5 +1,8 @@
 'use strict';
 
+require('dotenv').config();
+console.log(process.env.PORT);
+
 var fs = require('fs'),
     path = require('path'),
     http = require('http');
@@ -9,6 +12,7 @@ var swaggerTools = require('swagger-tools');
 var jsyaml = require('js-yaml');
 var serveStatic = require("serve-static");
 var serverPort = 8080;
+
 
 // swaggerRouter configuration
 var options = {
