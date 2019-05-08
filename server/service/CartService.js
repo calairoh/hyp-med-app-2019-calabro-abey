@@ -1,5 +1,25 @@
 'use strict';
 
+let sqlDb;
+
+exports.cartDbSetup = function(database) {
+  sqlDb = database;
+  console.log("Checking if cart table exists");
+  return database.schema.hasTable("cart").then(exists => {
+
+    if (!exists) {
+      console.log("It doesn't so we create it");
+      return database.schema.createTable("cart", table => {
+        table.text("UserId");
+        table.text("ISBN");
+        table.integer("Quantity");
+        table.foreign("UserId").references("User.Id");
+        table.foreign("ISBN").references("Book.ISBN");
+      });
+    }
+    
+  });
+};
 
 /**
  * Create cart element

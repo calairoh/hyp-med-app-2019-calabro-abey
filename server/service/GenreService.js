@@ -1,6 +1,5 @@
 'use strict';
 
-
 /**
  * Get all genres
  * Return all genres in the DB

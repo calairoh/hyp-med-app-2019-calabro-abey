@@ -5,21 +5,27 @@ let sqlDb;
 exports.booksDbSetup = function(database) {
   sqlDb = database;
   console.log("Checking if books table exists");
-  return database.schema.hasTable("books").then(exists => {
+  return database.schema.hasTable("book").then(exists => {
 
     if (!exists) {
       console.log("It doesn't so we create it");
-      return database.schema.createTable("books", table => {
-        table.increments();
-        table.text("title");
-        table.text("author");
-        table.float("value");
-        table.text("currency");
-        table.enum("status", ["available", "out of stock"]);
+      return database.schema.createTable("book", table => {
+        table.text("ISBN");
+        table.text("Title");
+        table.text("Editor");
+        table.date("ReleaseDate");
+        table.text("Synopsis");
+        table.text("Language");
+        table.text("Genres");
+        table.text("Themes");
+        table.integer("PageNumber");
+        table.float("Price");
+        table.float("ePrice");
+        table.primary("ISBN");
       });
     }
+    
   });
-
 };
 
 /**

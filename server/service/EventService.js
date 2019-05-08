@@ -1,5 +1,26 @@
 'use strict';
 
+let sqlDb;
+
+exports.eventsDbSetup = function(database) {
+  sqlDb = database;
+  console.log("Checking if events table exists");
+  return database.schema.hasTable("event").then(exists => {
+
+    if (!exists) {
+      console.log("It doesn't so we create it");
+      return database.schema.createTable("event", table => {
+        table.increments('Id');
+        table.text("ISBN");
+        table.text("Location");
+        table.text("Description");
+        table.foreign("ISBN").references("Book.ISBN");
+        table.primary("Id");
+      });
+    }
+    
+  });
+};
 
 /**
  * Get all events

@@ -1,7 +1,6 @@
 'use strict';
 
 require('dotenv').config();
-console.log(process.env.PORT);
 
 var fs = require('fs'),
     path = require('path'),
@@ -11,8 +10,9 @@ var app = require('connect')();
 var swaggerTools = require('swagger-tools');
 var jsyaml = require('js-yaml');
 var serveStatic = require("serve-static");
-var serverPort = 8080;
+var serverPort = process.env.PORT || 8080;
 
+let { setupDataLayer } = require("./service/DataLayer");
 
 // swaggerRouter configuration
 var options = {
@@ -42,10 +42,20 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
 
   app.use(serveStatic(__dirname + "/www"));
 
-  // Start the server
-  http.createServer(app).listen(serverPort, function () {
-    console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
-    console.log('Swagger-ui is available on http://localhost:%d/docs', serverPort);
+  setupDataLayer().then(() => {
+    // Start the server
+    http.createServer(app).listen(serverPort, function() {
+      console.log(
+        "Your server is listening on port %d (http://localhost:%d)",
+        serverPort,
+        serverPort
+      );
+
+      console.log(
+        "Swagger-ui is available on http://localhost:%d/docs",
+        serverPort
+      );
+    });
   });
 
 });

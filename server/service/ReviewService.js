@@ -1,5 +1,29 @@
 'use strict';
 
+let sqlDb;
+
+exports.reviewsDbSetup = function(database) {
+  sqlDb = database;
+  console.log("Checking if reviews table exists");
+  return database.schema.hasTable("review").then(exists => {
+
+    if (!exists) {
+      console.log("It doesn't so we create it");
+      return database.schema.createTable("review", table => {
+        table.increments('Id');
+        table.text("UserId");
+        table.text("ISBN");
+        table.integer("Rate");
+        table.integer("Content");
+        table.datetime("DateTime");
+        table.foreign("ISBN").references("Book.ISBN");
+        table.foreign("UserId").references("User.Id");
+        table.primary("Id");
+      });
+    }
+    
+  });
+};
 
 /**
  * Create review

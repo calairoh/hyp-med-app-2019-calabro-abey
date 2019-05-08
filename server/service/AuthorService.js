@@ -1,5 +1,25 @@
 'use strict';
 
+let sqlDb;
+
+exports.authorsDbSetup = function(database) {
+  sqlDb = database;
+  console.log("Checking if authors table exists");
+  return database.schema.hasTable("author").then(exists => {
+
+    if (!exists) {
+      console.log("It doesn't so we create it");
+      return database.schema.createTable("author", table => {
+        table.increments('Id');
+        table.text("NameSurname");
+        table.text("Photo");
+        table.text("Bio");
+        table.primary("Id");
+      });
+    }
+    
+  });
+};
 
 /**
  * Get all authors

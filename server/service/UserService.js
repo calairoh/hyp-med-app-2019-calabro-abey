@@ -1,5 +1,30 @@
 'use strict';
 
+let sqlDb;
+
+exports.usersDbSetup = function(database) {
+  sqlDb = database;
+  console.log("Checking if users table exists");
+  return database.schema.hasTable("user").then(exists => {
+
+    if (!exists) {
+      console.log("It doesn't so we create it");
+      return database.schema.createTable("user", table => {
+        table.increments('Id');
+        table.text("Username");
+        table.text("Password");
+        table.text("Name");
+        table.text("Surname");
+        table.text("Address");
+        table.text("City");
+        table.text("PostalCode");
+        table.text("Country");
+        table.primary("Id");
+      });
+    }
+    
+  });
+};
 
 /**
  * Create user
