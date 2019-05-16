@@ -12,9 +12,10 @@ exports.eventsDbSetup = function(database) {
       return database.schema.createTable("event", table => {
         table.increments('Id');
         table.text("ISBN");
+        table.text("Name");
         table.text("Location");
         table.text("Description");
-        table.foreign("ISBN").references("Book.ISBN");
+        table.foreign("ISBN").references("book.ISBN");
         table.primary("Id");
       });
     }
@@ -31,51 +32,10 @@ exports.eventsDbSetup = function(database) {
  * returns Event
  **/
 exports.getEvents = function(offset,lenght) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "date" : "2000-01-23",
-  "book" : {
-    "themes" : [ {
-      "name" : "name"
-    }, {
-      "name" : "name"
-    } ],
-    "editor" : "Mondadori",
-    "ePrice" : 5.962134,
-    "pageNumber" : 6,
-    "ISBN" : "ISBN",
-    "releaseDate" : "2000-01-23",
-    "genres" : [ {
-      "name" : "name"
-    }, {
-      "name" : "name"
-    } ],
-    "price" : 1.4658129,
-    "language" : "english",
-    "synopsis" : "synopsis",
-    "title" : "Harry Potter",
-    "authors" : [ {
-      "photo" : "photo",
-      "bio" : "bio",
-      "id" : 0
-    }, {
-      "photo" : "photo",
-      "bio" : "bio",
-      "id" : 0
-    } ]
-  },
-  "name" : "name",
-  "description" : "description",
-  "location" : "location",
-  "id" : 0
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+    return sqlDb("event")
+          .innerjoin("book", 'book.ISBN', 'event.ISBN')
+          .offset(offset)
+          .limit(lenght);
 }
 
 
@@ -89,51 +49,11 @@ exports.getEvents = function(offset,lenght) {
  * returns Event
  **/
 exports.getEventsByBook = function(iSBN,offset,lenght) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "date" : "2000-01-23",
-  "book" : {
-    "themes" : [ {
-      "name" : "name"
-    }, {
-      "name" : "name"
-    } ],
-    "editor" : "Mondadori",
-    "ePrice" : 5.962134,
-    "pageNumber" : 6,
-    "ISBN" : "ISBN",
-    "releaseDate" : "2000-01-23",
-    "genres" : [ {
-      "name" : "name"
-    }, {
-      "name" : "name"
-    } ],
-    "price" : 1.4658129,
-    "language" : "english",
-    "synopsis" : "synopsis",
-    "title" : "Harry Potter",
-    "authors" : [ {
-      "photo" : "photo",
-      "bio" : "bio",
-      "id" : 0
-    }, {
-      "photo" : "photo",
-      "bio" : "bio",
-      "id" : 0
-    } ]
-  },
-  "name" : "name",
-  "description" : "description",
-  "location" : "location",
-  "id" : 0
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+  return sqlDb("event")
+          .innerjoin("book", 'book.ISBN', 'event.ISBN')
+          .where("event.ISBN", iSBN)
+          .offset(offset)
+          .limit(lenght);
 }
 
 
@@ -147,50 +67,11 @@ exports.getEventsByBook = function(iSBN,offset,lenght) {
  * returns Event
  **/
 exports.getEventsByName = function(name,offset,lenght) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "date" : "2000-01-23",
-  "book" : {
-    "themes" : [ {
-      "name" : "name"
-    }, {
-      "name" : "name"
-    } ],
-    "editor" : "Mondadori",
-    "ePrice" : 5.962134,
-    "pageNumber" : 6,
-    "ISBN" : "ISBN",
-    "releaseDate" : "2000-01-23",
-    "genres" : [ {
-      "name" : "name"
-    }, {
-      "name" : "name"
-    } ],
-    "price" : 1.4658129,
-    "language" : "english",
-    "synopsis" : "synopsis",
-    "title" : "Harry Potter",
-    "authors" : [ {
-      "photo" : "photo",
-      "bio" : "bio",
-      "id" : 0
-    }, {
-      "photo" : "photo",
-      "bio" : "bio",
-      "id" : 0
-    } ]
-  },
-  "name" : "name",
-  "description" : "description",
-  "location" : "location",
-  "id" : 0
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+  return sqlDb("event")
+        .innerjoin("book", "book.ISBN", "event.ISBN")
+        .where("event.Name", "like", "%" + name + "%")
+        .offset(offset)
+        .limit(lenght);
 }
+
 

@@ -38,73 +38,30 @@ exports.booksDbSetup = function(database) {
  * returns List
  **/
 exports.findBookByTitle = function(title,offset,lenght) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = [ {
-  "themes" : [ {
-    "name" : "name"
-  }, {
-    "name" : "name"
-  } ],
-  "editor" : "Mondadori",
-  "ePrice" : 5.962134,
-  "pageNumber" : 6,
-  "ISBN" : "ISBN",
-  "releaseDate" : "2000-01-23",
-  "genres" : [ {
-    "name" : "name"
-  }, {
-    "name" : "name"
-  } ],
-  "price" : 1.4658129,
-  "language" : "english",
-  "synopsis" : "synopsis",
-  "title" : "Harry Potter",
-  "authors" : [ {
-    "photo" : "photo",
-    "bio" : "bio",
-    "id" : 0
-  }, {
-    "photo" : "photo",
-    "bio" : "bio",
-    "id" : 0
-  } ]
-}, {
-  "themes" : [ {
-    "name" : "name"
-  }, {
-    "name" : "name"
-  } ],
-  "editor" : "Mondadori",
-  "ePrice" : 5.962134,
-  "pageNumber" : 6,
-  "ISBN" : "ISBN",
-  "releaseDate" : "2000-01-23",
-  "genres" : [ {
-    "name" : "name"
-  }, {
-    "name" : "name"
-  } ],
-  "price" : 1.4658129,
-  "language" : "english",
-  "synopsis" : "synopsis",
-  "title" : "Harry Potter",
-  "authors" : [ {
-    "photo" : "photo",
-    "bio" : "bio",
-    "id" : 0
-  }, {
-    "photo" : "photo",
-    "bio" : "bio",
-    "id" : 0
-  } ]
-} ];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+  return sqlDb("book")
+    .where('Title', 'like', '%' + title + '%')
+    .offset(offset)
+    .limit(lenght)
+    .then(data => {
+      return data.map(e => {
+        let arrayGenres = e.Genres.split(',');
+        let arrayThemes = e.Themes.split(',');
+        e.Genres = [];
+        e.Themes = [];
+
+        for(let i = 0; i < arrayGenres.length; i++)
+          e.Genres.push({
+            name: arrayGenres[i]
+          });
+
+        for(let i = 0; i < arrayThemes.length; i++)
+          e.Themes.push({
+            name: arrayThemes[i]
+          });
+
+        return e;
+      });
+    });
 }
 
 
@@ -118,73 +75,31 @@ exports.findBookByTitle = function(title,offset,lenght) {
  * returns List
  **/
 exports.findBooksByAuthor = function(authors,offset,lenght) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = [ {
-  "themes" : [ {
-    "name" : "name"
-  }, {
-    "name" : "name"
-  } ],
-  "editor" : "Mondadori",
-  "ePrice" : 5.962134,
-  "pageNumber" : 6,
-  "ISBN" : "ISBN",
-  "releaseDate" : "2000-01-23",
-  "genres" : [ {
-    "name" : "name"
-  }, {
-    "name" : "name"
-  } ],
-  "price" : 1.4658129,
-  "language" : "english",
-  "synopsis" : "synopsis",
-  "title" : "Harry Potter",
-  "authors" : [ {
-    "photo" : "photo",
-    "bio" : "bio",
-    "id" : 0
-  }, {
-    "photo" : "photo",
-    "bio" : "bio",
-    "id" : 0
-  } ]
-}, {
-  "themes" : [ {
-    "name" : "name"
-  }, {
-    "name" : "name"
-  } ],
-  "editor" : "Mondadori",
-  "ePrice" : 5.962134,
-  "pageNumber" : 6,
-  "ISBN" : "ISBN",
-  "releaseDate" : "2000-01-23",
-  "genres" : [ {
-    "name" : "name"
-  }, {
-    "name" : "name"
-  } ],
-  "price" : 1.4658129,
-  "language" : "english",
-  "synopsis" : "synopsis",
-  "title" : "Harry Potter",
-  "authors" : [ {
-    "photo" : "photo",
-    "bio" : "bio",
-    "id" : 0
-  }, {
-    "photo" : "photo",
-    "bio" : "bio",
-    "id" : 0
-  } ]
-} ];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+  return sqlDb("book")
+        .innerjoin("bookAuthors", 'book.ISBN', 'bookAuthors.ISBN')
+        .where('bookAuthors.AuthorId', authors)
+        .offset(offset)
+        .limit(lenght)
+        .then(data => {
+          return data.map(e => {
+            let arrayGenres = e.Genres.split(',');
+            let arrayThemes = e.Themes.split(',');
+            e.Genres = [];
+            e.Themes = [];
+    
+            for(let i = 0; i < arrayGenres.length; i++)
+              e.Genres.push({
+                name: arrayGenres[i]
+              });
+    
+            for(let i = 0; i < arrayThemes.length; i++)
+              e.Themes.push({
+                name: arrayThemes[i]
+              });
+    
+            return e;
+          });
+        });
 }
 
 
@@ -198,73 +113,40 @@ exports.findBooksByAuthor = function(authors,offset,lenght) {
  * returns List
  **/
 exports.findBooksByGenre = function(genres,offset,lenght) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = [ {
-  "themes" : [ {
-    "name" : "name"
-  }, {
-    "name" : "name"
-  } ],
-  "editor" : "Mondadori",
-  "ePrice" : 5.962134,
-  "pageNumber" : 6,
-  "ISBN" : "ISBN",
-  "releaseDate" : "2000-01-23",
-  "genres" : [ {
-    "name" : "name"
-  }, {
-    "name" : "name"
-  } ],
-  "price" : 1.4658129,
-  "language" : "english",
-  "synopsis" : "synopsis",
-  "title" : "Harry Potter",
-  "authors" : [ {
-    "photo" : "photo",
-    "bio" : "bio",
-    "id" : 0
-  }, {
-    "photo" : "photo",
-    "bio" : "bio",
-    "id" : 0
-  } ]
-}, {
-  "themes" : [ {
-    "name" : "name"
-  }, {
-    "name" : "name"
-  } ],
-  "editor" : "Mondadori",
-  "ePrice" : 5.962134,
-  "pageNumber" : 6,
-  "ISBN" : "ISBN",
-  "releaseDate" : "2000-01-23",
-  "genres" : [ {
-    "name" : "name"
-  }, {
-    "name" : "name"
-  } ],
-  "price" : 1.4658129,
-  "language" : "english",
-  "synopsis" : "synopsis",
-  "title" : "Harry Potter",
-  "authors" : [ {
-    "photo" : "photo",
-    "bio" : "bio",
-    "id" : 0
-  }, {
-    "photo" : "photo",
-    "bio" : "bio",
-    "id" : 0
-  } ]
-} ];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+  let queryWhere = "";
+  genres = genres[0].split(",");
+
+  for(let i = 0; i < genres.length; i++) {
+    queryWhere += '"Genres" like ' + "'%{0}%'".replace('{0}', genres[i]);
+
+    if(i < genres.length - 1)
+      queryWhere += ' and ';
+  }
+
+  return sqlDb("book")
+        .whereRaw(queryWhere)
+        .offset(offset)
+        .limit(lenght)
+        .then(data => {
+          return data.map(e => {
+            let arrayGenres = e.Genres.split(',');
+            let arrayThemes = e.Themes.split(',');
+            e.Genres = [];
+            e.Themes = [];
+    
+            for(let i = 0; i < arrayGenres.length; i++)
+              e.Genres.push({
+                name: arrayGenres[i]
+              });
+    
+            for(let i = 0; i < arrayThemes.length; i++)
+              e.Themes.push({
+                name: arrayThemes[i]
+              });
+    
+            return e;
+          });
+        });
 }
 
 
@@ -278,73 +160,40 @@ exports.findBooksByGenre = function(genres,offset,lenght) {
  * returns List
  **/
 exports.findBooksByTheme = function(themes,offset,lenght) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = [ {
-  "themes" : [ {
-    "name" : "name"
-  }, {
-    "name" : "name"
-  } ],
-  "editor" : "Mondadori",
-  "ePrice" : 5.962134,
-  "pageNumber" : 6,
-  "ISBN" : "ISBN",
-  "releaseDate" : "2000-01-23",
-  "genres" : [ {
-    "name" : "name"
-  }, {
-    "name" : "name"
-  } ],
-  "price" : 1.4658129,
-  "language" : "english",
-  "synopsis" : "synopsis",
-  "title" : "Harry Potter",
-  "authors" : [ {
-    "photo" : "photo",
-    "bio" : "bio",
-    "id" : 0
-  }, {
-    "photo" : "photo",
-    "bio" : "bio",
-    "id" : 0
-  } ]
-}, {
-  "themes" : [ {
-    "name" : "name"
-  }, {
-    "name" : "name"
-  } ],
-  "editor" : "Mondadori",
-  "ePrice" : 5.962134,
-  "pageNumber" : 6,
-  "ISBN" : "ISBN",
-  "releaseDate" : "2000-01-23",
-  "genres" : [ {
-    "name" : "name"
-  }, {
-    "name" : "name"
-  } ],
-  "price" : 1.4658129,
-  "language" : "english",
-  "synopsis" : "synopsis",
-  "title" : "Harry Potter",
-  "authors" : [ {
-    "photo" : "photo",
-    "bio" : "bio",
-    "id" : 0
-  }, {
-    "photo" : "photo",
-    "bio" : "bio",
-    "id" : 0
-  } ]
-} ];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+  let queryWhere = "";
+  themes = themes[0].split(",");
+
+  for(let i = 0; i < themes.length; i++) {
+    queryWhere += '"Themes" like ' + "'%{0}%'".replace('{0}', themes[i]);
+
+    if(i < themes.length - 1)
+      queryWhere += ' and ';
+  }
+
+  return sqlDb("book")
+        .whereRaw(queryWhere)
+        .offset(offset)
+        .limit(lenght)
+        .then(data => {
+          return data.map(e => {
+            let arrayGenres = e.Genres.split(',');
+            let arrayThemes = e.Themes.split(',');
+            e.Genres = [];
+            e.Themes = [];
+    
+            for(let i = 0; i < arrayGenres.length; i++)
+              e.Genres.push({
+                name: arrayGenres[i]
+              });
+    
+            for(let i = 0; i < arrayThemes.length; i++)
+              e.Themes.push({
+                name: arrayThemes[i]
+              });
+    
+            return e;
+          });
+        });
 }
 
 
@@ -358,44 +207,30 @@ exports.findBooksByTheme = function(themes,offset,lenght) {
  * returns Book
  **/
 exports.getBookByISBN = function(iSBN,offset,lenght) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "themes" : [ {
-    "name" : "name"
-  }, {
-    "name" : "name"
-  } ],
-  "editor" : "Mondadori",
-  "ePrice" : 5.962134,
-  "pageNumber" : 6,
-  "ISBN" : "ISBN",
-  "releaseDate" : "2000-01-23",
-  "genres" : [ {
-    "name" : "name"
-  }, {
-    "name" : "name"
-  } ],
-  "price" : 1.4658129,
-  "language" : "english",
-  "synopsis" : "synopsis",
-  "title" : "Harry Potter",
-  "authors" : [ {
-    "photo" : "photo",
-    "bio" : "bio",
-    "id" : 0
-  }, {
-    "photo" : "photo",
-    "bio" : "bio",
-    "id" : 0
-  } ]
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+  return sqlDb("book")
+        .where("ISBN", iSBN)
+        .offset(offset)
+        .limit(lenght)
+        .then(data => {
+          return data.map(e => {
+            let arrayGenres = e.Genres.split(',');
+            let arrayThemes = e.Themes.split(',');
+            e.Genres = [];
+            e.Themes = [];
+    
+            for(let i = 0; i < arrayGenres.length; i++)
+              e.Genres.push({
+                name: arrayGenres[i]
+              });
+    
+            for(let i = 0; i < arrayThemes.length; i++)
+              e.Themes.push({
+                name: arrayThemes[i]
+              });
+    
+            return e;
+          });
+        });
 }
 
 
@@ -408,43 +243,28 @@ exports.getBookByISBN = function(iSBN,offset,lenght) {
  * returns Book
  **/
 exports.getBooks = function(offset,lenght) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "themes" : [ {
-    "name" : "name"
-  }, {
-    "name" : "name"
-  } ],
-  "editor" : "Mondadori",
-  "ePrice" : 5.962134,
-  "pageNumber" : 6,
-  "ISBN" : "ISBN",
-  "releaseDate" : "2000-01-23",
-  "genres" : [ {
-    "name" : "name"
-  }, {
-    "name" : "name"
-  } ],
-  "price" : 1.4658129,
-  "language" : "english",
-  "synopsis" : "synopsis",
-  "title" : "Harry Potter",
-  "authors" : [ {
-    "photo" : "photo",
-    "bio" : "bio",
-    "id" : 0
-  }, {
-    "photo" : "photo",
-    "bio" : "bio",
-    "id" : 0
-  } ]
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+  return sqlDb("book")
+        .offset(offset)
+        .limit(lenght)
+        .then(data => {
+          return data.map(e => {
+            let arrayGenres = e.Genres.split(',');
+            let arrayThemes = e.Themes.split(',');
+            e.Genres = [];
+            e.Themes = [];
+    
+            for(let i = 0; i < arrayGenres.length; i++)
+              e.Genres.push({
+                name: arrayGenres[i]
+              });
+    
+            for(let i = 0; i < arrayThemes.length; i++)
+              e.Themes.push({
+                name: arrayThemes[i]
+              });
+    
+            return e;
+          });
+        });
 }
 

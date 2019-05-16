@@ -34,9 +34,7 @@ exports.usersDbSetup = function(database) {
  * no response value expected for this operation
  **/
 exports.createUser = function(body) {
-  return new Promise(function(resolve, reject) {
-    resolve();
-  });
+    return sqlDb("user").insert(body);
 }
 
 
@@ -48,9 +46,9 @@ exports.createUser = function(body) {
  * no response value expected for this operation
  **/
 exports.deleteUser = function(username) {
-  return new Promise(function(resolve, reject) {
-    resolve();
-  });
+  return sqlDb("user")
+          .where("Id", user.Id)
+          .del();
 }
 
 
@@ -62,27 +60,9 @@ exports.deleteUser = function(username) {
  * returns User
  **/
 exports.getUserByName = function(username) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "firstName" : "firstName",
-  "lastName" : "lastName",
-  "country" : "country",
-  "password" : "password",
-  "address" : "address",
-  "city" : "city",
-  "phone" : "phone",
-  "postalCode" : "postalCode",
-  "id" : 6,
-  "email" : "email",
-  "username" : "username"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+  return sqlDb("user")
+          .where("username", name)
+          .limit(1);
 }
 
 
@@ -96,13 +76,15 @@ exports.getUserByName = function(username) {
  **/
 exports.loginUser = function(username,password) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = "";
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
+    var login = false;
+    var result = sqlDb("user")
+                .select("username,password")
+                .where("username", username);
+    if(result.length > 0)
+      if(result[0].password == password)
+        login = true;
+
+    resolve(login);
   });
 }
 

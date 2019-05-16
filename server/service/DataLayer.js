@@ -7,6 +7,8 @@ let { cartDbSetup } = require("./CartService");
 let { eventsDbSetup } = require("./EventService");
 let { reviewsDbSetup } = require("./ReviewService");
 let { bookAuthorsDbSetup } = require("./AuthorBookService");
+let { genresDbSetup } = require("./GenreService"); 
+let { themesDbSetup } = require("./ThemeService");
 
 //console.log(process.env.DATABASE_URL);
 
@@ -25,7 +27,9 @@ var sqlDb = sqlDbFactory({
 async function strongEntitiesSetup(){
   booksDbSetup(sqlDb);
   authorsDbSetup(sqlDb);
-   usersDbSetup(sqlDb);
+  usersDbSetup(sqlDb);
+  genresDbSetup(sqlDb);
+  themesDbSetup(sqlDb);
 }
 
 async function setupDataLayer() {

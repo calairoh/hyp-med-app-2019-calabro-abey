@@ -30,19 +30,10 @@ exports.authorsDbSetup = function(database) {
  * returns Author
  **/
 exports.getAuthors = function(offset,lenght) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "photo" : "photo",
-  "bio" : "bio",
-  "id" : 0
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+  return sqlDb("author")
+        .offset(offset)
+        .limit(lenght)
+        .then();
 }
 
 
@@ -56,18 +47,9 @@ exports.getAuthors = function(offset,lenght) {
  * returns Author
  **/
 exports.getAuthorsByName = function(name,offset,lenght) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "photo" : "photo",
-  "bio" : "bio",
-  "id" : 0
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+  return sqlDb("author")
+        .where("NameSurname", "like", "%" + name + "%")
+        .offset(offset)
+        .limit(lenght);
 }
 
