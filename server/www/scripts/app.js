@@ -1,5 +1,4 @@
 $(document).ready(function(){
-    test();
     signIn();
     getBooks();
 });
@@ -20,12 +19,10 @@ function signIn(){
 
         $.ajax({
             url: url,
-            method: 'POST',
+            method: 'GET',
             data: {
-                user: {
-                    username: username,
-                    password: password
-                }
+                username: username,
+                password: password
             },
             success: function(result){
                 if(result === true)
@@ -36,9 +33,7 @@ function signIn(){
         });
     })
 }
-function test(){
-    alert("ciao");
-}
+
 function validator(){
     $('form').on('submit', function(e){
         e.preventDefault();

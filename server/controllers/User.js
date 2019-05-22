@@ -38,12 +38,28 @@ module.exports.getUserByName = function getUserByName (req, res, next) {
 
 module.exports.loginUser = function loginUser (req, res, next) {
   var username = req.swagger.params['username'].value;
-  var password = req.swagger.params['password'].value;
+  var password = req.swagger.params['password'].value;  
+
   User.loginUser(username,password)
     .then(function (response) {
-      utils.writeJson(res, response);
+      console.log(response);
+      if(response.length > 0){
+        console.log(response[0]);
+        response = response[0];
+        console.log(response);
+        if(response.Password === password){
+          req.session.loggedin = true;
+          req.session.username = username;
+          utils.writeJson(res, true);
+        } else {
+          req.session.loggedin = false;
+          utils.writeJson(res, false);
+        }
+      }
+      
     })
     .catch(function (response) {
+      req.session.loggedin = false;
       utils.writeJson(res, response);
     });
 };

@@ -61,8 +61,14 @@ exports.deleteUser = function(username) {
  **/
 exports.getUserByName = function(username) {
   return sqlDb("user")
-          .where("username", name)
-          .limit(1);
+          .where("Username", username)
+          .then(data => {
+            data.map(
+            e => {
+              return e;
+            });
+            return data;
+        });
 }
 
 
@@ -75,17 +81,14 @@ exports.getUserByName = function(username) {
  * returns String
  **/
 exports.loginUser = function(username,password) {
-  return new Promise(function(resolve, reject) {
-    var login = false;
-    var result = sqlDb("user")
-                .select("username,password")
-                .where("username", username);
-    if(result.length > 0)
-      if(result[0].password == password)
-        login = true;
-
-    resolve(login);
-  });
+  return sqlDb("user")
+         .where("Username", username)
+         .then(data => {
+          data.map(e => {
+            return e;
+          });
+          return data;
+      });
 }
 
 
