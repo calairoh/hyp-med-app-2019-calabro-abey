@@ -1,0 +1,93 @@
+.content{
+    margin-top: 56px;
+    margin-bottom: 56px;
+}
+
+.searchBar{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.searchTitle{
+    margin: 5px;
+    width: 100%;
+    font-size: 35px;
+}
+
+.searchForm{
+    width: 100%;
+    margin-left: 20%;
+    margin-right: 20%;
+    size: auto;
+}
+
+.button{
+    margin: 5px;
+}
+
+.mr-right {
+    padding-right: 10px;
+}
+
+.link{
+    display: block;
+    float: left;
+}
+
+.contentBox{
+    align-content: center;
+    padding-left: 2%;
+    padding-bottom: 2%;
+}
+
+.cardrow{
+    text-align: center;
+    padding-top: 20px;
+}
+
+.listing-side{
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+.navigation{
+    padding: 10px;
+}
+
+.cardcontent{
+    padding: 1%;
+}
+
+.event{
+    text-align: left;
+    padding: 10px;
+}
+
+.footer{
+    background-color: #fdff95;
+    padding-top: 1%;
+    padding-left: 3%;
+}
+
+.bookpresentation{
+    padding-top: 60px;
+    align-content: center;
+    text-align: center;
+}
+
+.colouredButton{
+    color: #000;
+    background-color: #01ffff;
+}
+
+.leftsideCol{
+    padding-left: 1%;
+}
+
+.rightsideCol{
+    padding-bottom: 3%;
+}
+
+.results{
+    padding: 3%;
+}
