@@ -10,16 +10,17 @@ exports.usersDbSetup = function(database) {
     if (!exists) {
       console.log("It doesn't so we create it");
       return database.schema.createTable("user", table => {
-        table.increments('Id');
-        table.text("Username");
-        table.text("Password");
-        table.text("Name");
-        table.text("Surname");
-        table.text("Address");
-        table.text("City");
-        table.text("PostalCode");
-        table.text("Country");
-        table.primary("Id");
+        table.increments('id');
+        table.text("username");
+        table.text("password");
+        table.text("email");
+        table.text("firstName");
+        table.text("lastName");
+        table.text("address");
+        table.text("city");
+        table.text("postalCode");
+        table.text("country");
+        //table.primary("id");
       });
     }
     
@@ -47,7 +48,7 @@ exports.createUser = function(body) {
  **/
 exports.deleteUser = function(username) {
   return sqlDb("user")
-          .where("Id", user.Id)
+          .where("id", user.Id)
           .del();
 }
 
@@ -61,7 +62,7 @@ exports.deleteUser = function(username) {
  **/
 exports.getUserByName = function(username) {
   return sqlDb("user")
-          .where("Username", username)
+          .where("username", username)
           .then(data => {
             data.map(
             e => {
@@ -82,7 +83,7 @@ exports.getUserByName = function(username) {
  **/
 exports.loginUser = function(username,password) {
   return sqlDb("user")
-         .where("Username", username)
+         .where("username", username)
          .then(data => {
           data.map(e => {
             return e;
