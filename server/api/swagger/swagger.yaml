@@ -30,7 +30,6 @@ tags:
 - name: "user"
   description: "Everything about the library store registered users"
 schemes:
-- "https"
 - "http"
 paths:
   /book/findByTitle:
@@ -661,7 +660,6 @@ paths:
       description: "This can only be done by the logged in user."
       operationId: "createUser"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
       - in: "body"
@@ -675,14 +673,13 @@ paths:
           description: "successful operation"
       x-swagger-router-controller: "User"
   /user/login:
-    get:
+    post:
       tags:
       - "user"
       summary: "Logs user into the system"
       description: ""
       operationId: "loginUser"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
       - name: "username"
@@ -720,7 +717,6 @@ paths:
       description: ""
       operationId: "logoutUser"
       produces:
-      - "application/xml"
       - "application/json"
       parameters: []
       responses:
@@ -735,7 +731,6 @@ paths:
       description: ""
       operationId: "getUserByName"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
       - name: "username"
@@ -760,7 +755,6 @@ paths:
       description: "This can only be done by the logged in user."
       operationId: "updateUser"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
       - name: "username"
@@ -920,6 +914,8 @@ definitions:
     properties:
       ISBN:
         type: "string"
+      image:
+        type: "string"
       genres:
         type: "array"
         items:
@@ -937,7 +933,7 @@ definitions:
         example: "Harry Potter"
       editor:
         type: "string"
-        example: "Mondadori"
+        example: "Mondad"
       releaseDate:
         type: "string"
         format: "date"

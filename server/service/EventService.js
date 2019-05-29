@@ -33,7 +33,7 @@ exports.eventsDbSetup = function(database) {
  **/
 exports.getEvents = function(offset,lenght) {
     return sqlDb("event")
-          .innerjoin("book", 'book.ISBN', 'event.ISBN')
+          .innerJoin("book", 'book.ISBN', 'event.ISBN')
           .offset(offset)
           .limit(lenght);
 }
@@ -50,7 +50,7 @@ exports.getEvents = function(offset,lenght) {
  **/
 exports.getEventsByBook = function(iSBN,offset,lenght) {
   return sqlDb("event")
-          .innerjoin("book", 'book.ISBN', 'event.ISBN')
+          .innerJoin("book", 'book.ISBN', 'event.ISBN')
           .where("event.ISBN", iSBN)
           .offset(offset)
           .limit(lenght);

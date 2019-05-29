@@ -56,6 +56,7 @@
 
 .cardcontent{
     padding: 1%;
+    width: 100%;
 }
 
 .event{
@@ -89,5 +90,64 @@
 }
 
 .results{
-    padding: 3%;
+    padding: 5%;
+}
+
+.links{
+    padding-top: 15px;
+}
+
+.hidden{
+    display: none;
+}
+
+.sectionTitle{
+    font-size: 1.25rem;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.card-image-top{
+    width: 10rem;
+    margin: auto;
+}
+
+.sidebar > .row > .card{
+    width: 100%;
+}
+
+.sidebar > .row{    
+    margin-top: 20px;
+}
+
+.search-content-card{
+    padding: 1rem;
+}
+
+.listing-card{
+    margin-top: 20px;
+}
+
+.filter-content{
+    padding: 1rem;
+}
+
+.arrow-card{
+    min-height: 100%;
+    margin: auto;
+    text-align: center;
+    font-size: 3rem;
+    border: 0;
+}
+
+.arrow-card:focus{
+    background-color: rgb(230, 230, 230);
+}
+
+.arrow-col{
+    margin: auto;
+}
+
+.btn-search{
+    margin-top: 10px;
 }

@@ -11,6 +11,7 @@ exports.booksDbSetup = function(database) {
       console.log("It doesn't so we create it");
       return database.schema.createTable("book", table => {
         table.text("ISBN");
+        table.text("Image");
         table.text("Title");
         table.text("Editor");
         table.date("ReleaseDate");
