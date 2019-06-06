@@ -6,7 +6,7 @@ var fs = require('fs'),
     path = require('path'),
     http = require('http');
 
-var app = require('connect')();
+var app = require('express')();
 var swaggerTools = require('swagger-tools');
 var jsyaml = require('js-yaml');
 var serveStatic = require("serve-static");
@@ -47,6 +47,22 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
   app.use(middleware.swaggerUi());
 
   app.use(serveStatic(__dirname + "/www"));
+
+  app.use('/books/book/*', function(req, res, next){
+    res.sendFile(path.join(__dirname + '/www/books/book.html'));
+  });
+
+  app.use('/books', function(req, res, next){
+    res.sendFile(path.join(__dirname + '/www/books/books.html'));
+  });  
+
+  app.use('/account/login', function(req, res, next){
+    res.sendFile(path.join(__dirname + '/www/account/login.html'));
+  });
+
+  app.use('/account/register', function(req, res, next){
+    res.sendFile(path.join(__dirname + '/www/account/register.html'));
+  });  
 
   setupDataLayer().then(() => {
     // Start the server

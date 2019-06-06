@@ -3,6 +3,10 @@
 var utils = require('../utils/writer.js');
 var Book = require('../service/BookService');
 
+exports.book = function book(req, res, next){
+  console.log(req);
+}
+
 module.exports.findBookByTitle = function findBookByTitle (req, res, next) {
   var title = req.swagger.params['title'].value;
   var offset = req.swagger.params['offset'].value;

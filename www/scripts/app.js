@@ -6,13 +6,8 @@ $(document).ready(function(){
     getLatestElements();
     initBookListing();
     initFilterCheckbox();
+    getBooks();
 });
-
-function getBooks(){
-    $('.listing').ready(function(){
-        //GET LIBRI E STAMPALI
-    });
-}
 
 function initBookListing(){
     $('.filter-content-card').each(function(){
@@ -60,34 +55,39 @@ function insertFilters(json, type, $container){
     }
 }
 
-function initFilterCheckbox(){
-    $(document).on('change', '.filter-checkbox', function(){
-        var $filters = $('.filter-content-card');
+function getBooks(){
+    var $filters = $('.filter-content-card');
+    var offset = $('.filter-content-card').data('offset');
+    var limit = $('.filter-content-card').data('limit');
 
-        filters = [];
-        for(var i = 0; i < $filters.length; i++){
-            filters.push({
-                url: $filters.eq(i).data('url'),
-                filters: getApiRequestFromFilters($filters.eq(i).find(".filter-checkbox:checked"))
-            });            
-        }
+    filters = [];
+    for(var i = 0; i < $filters.length; i++){
+        filters.push({
+            url: $filters.eq(i).data('url'),
+            filters: getApiRequestFromFilters($filters.eq(i).find(".filter-checkbox:checked"))
+        });            
+    }
 
-        $.when(doBookApiRequest(filters[0].url, 'GET', { genres: filters[0].filters }),
-                doBookApiRequest(filters[1].url, 'GET', { themes: filters[1].filters }))
-        .done(function(json1, json2){
-            var booksToAdd = [];
+    $.when(doBookApiRequest(filters[0].url, 'GET', { genres: filters[0].filters }),
+            doBookApiRequest(filters[1].url, 'GET', { themes: filters[1].filters }))
+    .done(function(json1, json2){
+        var booksToAdd = [];
 
-            for(var i = 0; i < json1[0].length; i++){
-                for(var j = 0; j < json2[0].length; j++){
-                    if(isEquivalent(json1[0][i], json2[0][j])){
-                        booksToAdd.push(json1[0][i]);
-                    }
+        for(var i = 0; i < json1[0].length; i++){
+            for(var j = 0; j < json2[0].length; j++){
+                if(isEquivalent(json1[0][i], json2[0][j])){
+                    booksToAdd.push(json1[0][i]);
                 }
             }
+        }
 
-            drawBooks(booksToAdd);
-        });
+
+        drawBooks(booksToAdd);
     });
+}
+
+function initFilterCheckbox(){
+    $(document).on('change', '.filter-checkbox', getBooks());
 }
 
 function drawBooks(books){
@@ -98,8 +98,7 @@ function drawBooks(books){
 
         html = html.replace('{imageSrc}', books[i].Image);
         html = html.replace('{alt}', books[i].Title);
-        html = html.replace('{id}', books[i].Id);
-        html = html.replace('{type}', 'book');
+        html = html.replace('{href}', '/books/book/' + books[i].ISBN)
         html = html.replace('{Title}', books[i].Title);
         html = html.replace('{Description}', books[i].Descr);
 

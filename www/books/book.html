@@ -1,0 +1,158 @@
+
+<html lang="en">
+    <head>
+      <link type="text/css" rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+      <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+      <link type="text/css" rel="stylesheet" href="/style/stylesheet.css">
+      
+      <title>SAS Books</title>
+    </head>
+    <body>
+        <div class="row">
+        <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+            <a class="navbar-brand" href="#">
+            Library
+            </a>
+            <button class="navbar-toggler" aria-expanded="false" aria-controls="navbarCollapse" aria-label="Toggle navigation" type="button" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+            
+            <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    Home
+                    <span class="sr-only">
+                    (current)
+                    </span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Events</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Books</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Authors</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">About us</a>
+            </li>
+            </ul>
+
+            <ul class="navbar-nav mr-right">
+                <li class="nav-item">
+                <a class="nav-link" href="account/login.html">Login</a>
+                </li>
+            </ul>
+        </nav>
+        </div>
+    
+        <div class="row results">        
+            <div class="col-md-3 sidebar">
+            <div class="row">
+            <div class="card">
+                <article class="card-group-item">
+                <header class="card-header">
+                    <h6 class="title">Categories</h6>
+                </header>
+                <div class="filter-content">
+                    <ul class="links">
+                        <li><a href="#">Best sellers</a></li>
+                        <li><a href="#">Last arrivals</a></li>
+                        <li><a href="#">Our recommendations</a></li>
+                    </ul>
+                </div>
+                </article>
+            </div>
+            </div>                      
+        </div>
+    
+        <div class="col-md-9 record" data-url="/v1/book/{ISBN}">   
+            <div class="row authors">
+
+            </div>         
+            <div class="reviews">
+
+            </div>
+        </div> 
+
+        <div class="hidden generic-review">
+            <div class="review">
+                <p>
+                    <a class="float-left">
+                        <strong>{username}</strong>
+                    </a>
+                    <span class="float-right"><a class="badge">{rate}</a></span>
+                </p>
+                <div class="clearfix"></div>
+                <p>{review}</p>
+            </div>
+        </div>
+
+        <div class="hidden generic-record">    
+            <div class="row">
+                <div class="col-md-4 image-container">
+                    <img src="{image}" alt="{alt}">                
+                </div>
+                <div class="col-md-8 info-container">
+                    <a class="info-title">{Title}</a>
+                    <div class="row">
+                        <div class="card">
+                        <article class="card-group-item">
+                            <header class="card-header">
+                                <h6 class="title">Description</h6>
+                            </header>
+                            <div class="info-description"> 
+                                {Description}                           
+                            </div>
+                        </article>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="card">
+                        <article class="card-group-item">
+                            <header class="card-header">
+                                <h6 class="title">General info</h6>
+                            </header>
+                            <div class="info-general">
+                                <a class="info-general-page-number">{PageNumber}</a>
+                                <a class="info-general-e-price">{ePrice}</a>
+                                <a class="info-general-price">{Price}</a>
+                                <a class="info-general-editor">{Editor}</a>
+                                <a class="info-general-release-date">{ReleaseDate}</a>
+                                <a class="info-general-genres">{Genres}</a>
+                                <a class="info-general-themes">{Themes}</a>
+                                <a class="info-general-ISBN">{ISBN}</a>
+                                <a class="info-general-language">{Language}</a>                       
+                            </div>
+                        </article>
+                        </div>
+                    </div>                      
+                </div>
+            </div>
+        </div>
+
+        <div class="hidden generic-author">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{imageSrc}" class="card-img-top" alt="{alt}">
+                    <div class="card-body">
+                      <h5 class="card-title">{Name}</h5>
+                      <a href="{href}" class="btn btn-primary">About</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+      
+    </body>
+  
+    <script src="/contents/jquery-3.4.1.js" type="text/javascript"></script>
+    <script src="/contents/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+    <script src="/scripts/app.js" type="text/javascript"></script>
+    <script src="/scripts/record.js" type="text/javascript"></script>
+  
+  </html>

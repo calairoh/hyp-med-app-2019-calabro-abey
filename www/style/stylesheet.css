@@ -151,3 +151,18 @@
 .btn-search{
     margin-top: 10px;
 }
+
+.review{
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px;
+    width: 100%;
+}
+
+.listing{
+    margin-top: 20px;
+}
+
+.record{
+    margin-top: 20px;
+}
