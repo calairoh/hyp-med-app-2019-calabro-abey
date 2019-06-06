@@ -1,14 +1,43 @@
-$(document).ready(function(){
-    initBookListing();
-    initFilterCheckbox();
 
-    $('.filter-checkbox').change();
+$(document).ready(function(){
+    initListing();
+    initChangeListingPage();
 });
 
-function checkListingType(){
-    var url = location.href;
+function initListing(){
+    var listingType = checkListingType();
 
-    if(url.co)
+    switch(listingType){
+        case "books":{
+            initBookListing();
+            initFilterCheckbox();
+            getBooks();
+            break;            
+        }
+        case "events":{
+            break;
+        }
+        case "authors":{
+            break;
+        }
+        default:
+            break;
+
+    }
+}
+
+function checkListingType(){
+    var url = location.href.toLocaleLowerCase();
+
+    if(url.includes('books')){
+        return "books";
+    } else if(url.includes('authors')){
+        return "authors";
+    } else if(url.includes('events')){
+        return "events";
+    } else {
+        return undefined;
+    }
 }
 
 function initBookListing(){
@@ -57,35 +86,67 @@ function insertFilters(json, type, $container){
     }
 }
 
-function initFilterCheckbox(){
-    $(document).on('change', '.filter-checkbox', function getBooks(){
-        var $filters = $('.filter-content-card');
-        var offset = $('.filter-content-card').data('offset');
-        var limit = $('.filter-content-card').data('limit');
+function getBooks(){
+    var $filters = $('.filter-content-card');
+    var page = $('.listing-result').data('page');
+    var limit = $('.listing-result').data('limit');
 
-        filters = [];
-        for(var i = 0; i < $filters.length; i++){
-            filters.push({
-                url: $filters.eq(i).data('url'),
-                filters: getApiRequestFromFilters($filters.eq(i).find(".filter-checkbox:checked"))
-            });            
-        }
+    filters = [];
+    for(var i = 0; i < $filters.length; i++){
+        filters.push({
+            url: $filters.eq(i).data('url'),
+            filters: getApiRequestFromFilters($filters.eq(i).find(".filter-checkbox:checked"))
+        });            
+    }
 
-        $.when(doBookApiRequest(filters[0].url, 'GET', { genres: filters[0].filters }),
-                doBookApiRequest(filters[1].url, 'GET', { themes: filters[1].filters }))
-        .done(function(json1, json2){
-            var booksToAdd = [];
+    $.when(doBookApiRequest(filters[0].url, 'GET', { genres: filters[0].filters }),
+            doBookApiRequest(filters[1].url, 'GET', { themes: filters[1].filters }))
+    .done(function(json1, json2){
+        var booksToAdd = [];
 
-            for(var i = 0; i < json1[0].length; i++){
-                for(var j = 0; j < json2[0].length; j++){
-                    if(isBookEquivalent(json1[0][i], json2[0][j])){
-                        booksToAdd.push(json1[0][i]);
-                    }
+        for(var i = 0; i < json1[0].length; i++){
+            for(var j = 0; j < json2[0].length; j++){
+                if(isBookEquivalent(json1[0][i], json2[0][j])){
+                    booksToAdd.push(json1[0][i]);
                 }
             }
+        }
 
-            drawBooks(booksToAdd);
-        });
+        setUpPaging(booksToAdd.length, limit);
+
+        drawBooks(booksToAdd.slice(page * limit, (page * limit) + limit));
+    });
+}
+
+function initFilterCheckbox(){
+    $(document).on('change', '.filter-checkbox', function(){
+        $('.listing-result').data('page', 0);
+        getBooks();
+    });
+}
+
+function setUpPaging(total, limit){
+    var page = $('.listing-result').data('page');
+    var pages = Math.ceil(Number(total / limit));
+
+    $('.pagination').html(' ');
+
+    for(var i = 0; i < pages; i++){
+        var html = $('.generic-page-number').html();
+
+        html = html.replace('{value}', i);
+        html = html.replace('{page}', i + 1);
+        html = html.replace('{active}', (i == page) ? 'active' : '');
+
+        $('.pagination').append(html);
+    }
+}
+
+function initChangeListingPage(){
+    $(document).on('click', '.js-listing-page', function(){
+        var page = $(this).data('value');
+        $('.listing-result').data('page', page);
+        getBooks();
     });
 }
 

@@ -50,6 +50,14 @@
     padding-left: 2%;
     padding-bottom: 2%;
 }
+.card-listing-item{
+    padding: 10px;
+    margin: 10px 0 10px 0;
+}
+
+.card-body{
+    height: 10rem;
+}
 
 .cardrow{
     text-align: center;
@@ -176,4 +184,18 @@
 
 .record{
     margin-top: 20px;
+}
+
+.btn-about{
+    bottom: 0;
+    margin: auto;
+}
+
+.row-pagination{
+    text-align: center;
+    width: 100%;
+}
+
+.nav-pagination{
+    margin: auto;
 }

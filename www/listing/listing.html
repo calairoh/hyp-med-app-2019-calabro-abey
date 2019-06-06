@@ -94,11 +94,21 @@
           </div>
       
           <div class="col-md-9 listing">
-            <div class="row listing-result">
+            <div class="row listing-result" data-page="0" data-limit="12">
 
+            </div>
+            <div class="row row-pagination">
+              <nav class="nav-pagination" aria-label="Page navigation example">
+                <ul class="pagination">
+                </ul>
+              </nav>
             </div>
           </div>
       
+          <div class="hidden generic-page-number">
+            <li class="page-item js-listing-page {active}" data-value="{value}"><a class="page-link" href="#">{page}</a></li>
+          </div>
+
           <div class="hidden generic-check-filter">
             <div class="form-check">
               <input class="form-check-input filter-checkbox" data-type="{type}" id="{name}" type="checkbox" value="{name}">
@@ -107,13 +117,12 @@
           </div>
 
           <div class="hidden generic-card">    
-            <div class="col-md-4">
-                <div class="card">
+            <div class="col-md-3">
+                <div class="card card-listing-item">
                     <img src="{imageSrc}" class="card-img-top" alt="{alt}">
                     <div class="card-body">
                       <h5 class="card-title">{Title}</h5>
-                      <p class="card-text">{Description}</p>
-                      <a href="{href}" class="btn btn-primary">About</a>
+                      <a href="{href}" class="btn btn-about btn-primary">About</a>
                     </div>
                 </div>
             </div>
