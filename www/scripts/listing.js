@@ -1,9 +1,15 @@
 $(document).ready(function(){
     initBookListing();
     initFilterCheckbox();
-    
+
     $('.filter-checkbox').change();
 });
+
+function checkListingType(){
+    var url = location.href;
+
+    if(url.co)
+}
 
 function initBookListing(){
     $('.filter-content-card').each(function(){
