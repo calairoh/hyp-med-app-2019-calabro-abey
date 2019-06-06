@@ -49,7 +49,7 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
   app.use(serveStatic(__dirname + "/www"));
 
   app.use('/books/book/*', function(req, res, next){
-    res.sendFile(path.join(__dirname + '/www/books/book.html'));
+    res.sendFile(path.join(__dirname + '/www/products/book.html'));
   });
 
   app.use('/books', function(req, res, next){

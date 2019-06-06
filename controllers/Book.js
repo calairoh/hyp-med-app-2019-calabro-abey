@@ -61,14 +61,18 @@ module.exports.findBooksByTheme = function findBooksByTheme (req, res, next) {
 
 module.exports.getBookByISBN = function getBookByISBN (req, res, next) {
   var iSBN = req.swagger.params['ISBN'].value;
-  var offset = req.swagger.params['offset'].value;
-  var lenght = req.swagger.params['lenght'].value;
-  Book.getBookByISBN(iSBN,offset,lenght)
+  var code = 200;
+  Book.getBookByISBN(iSBN)
     .then(function (response) {
-      utils.writeJson(res, response);
+      if(response.lenght === 0){
+        code = 404;
+      }
+
+      utils.writeJson(res, response[0], code);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      code = 400;
+      utils.writeJson(res, response[0], code);
     });
 };
 

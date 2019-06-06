@@ -207,11 +207,9 @@ exports.findBooksByTheme = function(themes,offset,lenght) {
  * lenght Integer Result lenght (optional)
  * returns Book
  **/
-exports.getBookByISBN = function(iSBN,offset,lenght) {
+exports.getBookByISBN = function(iSBN) {
   return sqlDb("book")
         .where("ISBN", iSBN)
-        .offset(offset)
-        .limit(lenght)
         .then(data => {
           return data.map(e => {
             let arrayGenres = e.Genres.split(',');

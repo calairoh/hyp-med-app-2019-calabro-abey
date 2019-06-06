@@ -205,18 +205,6 @@ paths:
         description: "ISBN of book to return"
         required: true
         type: "string"
-      - name: "offset"
-        in: "query"
-        description: "Start offset"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "lenght"
-        in: "query"
-        description: "Result lenght"
-        required: false
-        type: "integer"
-        format: "int32"
       responses:
         200:
           description: "successful operation"

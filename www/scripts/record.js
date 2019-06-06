@@ -5,7 +5,8 @@ $(document).ready(function(){
 function initBookPresentation(){
     var url = location.href;
     var ISBN = url.split('/')[url.split('/').length - 1]
-    var url = $('.record').data('url');
+    url = $('.record').data('url');
+    url = url.replace('{ISBN}', ISBN);
 
     $.ajax({
         url: url,
@@ -14,15 +15,15 @@ function initBookPresentation(){
             ISBN: ISBN
         },
         success: function(json){
-            presentBook(json.book);
+            presentBook(json);
             presentAuthors(json.authors);
-            presentReviews(json);
+            //presentReviews(json);
         }
     });
 }
 
 function presentAuthors(json){
-    for(var i = 0; i < json.length; i++){
+    for(var i = 0; i < json.lenght; i++){
         var author = $('.generic-author').html();
 
         author = author.replace('{imageSrc}', json[i].photo);
