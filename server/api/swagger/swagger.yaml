@@ -10,7 +10,7 @@ info:
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "abey-calabro.heroku.com"
+host: "localhost:8080"
 basePath: "/v1"
 tags:
 - name: "book"
@@ -30,7 +30,6 @@ tags:
 - name: "user"
   description: "Everything about the library store registered users"
 schemes:
-- "https"
 - "http"
 paths:
   /book/findByTitle:
@@ -593,7 +592,7 @@ paths:
       - "application/json"
       parameters:
       - in: "body"
-        name: "user"
+        name: "review"
         description: "The review object"
         required: true
         schema:
@@ -661,7 +660,6 @@ paths:
       description: "This can only be done by the logged in user."
       operationId: "createUser"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
       - in: "body"
@@ -675,14 +673,13 @@ paths:
           description: "successful operation"
       x-swagger-router-controller: "User"
   /user/login:
-    get:
+    post:
       tags:
       - "user"
       summary: "Logs user into the system"
       description: ""
       operationId: "loginUser"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
       - name: "username"
@@ -720,7 +717,6 @@ paths:
       description: ""
       operationId: "logoutUser"
       produces:
-      - "application/xml"
       - "application/json"
       parameters: []
       responses:
@@ -735,7 +731,6 @@ paths:
       description: ""
       operationId: "getUserByName"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
       - name: "username"
@@ -760,7 +755,6 @@ paths:
       description: "This can only be done by the logged in user."
       operationId: "updateUser"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
       - name: "username"
@@ -920,6 +914,8 @@ definitions:
     properties:
       ISBN:
         type: "string"
+      image:
+        type: "string"
       genres:
         type: "array"
         items:
@@ -937,7 +933,7 @@ definitions:
         example: "Harry Potter"
       editor:
         type: "string"
-        example: "Mondadori"
+        example: "Mondad"
       releaseDate:
         type: "string"
         format: "date"

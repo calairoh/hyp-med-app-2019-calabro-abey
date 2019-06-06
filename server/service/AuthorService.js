@@ -1,5 +1,25 @@
 'use strict';
 
+let sqlDb;
+
+exports.authorsDbSetup = function(database) {
+  sqlDb = database;
+  console.log("Checking if authors table exists");
+  return database.schema.hasTable("author").then(exists => {
+
+    if (!exists) {
+      console.log("It doesn't so we create it");
+      return database.schema.createTable("author", table => {
+        table.increments('Id');
+        table.text("NameSurname");
+        table.text("Photo");
+        table.text("Bio");
+        table.primary("Id");
+      });
+    }
+    
+  });
+};
 
 /**
  * Get all authors
@@ -10,19 +30,10 @@
  * returns Author
  **/
 exports.getAuthors = function(offset,lenght) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "photo" : "photo",
-  "bio" : "bio",
-  "id" : 0
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+  return sqlDb("author")
+        .offset(offset)
+        .limit(lenght)
+        .then();
 }
 
 
@@ -36,18 +47,9 @@ exports.getAuthors = function(offset,lenght) {
  * returns Author
  **/
 exports.getAuthorsByName = function(name,offset,lenght) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "photo" : "photo",
-  "bio" : "bio",
-  "id" : 0
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+  return sqlDb("author")
+        .where("NameSurname", "like", "%" + name + "%")
+        .offset(offset)
+        .limit(lenght);
 }
 

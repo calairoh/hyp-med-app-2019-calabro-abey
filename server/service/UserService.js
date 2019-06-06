@@ -1,5 +1,31 @@
 'use strict';
 
+let sqlDb;
+
+exports.usersDbSetup = function(database) {
+  sqlDb = database;
+  console.log("Checking if users table exists");
+  return database.schema.hasTable("user").then(exists => {
+
+    if (!exists) {
+      console.log("It doesn't so we create it");
+      return database.schema.createTable("user", table => {
+        table.increments('id');
+        table.text("username");
+        table.text("password");
+        table.text("email");
+        table.text("firstName");
+        table.text("lastName");
+        table.text("address");
+        table.text("city");
+        table.text("postalCode");
+        table.text("country");
+        //table.primary("id");
+      });
+    }
+    
+  });
+};
 
 /**
  * Create user
@@ -9,9 +35,7 @@
  * no response value expected for this operation
  **/
 exports.createUser = function(body) {
-  return new Promise(function(resolve, reject) {
-    resolve();
-  });
+    return sqlDb("user").insert(body);
 }
 
 
@@ -23,9 +47,9 @@ exports.createUser = function(body) {
  * no response value expected for this operation
  **/
 exports.deleteUser = function(username) {
-  return new Promise(function(resolve, reject) {
-    resolve();
-  });
+  return sqlDb("user")
+          .where("id", user.Id)
+          .del();
 }
 
 
@@ -37,27 +61,15 @@ exports.deleteUser = function(username) {
  * returns User
  **/
 exports.getUserByName = function(username) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "firstName" : "firstName",
-  "lastName" : "lastName",
-  "country" : "country",
-  "password" : "password",
-  "address" : "address",
-  "city" : "city",
-  "phone" : "phone",
-  "postalCode" : "postalCode",
-  "id" : 6,
-  "email" : "email",
-  "username" : "username"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+  return sqlDb("user")
+          .where("username", username)
+          .then(data => {
+            data.map(
+            e => {
+              return e;
+            });
+            return data;
+        });
 }
 
 
@@ -70,15 +82,14 @@ exports.getUserByName = function(username) {
  * returns String
  **/
 exports.loginUser = function(username,password) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = "";
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+  return sqlDb("user")
+         .where("username", username)
+         .then(data => {
+          data.map(e => {
+            return e;
+          });
+          return data;
+      });
 }
 
 

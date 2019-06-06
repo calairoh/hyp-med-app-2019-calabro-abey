@@ -1,1 +1,141 @@
-<h1>Index</h1>
+
+<html lang="en">
+  <head>
+    <link type="text/css" rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+    <link type="text/css" rel="stylesheet" href="style/stylesheet.css">
+    
+    <title>SAS Books</title>
+  </head>
+  <body>
+    <div class="row">
+      <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+        <a class="navbar-brand" href="#">
+          Library
+        </a>
+        <button class="navbar-toggler" aria-expanded="false" aria-controls="navbarCollapse" aria-label="Toggle navigation" type="button" data-toggle="collapse" data-target="#navbarCollapse">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html">
+                Home
+                <span class="sr-only">
+                (current)
+                </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Events</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Books</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Authors</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About us</a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav mr-right">
+            <li class="nav-item">
+              <a class="nav-link" href="account/login.html">Login</a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="row results">        
+        <div class="col-sm-3 sidebar">
+          <div class="row">
+              <div class="card">
+                <article class="card-group-item">
+                  <header class="card-header">
+                      <h6 class="title">Search</h6>
+                  </header>
+                  <div class="filter-content search-content-card">
+                    <p>What are you looking for?</p>
+                    <div class="form-group-inline">
+                      <input type="text" class="form-control" name="search" placeholder="Search an author, an event or a book" />
+                      <a class="js-search btn-search btn btn-primary">Search</a>
+                    </div>
+                  </div>
+                </article>
+              </div>
+          </div> 
+          <div class="row">
+            <div class="card">
+              <article class="card-group-item">
+                <header class="card-header">
+                    <h6 class="title">Categories</h6>
+                </header>
+                <div class="filter-content">
+                    <ul class="links">
+                      <li><a href="#">Best sellers</a></li>
+                      <li><a href="#">Last arrivals</a></li>
+                      <li><a href="#">Our recommendations</a></li>
+                    </ul>
+                </div>
+              </article>
+            </div>
+          </div>                      
+        </div>
+
+        <div class="col-lg-9">
+          <div class="card listing-card">
+              <article class="card-group-item">
+                <header class="card-header">
+                    <h6 class="title">Next events</h6>
+                </header>
+                <div class="row filter-content js-latest-elements" data-type="event" data-href="/v1/events" data-limit=34">
+                  
+                  <div class="col-lg-3 arrow-col">
+                    <div class="card arrow-card">
+                      <a><i class='fas fa-arrow-right'></i></a>
+                    </div>
+                  </div>
+                
+                </div>
+              </article>
+            </div>
+
+          <div class="card listing-card">
+              <article class="card-group-item">
+                <header class="card-header">
+                    <h6 class="title">Latest arrivals</h6>
+                </header>
+                <div class="row filter-content js-latest-elements" data-type="book" data-href="/v1/books" data-limit="3">
+                    
+                  <div class="col-lg-3 arrow-col">
+                    <div class="card arrow-card">
+                      <a><i class='fas fa-arrow-right'></i></a>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+        </div>
+
+    <div class="hidden generic-card">    
+      <div class="col-lg-3">
+          <div class="card">
+              <img src="{imageSrc}" class="card-img-top" alt="{alt}">
+              <div class="card-body">
+                <h5 class="card-title">{Title}</h5>
+                <p class="card-text">{Description}</p>
+                <a href="#" data-id="{id}" data-type={type} class="btn btn-primary">About</a>
+              </div>
+          </div>
+      </div>
+    </div>
+  </body>
+
+  <script src="contents/jquery-3.4.1.js" type="text/javascript"></script>
+  <script src="contents/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+  <script src="scripts/app.js" type="text/javascript"></script>
+
+</html>
