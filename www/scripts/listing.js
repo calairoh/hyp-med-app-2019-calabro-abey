@@ -22,8 +22,13 @@ function initListing(){
         }
         default:
             break;
-
     }
+
+    setUpNavbar(listingType);
+}
+
+function setUpNavbar(listingType){
+    $('.navbar-nav li.' + listingType + '-nav').addClass('active');
 }
 
 function checkListingType(){
