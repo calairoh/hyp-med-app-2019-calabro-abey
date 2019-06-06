@@ -88,7 +88,8 @@
         <div class="hidden generic-record">    
             <div class="row">
                 <div class="col-md-4 image-container">
-                    <img src="{image}" alt="{alt}">                
+                    <img src="{image}" alt="{alt}"> 
+                    <a class="btn btn-primary btn-add-chart" data-ISBN="{ISBN}">Add to chart</a>         
                 </div>
                 <div class="col-md-8 info-container">
                     <a class="info-title">{Title}</a>
@@ -111,15 +112,15 @@
                                 <h6 class="title">General info</h6>
                             </header>
                             <div class="info-general">
-                                <a class="info-general-page-number">{PageNumber}</a>
-                                <a class="info-general-e-price">{ePrice}</a>
-                                <a class="info-general-price">{Price}</a>
-                                <a class="info-general-editor">{Editor}</a>
-                                <a class="info-general-release-date">{ReleaseDate}</a>
-                                <a class="info-general-genres">{Genres}</a>
-                                <a class="info-general-themes">{Themes}</a>
-                                <a class="info-general-ISBN">{ISBN}</a>
-                                <a class="info-general-language">{Language}</a>                       
+                                <a class="info-general-page-number"><span>Page number: </span>{PageNumber}</a>
+                                <a class="info-general-e-price"><span>eBook price: </span>{ePrice}</a>
+                                <a class="info-general-price"><span>Papery book price </span>{Price}</a>
+                                <a class="info-general-editor"><span>Editor: </span>{Editor}</a>
+                                <a class="info-general-release-date"><span>Release date: </span>{ReleaseDate}</a>
+                                <a class="info-general-genres"><span>Genres: </span>{Genres}</a>
+                                <a class="info-general-themes"><span>Themes: </span>{Themes}</a>
+                                <a class="info-general-ISBN"><span>ISBN: </span>{ISBN}</a>
+                                <a class="info-general-language"><span>Language: </span>{Language}</a>                       
                             </div>
                         </article>
                         </div>

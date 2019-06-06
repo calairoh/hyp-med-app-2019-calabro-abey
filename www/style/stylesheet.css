@@ -199,3 +199,48 @@
 .nav-pagination{
     margin: auto;
 }
+
+.info-title{
+    padding: 10px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-variant-caps: small-caps;
+}
+
+.info-container > div{
+    margin-top: 10px;
+    padding: 5px;
+}
+
+.info-container .card-group-item > div{
+    padding: 10px;
+}
+
+.info-container .card {
+    width: 100%;
+}
+
+.image-container{
+    display: grid;
+}
+
+.image-container > img{
+    width: 100%;
+}
+
+.btn-add-chart{
+    margin: auto;
+}
+
+.info-general{
+    display: grid;
+}
+
+.info-general > a > span{
+    color: #555;
+}
+
+.info-general > a {
+    font-variant-caps: small-caps;
+}
+

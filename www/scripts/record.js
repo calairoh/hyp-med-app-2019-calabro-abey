@@ -16,14 +16,12 @@ function initBookPresentation(){
         },
         success: function(json){
             presentBook(json);
-            presentAuthors(json.authors);
-            //presentReviews(json);
         }
     });
 }
 
 function presentAuthors(json){
-    for(var i = 0; i < json.lenght; i++){
+    for(var i = 0; i < json.length; i++){
         var author = $('.generic-author').html();
 
         author = author.replace('{imageSrc}', json[i].photo);
@@ -34,17 +32,20 @@ function presentAuthors(json){
 function presentBook(json){
     var presentation = $('.generic-record').html();
 
-    presentation = presentation.replace('{Title}', json.title);
-    presentation = presentation.replace('{Description}', json.synopsis);
-    presentation = presentation.replace('{PageNumber}', json.pageNumber);
+    presentation = presentation.replace('{Title}', json.Title);
+    presentation = presentation.replace('{image}', json.Image);
+    presentation = presentation.replace('{alt}', json.Title);
+    presentation = presentation.replace('{Description}', json.Synopsis);
+    presentation = presentation.replace('{PageNumber}', json.PageNumber);
     presentation = presentation.replace('{ePrice}', json.ePrice);
-    presentation = presentation.replace('{Price}', json.price);
-    presentation = presentation.replace('{Editor}', json.editor);
+    presentation = presentation.replace('{Price}', json.Price);
+    presentation = presentation.replace('{Editor}', json.Editor);
     presentation = presentation.replace('{ISBN}', json.ISBN);
-    presentation = presentation.replace('{ReleaseDate}', json.releaseDate);
-    presentation = presentation.replace('{Genres}', json.genres);
-    presentation = presentation.replace('{Themes}', json.themes);
-    presentation = presentation.replace('{Language}', json.language);
+    presentation = presentation.replace('{ISBN}', json.ISBN);
+    presentation = presentation.replace('{ReleaseDate}', json.ReleaseDate);
+    presentation = presentation.replace('{Genres}', json.Genres.map(e => e.name).join(','));
+    presentation = presentation.replace('{Themes}', json.Themes.map(e => e.name).join(','));
+    presentation = presentation.replace('{Language}', json.Language);
 
     $('.record').append(presentation);
 }
