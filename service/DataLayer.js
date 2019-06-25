@@ -14,12 +14,7 @@ console.log(process.env.DATABASE_URL);
 
 var sqlDb = sqlDbFactory({
   client: process.env.CLIENT,
-  connection: {
-    host: '127.0.0.1',
-    user: 'postgres',
-    password: 'standard',
-    database: 'library'
-  },
+  connection: process.env.DATABASE_URL,
   ssl: true,
   debug: true
 });
