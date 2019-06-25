@@ -56,6 +56,10 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
     res.sendFile(path.join(__dirname + '/www/products/event.html'));
   });
 
+  app.use('/authors/author/*', function(req, res, next){
+    res.sendFile(path.join(__dirname + '/www/products/event.html'));
+  });
+
   app.use('/books', function(req, res, next){
     res.sendFile(path.join(__dirname + '/www/listing/listing.html'));
   });

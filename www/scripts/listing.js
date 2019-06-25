@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
     initListing();
     initChangeListingPage();
@@ -15,10 +14,11 @@ function initListing(){
             break;            
         }
         case "events":{
-            getEvents();
+            getElements('/v1/events', 'event');
             break;
         }
         case "authors":{
+            getElements('/v1/authors', 'author');
             break;
         }
         default:
@@ -46,19 +46,19 @@ function checkListingType(){
     }
 }
 
-function getEvents(){
+function getElements(url, type){
     var page = $('.listing-result').data('page');
     var limit = $('.listing-result').data('limit');
 
     $.ajax({
-        url: '/v1/events',
+        url: url,
         method: 'GET',
         data: {
             page: page,
             limit: limit
         },
         success: function(json){
-            draw(json, 'event');
+            draw(json, type);
         },
         error: function(){
             console.log('Error when request events');
@@ -199,6 +199,14 @@ function draw(array, type){
                 html = html.replace('{href}', '/events/event/' + array[i].Id)
                 html = html.replace('{Title}', array[i].Name);
                 html = html.replace('{Description}', array[i].Description);
+                break;
+            }
+            case 'author':{
+                html = html.replace('{imageSrc}', array[i].Photo);
+                html = html.replace('{alt}', array[i].NameSurname);
+                html = html.replace('{href}', '/authors/author/' + array[i].Id)
+                html = html.replace('{Title}', array[i].NameSurname);
+                html = html.replace('{Description}', array[i].Bio);
                 break;
             }
             default:{
