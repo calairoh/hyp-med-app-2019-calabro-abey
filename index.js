@@ -52,9 +52,21 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
     res.sendFile(path.join(__dirname + '/www/products/book.html'));
   });
 
+  app.use('/events/event/*', function(req, res, next){
+    res.sendFile(path.join(__dirname + '/www/products/event.html'));
+  });
+
   app.use('/books', function(req, res, next){
     res.sendFile(path.join(__dirname + '/www/listing/listing.html'));
-  });  
+  });
+  
+  app.use('/events', function(req, res, next){
+    res.sendFile(path.join(__dirname + '/www/listing/listing.html'));
+  });
+
+  app.use('/authors', function(req, res, next){
+    res.sendFile(path.join(__dirname + '/www/listing/listing.html'));
+  });
 
   app.use('/account/login', function(req, res, next){
     res.sendFile(path.join(__dirname + '/www/account/login.html'));

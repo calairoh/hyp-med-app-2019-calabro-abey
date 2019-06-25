@@ -15,6 +15,7 @@ function initListing(){
             break;            
         }
         case "events":{
+            getEvents();
             break;
         }
         case "authors":{
@@ -45,6 +46,26 @@ function checkListingType(){
     }
 }
 
+function getEvents(){
+    var page = $('.listing-result').data('page');
+    var limit = $('.listing-result').data('limit');
+
+    $.ajax({
+        url: '/v1/events',
+        method: 'GET',
+        data: {
+            page: page,
+            limit: limit
+        },
+        success: function(json){
+            draw(json, 'event');
+        },
+        error: function(){
+            console.log('Error when request events');
+        }
+    });
+}
+
 function initBookListing(){
     $('.filter-content-card').each(function(){
         var $container = $(this);
@@ -72,7 +93,9 @@ function initBookListing(){
             success: function(json){
                 insertFilters(json, type, $container);
             }
-        })
+        });
+
+        $(this).parents('.filter-box').eq(0).removeClass('hidden');
     });
 }
 
@@ -119,7 +142,7 @@ function getBooks(){
 
         setUpPaging(booksToAdd.length, limit);
 
-        drawBooks(booksToAdd.slice(page * limit, (page * limit) + limit));
+        draw(booksToAdd.slice(page * limit, (page * limit) + limit), 'book');
     });
 }
 
@@ -155,17 +178,34 @@ function initChangeListingPage(){
     });
 }
 
-function drawBooks(books){
+function draw(array, type){
     $('.listing-result').html(' ');
 
-    for(var i = 0; i < books.length; i++){
+    for(var i = 0; i < array.length; i++){
         var html = $('.generic-card').html();
 
-        html = html.replace('{imageSrc}', books[i].Image);
-        html = html.replace('{alt}', books[i].Title);
-        html = html.replace('{href}', '/books/book/' + books[i].ISBN)
-        html = html.replace('{Title}', books[i].Title);
-        html = html.replace('{Description}', books[i].Descr);
+        switch(type){
+            case 'book': {
+                html = html.replace('{imageSrc}', array[i].Image);
+                html = html.replace('{alt}', array[i].Title);
+                html = html.replace('{href}', '/books/book/' + array[i].ISBN)
+                html = html.replace('{Title}', array[i].Title);
+                html = html.replace('{Description}', array[i].Descr);
+                break;
+            }
+            case 'event':{
+                html = html.replace('{imageSrc}', array[i].Image);
+                html = html.replace('{alt}', array[i].Name);
+                html = html.replace('{href}', '/events/event/' + array[i].Id)
+                html = html.replace('{Title}', array[i].Name);
+                html = html.replace('{Description}', array[i].Description);
+                break;
+            }
+            default:{
+                console.log('Type unknown');
+                break;
+            }
+        }
 
         $('.listing-result').append(html);
     }
