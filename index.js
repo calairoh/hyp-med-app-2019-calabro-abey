@@ -14,6 +14,8 @@ let cookieSession = require("cookie-session");
 let cookieParser = require("cookie-parser");
 var serverPort = process.env.PORT || 8080;
 
+console.log(process.env.DATABASE_URL);
+
 let { setupDataLayer } = require("./service/DataLayer");
 
 // swaggerRouter configuration
@@ -57,7 +59,7 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
   });
 
   app.use('/authors/author/*', function(req, res, next){
-    res.sendFile(path.join(__dirname + '/www/products/event.html'));
+    res.sendFile(path.join(__dirname + '/www/products/author.html'));
   });
 
   app.use('/books', function(req, res, next){

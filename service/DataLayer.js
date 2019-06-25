@@ -10,7 +10,7 @@ let { bookAuthorsDbSetup } = require("./AuthorBookService");
 let { genresDbSetup } = require("./GenreService"); 
 let { themesDbSetup } = require("./ThemeService");
 
-//console.log(process.env.DATABASE_URL);
+console.log(process.env.DATABASE_URL);
 
 var sqlDb = sqlDbFactory({
   client: process.env.CLIENT,
