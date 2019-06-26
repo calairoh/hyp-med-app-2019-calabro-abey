@@ -53,3 +53,17 @@ exports.getAuthorsByName = function(name,offset,lenght) {
         .limit(lenght);
 }
 
+/**
+ * Get authors by book
+ * Return all authors that wrote a specific book
+ *
+ * ISBN The book ISBN to search for
+ * returns Authors
+ **/
+exports.getAuthorsByBook = function(ISBN) {
+  return sqlDb("author")
+        .select("Id", "NameSurname", "Photo", "Bio")
+        .innerJoin("bookAuthors", 'author.Id', 'bookAuthors.AuthorId')
+        .where('bookAuthors.ISBN', ISBN);
+}
+

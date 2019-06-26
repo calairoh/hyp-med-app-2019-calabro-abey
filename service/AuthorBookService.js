@@ -10,8 +10,8 @@ exports.bookAuthorsDbSetup = function(database) {
     if (!exists) {
       console.log("It doesn't so we create it");
       return database.schema.createTable("bookAuthors", table => {
-        table.increments('ISBN');
-        table.text("AuthorId");
+        table.text('ISBN');
+        table.integer("AuthorId");
         table.foreign("ISBN").references("Book.ISBN");
         table.foreign("AuthorId").references("Author.Id");
       });

@@ -32,12 +32,12 @@ exports.reviewsDbSetup = function(database) {
  * user Review The review object
  * no response value expected for this operation
  **/
-exports.createReview = function(user) {
+exports.createReview = function(review, rate, user, ISBN) {
   return new Promise(function(resolve, reject) {
-    return sqlDb("review").insert({userId: user.user.Id}, 
-                          {ISBN: user.book.ISBN}, 
-                          {rate: user.rate}, 
-                          {content: user.content},
+    return sqlDb("review").insert({userId: user}, 
+                          {ISBN: ISBN}, 
+                          {rate: rate}, 
+                          {content: review},
                           {datetime: Date.now()});
   });
 }
@@ -52,10 +52,10 @@ exports.createReview = function(user) {
  * lenght Integer Result lenght (optional)
  * returns Review
  **/
-exports.getReviewsByBook = function(iSBN,offset,lenght) {
+exports.getReviewsByBook = function(ISBN,offset,lenght) {
   return sqlDb("review")
-        .where("ISBN", iSBN)
+        .where("ISBN", ISBN)
         .offset(offset)
-        .lenght(lenght);
+        .limit(lenght);
 }
 

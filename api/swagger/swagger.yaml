@@ -271,6 +271,31 @@ paths:
           schema:
             $ref: "#/definitions/Author"
       x-swagger-router-controller: "Author"
+  /author/findByBook:
+    get:
+      tags:
+      - "author"
+      summary: "Get authors by book ISBN"
+      description: "Return all authors that wrote a specific book"
+      operationId: "getAuthorsByBook"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "ISBN"
+        in: "query"
+        description: "The book ISBN to search for"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Successfull operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Author"
+        404:
+          description: "Book not found"
+      x-swagger-router-controller: "Author"
   /author/findByName:
     get:
       tags:
@@ -579,17 +604,27 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - in: "body"
+      - in: "query"
         name: "review"
-        description: "The review object"
+        description: "The review text"
         required: true
-        schema:
-          $ref: "#/definitions/Review"
+        type: "string"
+      - in: "query"
+        name: "rate"
+        description: "The review rate"
+        required: true
+        type: "integer"
+        format: "int32"
+      - in: "query"
+        name: "ISBN"
+        description: "The review book ISBN"
+        required: true
+        type: "string"
       responses:
         200:
-          description: "successful operation"
-        400:
-          description: "Model not valid"
+          description: "Successful operation"
+        304:
+          description: "User not logged in"
         404:
           description: "Book or user not found"
       x-swagger-router-controller: "Review"
@@ -912,10 +947,6 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/Theme"
-      authors:
-        type: "array"
-        items:
-          $ref: "#/definitions/Author"
       title:
         type: "string"
         example: "Harry Potter"
@@ -968,10 +999,8 @@ definitions:
       id:
         type: "integer"
         format: "int64"
-      user:
-        $ref: "#/definitions/User"
-      book:
-        $ref: "#/definitions/Book"
+      username:
+        type: "string"
       rate:
         type: "integer"
         format: "int32"

@@ -27,3 +27,15 @@ module.exports.getAuthorsByName = function getAuthorsByName (req, res, next) {
       utils.writeJson(res, response);
     });
 };
+
+module.exports.getAuthorsByBook = function getAuthorsByBook(req, res, next){
+  var ISBN = req.swagger.params['ISBN'].value;
+  Author.getAuthorsByBook(ISBN)
+  .then(function (response) {
+    console.log(response);
+    utils.writeJson(res, response);
+  })
+  .catch(function (response) {
+    utils.writeJson(res, response);
+  });
+}

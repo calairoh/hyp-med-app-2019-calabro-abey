@@ -63,12 +63,31 @@
             </div>                      
         </div>
     
-        <div class="col-md-9 record" data-url="/v1/book/{ISBN}">   
+        <div class="col-md-9 record" data-book-url="/v1/book/{ISBN}" 
+                                    data-review-url="/v1/review/findByBook"
+                                    data-author-url="/v1/author/findByBook">
+            <div class="book-presentation">
+                
+            </div>   
             <div class="row authors">
 
             </div>         
-            <div class="reviews">
-
+            <div class="row">
+                <div class="card">
+                <article class="card-group-item">
+                    <header class="card-header">
+                        <h6 class="title">Reviews</h6>
+                    </header>
+                    <div class="reviews"> 
+                        <div class="review-form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Write your own review" name="review-text" />
+                                <input type="button" class="review-form-submit" value="Send">
+                            </div>
+                        </div>                        
+                    </div>
+                </article>
+                </div>
             </div>
         </div> 
 

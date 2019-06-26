@@ -5,17 +5,38 @@ $(document).ready(function(){
 function initBookPresentation(){
     var url = location.href;
     var ISBN = url.split('/')[url.split('/').length - 1]
-    url = $('.record').data('url');
+    var bookUrl = $('.record').data('book-url').replace('{ISBN}', ISBN);
+    var reviewsUrl = $('.record').data('review-url');
+    var authorsUrl = $('.record').data('authors-url');
     url = url.replace('{ISBN}', ISBN);
 
     $.ajax({
-        url: url,
+        url: bookUrl,
+        method: 'GET',
+        success: function(json){
+            presentBook(json);
+        }
+    });
+
+    $.ajax({
+        url: reviewsUrl,
         method: 'GET',
         data:{
             ISBN: ISBN
         },
         success: function(json){
-            presentBook(json);
+            presentReviews(json);
+        }
+    });
+
+    $.ajax({
+        url: authorsUrl,
+        method: 'GET',
+        data:{
+            ISBN: ISBN
+        },
+        success: function(json){
+            presentAuthors(json);
         }
     });
 }
@@ -47,16 +68,18 @@ function presentBook(json){
     presentation = presentation.replace('{Themes}', json.Themes.map(e => e.name).join(','));
     presentation = presentation.replace('{Language}', json.Language);
 
-    $('.record').append(presentation);
+    $('.book-presentation').append(presentation);
 }
 
 function presentReviews(json){
     var review = $('.generic-review').html();
 
-    review = review.replace('{username}', json.user.username);
-    review = review.replace('{rate}', json.rate);
-    review = review.replace('{review}', json.content);
-    review = review.replace('{date}', review.date);
+    for(var i = 0; i < json.length; i++) {
+        review = review.replace('{username}', json[i].user.username);
+        review = review.replace('{rate}', json[i].rate);
+        review = review.replace('{review}', json[i].content);
+        review = review.replace('{date}', review[i].date);
 
-    $('.record > .reviews').append(review);
+        $('.record > .reviews').append(review);
+    }
 }
