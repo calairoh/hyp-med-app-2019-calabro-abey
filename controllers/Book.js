@@ -21,7 +21,7 @@ module.exports.findBookByTitle = function findBookByTitle (req, res, next) {
 };
 
 module.exports.findBooksByAuthor = function findBooksByAuthor (req, res, next) {
-  var authors = req.swagger.params['authors'].value;
+  var authors = req.swagger.params['author'].value;
   var offset = req.swagger.params['offset'].value;
   var lenght = req.swagger.params['lenght'].value;
   Book.findBooksByAuthor(authors,offset,lenght)

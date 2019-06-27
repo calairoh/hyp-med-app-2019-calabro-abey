@@ -46,11 +46,9 @@ exports.getAuthors = function(offset,lenght) {
  * lenght Integer Result lenght (optional)
  * returns Author
  **/
-exports.getAuthorsByName = function(name,offset,lenght) {
+exports.getAuthorById = function(id) {
   return sqlDb("author")
-        .where("NameSurname", "like", "%" + name + "%")
-        .offset(offset)
-        .limit(lenght);
+        .where("Id", id);
 }
 
 /**

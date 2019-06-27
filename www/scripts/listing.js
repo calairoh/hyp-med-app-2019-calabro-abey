@@ -174,7 +174,7 @@ function initChangeListingPage(){
     $(document).on('click', '.js-listing-page', function(){
         var page = $(this).data('value');
         $('.listing-result').data('page', page);
-        getBooks();
+        getAuthorsBooks();
     });
 }
 

@@ -162,7 +162,7 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "authors"
+      - name: "author"
         in: "query"
         description: "Author to filter by"
         required: true
@@ -296,40 +296,28 @@ paths:
         404:
           description: "Book not found"
       x-swagger-router-controller: "Author"
-  /author/findByName:
+  /author/{Id}:
     get:
       tags:
       - "author"
-      summary: "Get authors by name"
-      description: "Return all authors by a specific name"
-      operationId: "getAuthorsByName"
+      summary: "Get author by id"
+      description: "Return all authors by id"
+      operationId: "getAuthorById"
       produces:
       - "application/json"
       parameters:
-      - name: "name"
-        in: "query"
-        description: "The name to filter by"
+      - name: "Id"
+        in: "path"
+        description: "The author Id"
         required: true
         type: "string"
-      - name: "offset"
-        in: "query"
-        description: "Start offset"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "lenght"
-        in: "query"
-        description: "Result lenght"
-        required: false
-        type: "integer"
-        format: "int32"
       responses:
         200:
-          description: "successfull operation"
+          description: "Successfull operation"
           schema:
             $ref: "#/definitions/Author"
-        400:
-          description: "Invalid name value"
+        404:
+          description: "Id not found"
       x-swagger-router-controller: "Author"
   /genres:
     get:
@@ -858,10 +846,13 @@ definitions:
         type: "string"
       bio:
         type: "string"
+      nameSurname:
+        type: "string"
     example:
-      photo: "photo"
-      bio: "bio"
-      id: 0
+      Photo: "Photo"
+      Bio: "Umberto Eco was born in Italy"
+      NameSurname: "Umberto Eco"
+      Id: 1
   Event:
     type: "object"
     properties:

@@ -15,13 +15,11 @@ module.exports.getAuthors = function getAuthors (req, res, next) {
     });
 };
 
-module.exports.getAuthorsByName = function getAuthorsByName (req, res, next) {
-  var name = req.swagger.params['name'].value;
-  var offset = req.swagger.params['offset'].value;
-  var lenght = req.swagger.params['lenght'].value;
-  Author.getAuthorsByName(name,offset,lenght)
+module.exports.getAuthorById = function getAuthorById (req, res, next) {
+  var id = req.swagger.params['Id'].value;
+  Author.getAuthorById(id)
     .then(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response[0]);
     })
     .catch(function (response) {
       utils.writeJson(res, response);

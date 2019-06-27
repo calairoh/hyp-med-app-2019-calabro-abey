@@ -193,6 +193,7 @@
 .row-pagination{
     text-align: center;
     width: 100%;
+    margin-top: .25rem;
 }
 
 .nav-pagination{
@@ -251,8 +252,12 @@
     padding: 10px;
 }
 
-.authors .card-container {
-    padding: 5px 0 5px 0;
+.authors .card-container, .author-books .card-container {
+    padding: 5px 0 5px 0;    
+}
+
+.authors .card-container, .author-books .card-container > .listing-result{
+    display: flex;
 }
 
 .review-form > .form-group {
@@ -261,4 +266,8 @@
 
 a.btn{
     color: #fff !important;
+}
+
+.author-books{
+    margin-top: 10px;
 }

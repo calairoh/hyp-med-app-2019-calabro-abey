@@ -77,7 +77,7 @@ exports.findBookByTitle = function(title,offset,lenght) {
  **/
 exports.findBooksByAuthor = function(authors,offset,lenght) {
   return sqlDb("book")
-        .innerjoin("bookAuthors", 'book.ISBN', 'bookAuthors.ISBN')
+        .innerJoin("bookAuthors", 'book.ISBN', 'bookAuthors.ISBN')
         .where('bookAuthors.AuthorId', authors)
         .offset(offset)
         .limit(lenght)
