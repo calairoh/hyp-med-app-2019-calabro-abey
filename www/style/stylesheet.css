@@ -175,7 +175,6 @@
     border: 1px solid #ddd;
     padding: 10px;
     margin: 10px;
-    width: 100%;
 }
 
 .listing{
@@ -244,4 +243,22 @@
     font-variant-caps: small-caps;
 }
 
+.reviews {
+    margin-top: 10px;
+}
 
+.reviews .card-container {
+    padding: 10px;
+}
+
+.authors .card-container {
+    padding: 5px 0 5px 0;
+}
+
+.review-form > .form-group {
+    display: flex;
+}
+
+a.btn{
+    color: #fff !important;
+}

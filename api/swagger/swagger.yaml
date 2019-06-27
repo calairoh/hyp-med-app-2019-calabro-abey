@@ -595,7 +595,7 @@ paths:
           description: "Book not found"
       x-swagger-router-controller: "Review"
   /review:
-    post:
+    get:
       tags:
       - "review"
       summary: "Create review"
@@ -604,29 +604,44 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - in: "query"
-        name: "review"
+      - name: "review"
+        in: "query"
         description: "The review text"
         required: true
         type: "string"
-      - in: "query"
-        name: "rate"
-        description: "The review rate"
+      - name: "rate"
+        in: "query"
+        description: "The rate of the review to the book"
         required: true
         type: "integer"
         format: "int32"
-      - in: "query"
-        name: "ISBN"
-        description: "The review book ISBN"
+      - name: "ISBN"
+        in: "query"
+        description: "The book review ISBN"
         required: true
         type: "string"
       responses:
         200:
           description: "Successful operation"
+          schema:
+            $ref: '#/definitions/Response'
+          examples:
+            code: 200
+            message: "Successful operation"
         304:
           description: "User not logged in"
+          schema:
+            $ref: '#/definitions/Response'
+          examples:
+            code: 304
+            message: "User is not logged in"
         404:
           description: "Book or user not found"
+          schema:
+            $ref: '#/definitions/Response'
+          examples:
+            code: 404
+            message: "Book or user not found"
       x-swagger-router-controller: "Review"
   /cart/findByUser:
     get:
@@ -1008,47 +1023,7 @@ definitions:
         type: "string"
       date:
         type: "string"
-        format: "date"
-    example:
-      date: "2000-01-23"
-      rate: 1
-      book:
-        themes:
-        - name: "name"
-        - name: "name"
-        editor: "Mondadori"
-        ePrice: 5.962134
-        pageNumber: 6
-        ISBN: "ISBN"
-        releaseDate: "2000-01-23"
-        genres:
-        - name: "name"
-        - name: "name"
-        price: 1.4658129
-        language: "english"
-        synopsis: "synopsis"
-        title: "Harry Potter"
-        authors:
-        - photo: "photo"
-          bio: "bio"
-          id: 0
-        - photo: "photo"
-          bio: "bio"
-          id: 0
-      id: 0
-      user:
-        firstName: "firstName"
-        lastName: "lastName"
-        country: "country"
-        password: "password"
-        address: "address"
-        city: "city"
-        phone: "phone"
-        postalCode: "postalCode"
-        id: 6
-        email: "email"
-        username: "username"
-      content: "content"
+        format: "date"    
   Cart:
     type: "object"
     properties:
@@ -1059,3 +1034,11 @@ definitions:
       quantity:
         type: "integer"
         format: "int32"
+  Response:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      message:
+        type: "string"

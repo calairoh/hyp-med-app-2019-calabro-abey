@@ -4,6 +4,7 @@ var utils = require('../utils/writer.js');
 var Review = require('../service/ReviewService');
 
 module.exports.createReview = function createReview (req, res, next) {
+
   if(req.session.loggedin === true){
     var review = req.swagger.params['review'].value;
     var rate = req.swagger.params['rate'].value;
@@ -18,7 +19,8 @@ module.exports.createReview = function createReview (req, res, next) {
         utils.writeJson(res, response);
       });
   } else {
-    utils.writeJson(res, null, 304);
+    var response = utils.respondWithCode(403, "User not logged in");
+    utils.writeJson(res, response);
   }  
 };
 
