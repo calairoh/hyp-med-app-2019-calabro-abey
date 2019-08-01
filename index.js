@@ -16,17 +16,17 @@ var serverPort = process.env.PORT || 8080;
 
 console.log(process.env.DATABASE_URL);
 
-let { setupDataLayer } = require("./service/DataLayer");
+let { setupDataLayer } = require("./other/service/DataLayer");
 
 // swaggerRouter configuration
 var options = {
-  swaggerUi: path.join(__dirname, '/swagger.json'),
-  controllers: path.join(__dirname, './controllers'),
+  swaggerUi: path.join(__dirname, '/other/swagger.json'),
+  controllers: path.join(__dirname, './other/controllers'),
   useStubs: process.env.NODE_ENV === 'development' // Conditionally turn on stubs (mock mode)
 };
 
 // The Swagger document (require it, build it programmatically, fetch it from a URL, ...)
-var spec = fs.readFileSync(path.join(__dirname,'api/swagger/swagger.yaml'), 'utf8');
+var spec = fs.readFileSync(path.join(__dirname,'other/api/swagger/swagger.yaml'), 'utf8');
 var swaggerDoc = jsyaml.safeLoad(spec);
 
 // Cookie
@@ -48,38 +48,38 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
   // Serve the Swagger documents and Swagger UI
   app.use(middleware.swaggerUi());
 
-  app.use(serveStatic(__dirname + "/www"));
+  app.use(serveStatic(__dirname + "/public"));
 
   app.use('/books/book/*', function(req, res, next){
-    res.sendFile(path.join(__dirname + '/www/products/book.html'));
+    res.sendFile(path.join(__dirname + '/public/products/book.html'));
   });
 
   app.use('/events/event/*', function(req, res, next){
-    res.sendFile(path.join(__dirname + '/www/products/event.html'));
+    res.sendFile(path.join(__dirname + '/puclic/products/event.html'));
   });
 
   app.use('/authors/author/*', function(req, res, next){
-    res.sendFile(path.join(__dirname + '/www/products/author.html'));
+    res.sendFile(path.join(__dirname + '/public/products/author.html'));
   });
 
   app.use('/books', function(req, res, next){
-    res.sendFile(path.join(__dirname + '/www/listing/listing.html'));
+    res.sendFile(path.join(__dirname + '/public/listing/listing.html'));
   });
   
   app.use('/events', function(req, res, next){
-    res.sendFile(path.join(__dirname + '/www/listing/listing.html'));
+    res.sendFile(path.join(__dirname + '/public/listing/listing.html'));
   });
 
   app.use('/authors', function(req, res, next){
-    res.sendFile(path.join(__dirname + '/www/listing/listing.html'));
+    res.sendFile(path.join(__dirname + '/public/listing/listing.html'));
   });
 
   app.use('/account/login', function(req, res, next){
-    res.sendFile(path.join(__dirname + '/www/account/login.html'));
+    res.sendFile(path.join(__dirname + '/public/account/login.html'));
   });
 
   app.use('/account/register', function(req, res, next){
-    res.sendFile(path.join(__dirname + '/www/account/register.html'));
+    res.sendFile(path.join(__dirname + '/public/account/register.html'));
   });  
 
   setupDataLayer().then(() => {
