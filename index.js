@@ -20,7 +20,7 @@ let { setupDataLayer } = require("./other/service/DataLayer");
 
 // swaggerRouter configuration
 var options = {
-  swaggerUi: path.join(__dirname, '/other/swagger.json'),
+  swaggerUi: path.join(__dirname, './other/swagger.json'),
   controllers: path.join(__dirname, './other/controllers'),
   useStubs: process.env.NODE_ENV === 'development' // Conditionally turn on stubs (mock mode)
 };
@@ -51,19 +51,19 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
   app.use(serveStatic(__dirname + "/public"));
 
   app.use('/books/book/*', function(req, res, next){
-    res.sendFile(path.join(__dirname + '/public/products/book.html'));
+    res.sendFile(path.join(__dirname + '/public/pages/products/book.html'));
   });
 
   app.use('/events/event/*', function(req, res, next){
-    res.sendFile(path.join(__dirname + '/puclic/products/event.html'));
+    res.sendFile(path.join(__dirname + '/puclic/pages/products/event.html'));
   });
 
   app.use('/authors/author/*', function(req, res, next){
-    res.sendFile(path.join(__dirname + '/public/products/author.html'));
+    res.sendFile(path.join(__dirname + '/public/pages/products/author.html'));
   });
 
   app.use('/books', function(req, res, next){
-    res.sendFile(path.join(__dirname + '/public/listing/listing.html'));
+    res.sendFile(path.join(__dirname + '/public/pages/listing/listing.html'));
   });
   
   app.use('/events', function(req, res, next){
