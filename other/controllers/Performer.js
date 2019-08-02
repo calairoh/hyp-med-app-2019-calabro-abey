@@ -1,12 +1,13 @@
 'use strict';
 
 var utils = require('../utils/writer.js');
-var Author = require('../service/AuthorService');
+var Performer = require('../service/AuthorService');
 
-module.exports.getAuthors = function getAuthors (req, res, next) {
+module.exports.getAll = function getAll (req, res, next) {
   var offset = req.swagger.params['offset'].value;
-  var lenght = req.swagger.params['lenght'].value;
-  Author.getAuthors(offset,lenght)
+  var limit = req.swagger.params['limit'].value;
+
+  Performer.getAll(offset, limit)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -15,9 +16,9 @@ module.exports.getAuthors = function getAuthors (req, res, next) {
     });
 };
 
-module.exports.getAuthorById = function getAuthorById (req, res, next) {
-  var id = req.swagger.params['Id'].value;
-  Author.getAuthorById(id)
+module.exports.getByID = function getByID (req, res, next) {
+  var ID = req.swagger.params['ID'].value;
+  Performer.getByID(ID)
     .then(function (response) {
       utils.writeJson(res, response[0]);
     })
@@ -26,11 +27,10 @@ module.exports.getAuthorById = function getAuthorById (req, res, next) {
     });
 };
 
-module.exports.getAuthorsByBook = function getAuthorsByBook(req, res, next){
-  var ISBN = req.swagger.params['ISBN'].value;
-  Author.getAuthorsByBook(ISBN)
+module.exports.findByEvent = function findByEvent(req, res, next){
+  var ID = req.swagger.params['ID'].value;
+  Performer.findByEvent(ID)
   .then(function (response) {
-    console.log(response);
     utils.writeJson(res, response);
   })
   .catch(function (response) {

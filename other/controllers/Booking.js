@@ -1,11 +1,11 @@
 'use strict';
 
 var utils = require('../utils/writer.js');
-var Cart = require('../service/CartService');
+var Booking = require('../service/CartService');
 
-module.exports.createCartElement = function createCartElement (req, res, next) {
-  var cart = req.swagger.params['cart'].value;
-  Cart.createCartElement(cart)
+module.exports.findByUser = function findByUser (req, res, next) {
+  //Prendere lo userID dalla sessione e passarlo
+  Booking.findByUser(cart)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -14,9 +14,10 @@ module.exports.createCartElement = function createCartElement (req, res, next) {
     });
 };
 
-module.exports.findCartByUser = function findCartByUser (req, res, next) {
+module.exports.add = function add (req, res, next) {
   var username = req.swagger.params['username'].value;
-  Cart.findCartByUser(username)
+  var ID = req.swagger.params['ID'].value;
+  Booking.add(username, ID)
     .then(function (response) {
       utils.writeJson(res, response);
     })
