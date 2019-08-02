@@ -557,32 +557,6 @@ definitions:
       Name: "Umberto"
       Surname: "Eco"
       Id: 1
-  Event:
-    type: "object"
-    properties:
-      id:
-        type: "integer"
-        format: "int64"
-      name:
-        type: "string"
-      type:
-        type: "string"
-      date:
-        type: "string"
-        format: "date"
-      description:
-        type: "string"
-      seminar:
-        $ref: "#/definitions/Seminar"
-    example:
-      date: "2000-01-23"
-      seminar:
-        name: "Seminar"
-      name: "name"
-      type: "concert"
-      description: "description"
-      location: "location"
-      id: 0
   User:
     type: "object"
     properties:
@@ -628,6 +602,8 @@ definitions:
       ID:
         type: "integer"
         format: "int32"
+      type:
+        type: "string"
       image:
         type: "string"
       name:
