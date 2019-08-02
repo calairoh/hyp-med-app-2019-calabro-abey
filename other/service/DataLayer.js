@@ -23,18 +23,15 @@ async function strongEntitiesSetup(){
   seminarsDbSetup(sqlDb);
   performersDbSetup(sqlDb);
   usersDbSetup(sqlDb);
-  genresDbSetup(sqlDb);
-  themesDbSetup(sqlDb);
 }
 
 async function setupDataLayer() {
   console.log("Setting up data layer");
   
   await strongEntitiesSetup();
-
-  performerEventDbSetup(sqlDb);
+  
   eventsDbSetup(sqlDb);
-  reviewsDbSetup(sqlDb);
+  performerEventDbSetup(sqlDb);
   return bookingDbSetup(sqlDb);
 }
 

@@ -10,7 +10,7 @@ exports.seminarsDbSetup = function(database) {
     if (!exists) {
       console.log("It doesn't so we create it");
       return database.schema.createTable("seminar", table => {
-        table.text("id");
+        table.increments("id");
         table.text("name");
         table.text("start");
         table.text("end");

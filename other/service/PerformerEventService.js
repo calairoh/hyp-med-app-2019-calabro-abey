@@ -1,5 +1,7 @@
 'use strict';
 
+let sqlDb;
+
 exports.performerEventDbSetup = function(database) {
   sqlDb = database;
   console.log("Checking if performer events table exists");

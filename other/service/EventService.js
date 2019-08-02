@@ -19,7 +19,6 @@ exports.eventsDbSetup = function(database) {
         table.string("description");
         table.integer("seminarId");
         table.foreign("seminarId").references("seminar.id");
-        table.primary("id");
       });
     }    
   });

@@ -10,8 +10,8 @@ exports.bookingDbSetup = function(database) {
     if (!exists) {
       console.log("It doesn't so we create it");
       return database.schema.createTable("booking", table => {
-        table.text("eventId");
-        table.text("userId");
+        table.integer("eventId");
+        table.integer("userId");
         table.foreign("userId").references("User.Id");
         table.foreign("eventId").references("event.id");
       });

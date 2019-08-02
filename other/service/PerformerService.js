@@ -15,7 +15,6 @@ exports.performersDbSetup = function(database) {
         table.text("surname")
         table.text("photo");
         table.text("bio");
-        table.primary("id");
       });
     }
     
