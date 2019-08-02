@@ -10,16 +10,18 @@ exports.eventsDbSetup = function(database) {
     if (!exists) {
       console.log("It doesn't so we create it");
       return database.schema.createTable("event", table => {
-        table.increments('Id');
-        table.text("ISBN");
-        table.text("Name");
-        table.text("Location");
-        table.text("Description");
-        table.foreign("ISBN").references("book.ISBN");
-        table.primary("Id");
+        table.increments('id');
+        table.text("type");
+        table.text("image");
+        table.text("name");
+        table.text("location");
+        table.date("date");
+        table.string("description");
+        table.integer("seminarId");
+        table.foreign("seminarId").references("seminar.id");
+        table.primary("id");
       });
-    }
-    
+    }    
   });
 };
 
@@ -27,51 +29,86 @@ exports.eventsDbSetup = function(database) {
  * Get all events
  * Return all events in the DB
  *
- * offset Integer Start offset (optional)
- * lenght Integer Result lenght (optional)
+ * offset Integer The number of objects to skip (optional)
+ * limit Integer The number of objects to take (optional)
  * returns Event
  **/
-exports.getEvents = function(offset,lenght) {
+exports.getEvents = function(offset, limit) {
     return sqlDb("event")
-          .innerJoin("book", 'book.ISBN', 'event.ISBN')
+          .innerjoin("performerEvent", "performerEvent.eventId", "event.id")
+          .innerjoin("performer", "performer.id", "performerEvent.performerId")
           .offset(offset)
-          .limit(lenght);
+          .limit(limit);
 }
 
 
 /**
- * Get the event by presented book
- * Return all event in which is presented a specific book
+ * Finds event by name
+ * Return all the events that match the passed name
  *
- * iSBN String The book ISBN to filter by
- * offset Integer Start offset (optional)
- * lenght Integer Result lenght (optional)
+ * name String The name of the event you are looking for
+ * offset Integer The number of objects to skip (optional)
+ * limit Integer The number of objects to take (optional)
  * returns Event
  **/
-exports.getEventsByBook = function(iSBN,offset,lenght) {
+exports.findByName = function(name, offset, limit) {
   return sqlDb("event")
-          .innerJoin("book", 'book.ISBN', 'event.ISBN')
-          .where("event.ISBN", iSBN)
+          .innerjoin("performerEvent", "performerEvent.eventId", "event.id")
+          .innerjoin("performer", "performer.id", "performerEvent.performerId")
+          .where("event.name", "like", "%" + name + "%")
           .offset(offset)
-          .limit(lenght);
+          .limit(limit);
 }
 
 
 /**
- * Get event by name
- * Return all event by a specific name
+ * Finds events by date
+ * Returns all the events that will be presented in the passed date range
  *
- * name String The name to filter by
- * offset Integer Start offset (optional)
- * lenght Integer Result lenght (optional)
+ * start Date The range start date
+ * end Date The range end date
+ * offset Integer The number of objects to skip (optional)
+ * limit Integer The number of objects to take (optional)
  * returns Event
  **/
-exports.getEventsByName = function(name,offset,lenght) {
+exports.findByDate = function(start, end ,offset, limit) {
   return sqlDb("event")
-        .innerjoin("book", "book.ISBN", "event.ISBN")
-        .where("event.Name", "like", "%" + name + "%")
+        .innerjoin("performerEvent", "performerEvent.eventId", "event.id")
+        .innerjoin("performer", "performer.id", "performerEvent.performerId")
+        .where("event.date", ">", start)
+        .andWhere("event.date", "<", end)
         .offset(offset)
-        .limit(lenght);
+        .limit(limit);
 }
 
+/**
+ * Finds events by performer
+ * Return all events performed by a specific artist
+ * 
+ * id Integer The performer ID
+ * offset Integer The number of objects to skip (optional)
+ * limit Integer The number of objects to take (optional)
+ * returns Event
+ */
+exports.findByPerformer = function(id, offset, limit){
+  return sqlDb("event")
+        .innerjoin("performerEvent", "performerEvent.eventId", "event.id")
+        .innerjoin("performer", "performer.id", "performerEvent.performerId")
+        .where("performer.id", id)
+        .offset(offset)
+        .limit(limit);
+}
 
+/**
+ * Find event by ID
+ * Returns the single event with the passed ID
+ * 
+ * id Integer The event ID
+ * returns Event
+ */
+exports.getByID = function(id){
+  return sqlDb("event")
+        .innerjoin("performerEvent", "performerEvent.eventId", "event.id")
+        .innerjoin("performer", "performer.id", "performerEvent.performerId")
+        .where("event.id", id);
+}

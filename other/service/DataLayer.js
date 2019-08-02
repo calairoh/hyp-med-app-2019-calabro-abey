@@ -1,14 +1,11 @@
 const sqlDbFactory = require("knex");
 
-let { booksDbSetup } = require("./BookService");
-let { authorsDbSetup } = require("./AuthorService");
+let { seminarsDbSetup } = require("./SeminarService");
+let { performersDbSetup } = require("./PerformerService");
 let { usersDbSetup } = require("./UserService");
-let { cartDbSetup } = require("./CartService");
+let { bookingDbSetup } = require("./BookingService");
 let { eventsDbSetup } = require("./EventService");
-let { reviewsDbSetup } = require("./ReviewService");
-let { bookAuthorsDbSetup } = require("./AuthorBookService");
-let { genresDbSetup } = require("./GenreService"); 
-let { themesDbSetup } = require("./ThemeService");
+let { performerEventDbSetup } = require("./PerformerEventService");
 
 var sqlDb = sqlDbFactory({
   client: process.env.CLIENT,
@@ -23,8 +20,8 @@ var sqlDb = sqlDbFactory({
 });
 
 async function strongEntitiesSetup(){
-  booksDbSetup(sqlDb);
-  authorsDbSetup(sqlDb);
+  seminarsDbSetup(sqlDb);
+  performersDbSetup(sqlDb);
   usersDbSetup(sqlDb);
   genresDbSetup(sqlDb);
   themesDbSetup(sqlDb);
@@ -35,10 +32,10 @@ async function setupDataLayer() {
   
   await strongEntitiesSetup();
 
-  bookAuthorsDbSetup(sqlDb);
+  performerEventDbSetup(sqlDb);
   eventsDbSetup(sqlDb);
   reviewsDbSetup(sqlDb);
-  return cartDbSetup(sqlDb);
+  return bookingDbSetup(sqlDb);
 }
 
 module.exports = { database: sqlDb, setupDataLayer };

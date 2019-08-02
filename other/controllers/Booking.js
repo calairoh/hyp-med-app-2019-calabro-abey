@@ -1,7 +1,7 @@
 'use strict';
 
 var utils = require('../utils/writer.js');
-var Booking = require('../service/CartService');
+var Booking = require('../service/BookingService');
 
 module.exports.findByUser = function findByUser (req, res, next) {
   //Prendere lo userID dalla sessione e passarlo

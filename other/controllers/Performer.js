@@ -1,7 +1,7 @@
 'use strict';
 
 var utils = require('../utils/writer.js');
-var Performer = require('../service/AuthorService');
+var Performer = require('../service/PerformerService');
 
 module.exports.getAll = function getAll (req, res, next) {
   var offset = req.swagger.params['offset'].value;

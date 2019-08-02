@@ -243,7 +243,7 @@ paths:
       - "performer"
       summary: "Get performers by event"
       description: "Return all performers that perform an event"
-      operationId: "getByEvent"
+      operationId: "findByEvent"
       produces:
       - "application/json"
       parameters:
@@ -269,9 +269,9 @@ paths:
   /performer/{ID}:
     get:
       tags:
-      - "author"
+      - "performer"
       summary: "Get performer by ID"
-      description: "Return all performers by ID"
+      description: "Return performer by ID"
       operationId: "getByID"
       produces:
       - "application/json"
@@ -366,7 +366,7 @@ paths:
       - "seminar"
       summary: "Get the seminar by discussed event"
       description: "Return the seminar in which is discussed a specific artist event"
-      operationId: "getByEvent"
+      operationId: "findByEvent"
       produces:
       - "application/json"
       parameters:
@@ -398,6 +398,33 @@ paths:
           description: "Invalid ID"
         404:
           description: "Event not found"
+      x-swagger-router-controller: "Seminar"
+  /seminar/{ID}:
+    get:
+      tags:
+      - "seminar"
+      summary: "Get seminar by ID"
+      description: "Return seminar by ID"
+      operationId: "getByID"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "ID"
+        in: "path"
+        description: "The seminar ID"
+        required: true
+        type: "integer"
+        format: "int32"
+        minimum: 0
+      responses:
+        200:
+          description: "Successfull operation"
+          schema:
+            $ref: "#/definitions/Seminar"
+        400:
+          description: "ID not valid"
+        404:
+          description: "Seminar not found"
       x-swagger-router-controller: "Seminar"
   /booking/findByUser:
     get:
@@ -621,13 +648,30 @@ definitions:
   Booking:
     type: "object"
     properties:
-      book:
+      event:
         $ref: "#/definitions/Event"
       user:
         $ref: "#/definitions/User"
-      date:
+  Seminar:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+      image:
+        type: "string"
+      name:
+        type: "string"
+      start:
         type: "string"
         format: "date"
+      end: 
+        type: "string"
+        format: "date"
+      location:
+        type: "string"
+      description:
+        type: "string"
   Response:
     type: "object"
     properties:

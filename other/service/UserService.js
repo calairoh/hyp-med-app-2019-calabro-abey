@@ -20,7 +20,7 @@ exports.usersDbSetup = function(database) {
         table.text("city");
         table.text("postalCode");
         table.text("country");
-        //table.primary("id");
+        table.primary("id");
       });
     }
     
