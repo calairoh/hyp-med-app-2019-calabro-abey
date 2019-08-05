@@ -12,7 +12,7 @@ exports.bookingDbSetup = function(database) {
       return database.schema.createTable("booking", table => {
         table.integer("eventId");
         table.integer("userId");
-        table.foreign("userId").references("User.Id");
+        table.foreign("userId").references("user.id");
         table.foreign("eventId").references("event.id");
       });
     }

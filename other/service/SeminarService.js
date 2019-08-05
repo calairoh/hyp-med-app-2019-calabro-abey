@@ -12,9 +12,9 @@ exports.seminarsDbSetup = function(database) {
       return database.schema.createTable("seminar", table => {
         table.increments("id");
         table.text("name");
-        table.text("start");
-        table.text("end");
-        table.date("location");
+        table.date("start");
+        table.date("end");
+        table.text("location");
         table.text("description");
       });
     }
@@ -29,7 +29,7 @@ exports.seminarsDbSetup = function(database) {
  * ID String The seminar ID
  * returns Seminar
  **/
-exports.findByName = function(id) {
+exports.getByID = function(id) {
   return sqlDb("seminar")
     .where('id', id);
 }

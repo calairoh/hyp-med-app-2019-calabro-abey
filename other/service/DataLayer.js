@@ -25,12 +25,16 @@ async function strongEntitiesSetup(){
   usersDbSetup(sqlDb);
 }
 
+async function events(){
+  eventsDbSetup(sqlDb);
+}
+
 async function setupDataLayer() {
   console.log("Setting up data layer");
   
-  await strongEntitiesSetup();
+  await strongEntitiesSetup();  
+  await events();
   
-  eventsDbSetup(sqlDb);
   performerEventDbSetup(sqlDb);
   return bookingDbSetup(sqlDb);
 }

@@ -20,19 +20,19 @@
           
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/">Home</a>
-          </li>                
-          <li class="nav-item books-nav">
-            <a class="nav-link" href="/books">Books</a>
+              <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item seminars-nav">
+              <a class="nav-link" href="/seminars">Seminars</a>
           </li>
           <li class="nav-item events-nav">
-            <a class="nav-link" href="/events">Events</a>
+              <a class="nav-link" href="/events">Events</a>
           </li>
-          <li class="nav-item authors-nav">
-            <a class="nav-link" href="/authors">Authors</a>
+          <li class="nav-item performers-nav">
+              <a class="nav-link" href="/performers">Performers</a>
           </li>
           <li class="nav-item about-us-nav">
-            <a class="nav-link" href="/about-us">About us</a>
+              <a class="nav-link" href="/about-us">About us</a>
           </li>
         </ul>
 
@@ -52,52 +52,40 @@
                 <header class="card-header">
                     <h6 class="title">Genres</h6>
                 </header>
-                <div class="filter-content filter-content-card" data-url="/v1/book/findByGenres" data-type="genre">
-                    
+                <div class="filter-content filter-content-card" data-url="/v1/events/getTypes" data-type="types">                   
                       
                 </div>
               </article>
             </div>
-        </div> 
-      <div class="row filter-box hidden">
-        <div class="card">
-          <article class="card-group-item">
-            <header class="card-header">
-                <h6 class="title">Themes</h6>
-            </header>
-            <div class="filter-content filter-content-card" data-url="/v1/book/findByThemes" data-type="theme">
-
-            </div>
-          </article>
         </div>
-      </div> 
-      <div class="row">
-        <div class="card">
-          <article class="card-group-item">
-            <header class="card-header">
-                <h6 class="title">Categories</h6>
-            </header>
-            <div class="filter-content">
-                <ul class="links">
-                  <li><a href="#">Best sellers</a></li>
-                  <li><a href="#">Last arrivals</a></li>
-                  <li><a href="#">Our recommendations</a></li>
-                </ul>
-            </div>
-          </article>
+        <div class="row">
+          <div class="card">
+            <article class="card-group-item">
+              <header class="card-header">
+                  <h6 class="title">Categories</h6>
+              </header>
+              <div class="filter-content">
+                  <ul class="links">
+                    <li><a href="#">Best sellers</a></li>
+                    <li><a href="#">Last arrivals</a></li>
+                    <li><a href="#">Our recommendations</a></li>
+                  </ul>
+              </div>
+            </article>
+          </div>
+        </div>                      
+      </div>    
+
+      <div class="col-md-9 listing">
+        <div class="row listing-result" data-page="0" data-limit="12">
+
         </div>
-      </div>                      
-    </div>
-
-    <div class="col-md-9 listing">
-      <div class="row listing-result" data-page="0" data-limit="12">
-
-      </div>
-      <div class="row row-pagination">
-        <nav class="nav-pagination" aria-label="Page navigation example">
-          <ul class="pagination">
-          </ul>
-        </nav>
+        <div class="row row-pagination">
+          <nav class="nav-pagination" aria-label="Page navigation example">
+            <ul class="pagination">
+            </ul>
+          </nav>
+        </div>
       </div>
     </div>
 

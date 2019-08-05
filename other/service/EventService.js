@@ -32,10 +32,8 @@ exports.eventsDbSetup = function(database) {
  * limit Integer The number of objects to take (optional)
  * returns Event
  **/
-exports.getEvents = function(offset, limit) {
+exports.getAll = function(offset, limit) {
     return sqlDb("event")
-          .innerjoin("performerEvent", "performerEvent.eventId", "event.id")
-          .innerjoin("performer", "performer.id", "performerEvent.performerId")
           .offset(offset)
           .limit(limit);
 }
@@ -110,4 +108,37 @@ exports.getByID = function(id){
         .innerjoin("performerEvent", "performerEvent.eventId", "event.id")
         .innerjoin("performer", "performer.id", "performerEvent.performerId")
         .where("event.id", id);
+}
+
+/**
+ * Finds events by seminar
+ * Return all events discussed in a specific seminar
+ * 
+ * id Integer The seminar ID
+ * offset Integer The number of objects to skip (optional)
+ * limit Integer The number of objects to take (optional)
+ * returns Event
+ */
+exports.findBySeminar = function(id, offset, limit){
+  return sqlDb("event")
+        .where("event.seminarId", id)
+        .offset(offset)
+        .limit(limit);
+}
+
+function buildEvents(events){
+  for(var i = 0; i < events.length; i++){
+    var performers = sqlDb("performerEvent")
+                    .select('performer.id', 'performer.name', 'performer.surname', 'performer.bio', 'performer.photo')
+                    .innerJoin('performer', 'performer.id', 'performerEvent.performerId')
+                    .where('eventId', events[i].id);
+    
+                    console.log(performers);
+    for(var j = 0; j < performers.length; j++){
+      events.performers.push(performers[j]);
+    }
+    console.log(events);
+  }
+
+  return events;
 }

@@ -1,48 +1,49 @@
 $(document).ready(function(){
     var url = location.href;
 
-    if(url.includes("author")){
-        initAuthorPresentation()
-    } else if(url.includes("book")){
-        initBookPresentation();
-        initAddReview();
-    }  
+    if(url.includes("performer")){
+        initPerformerPresentation()
+    } else if(url.includes("seminar")){
+        initSeminarPresentation();
+    }  else if(url.includes("event")){
+        //init events
+    }
     
 });
 
-function initAuthorPresentation(){
+function initPerformerPresentation(){
     var url = location.href;
     var Id = url.split('/')[url.split('/').length - 1];
     
     var limit = $('.listing-result').data('limit');
     var page = $('.listing-result').data('page');           
-    var authorsUrl = $('.record').data('author-url').replace('{Id}', Id);
+    var performersUrl = $('.record').data('performer-url').replace('{Id}', Id);
 
-    getAuthorsBooks(Id, page, limit);
+    getPerformerEvents(Id, page, limit);
 
     $.ajax({
-        url: authorsUrl,
+        url: performersUrl,
         method: 'GET',
         success: function(json){
-            presentAuthors(json, "author");
+            presentEvents(json, "performer");
         }
     });
 
 
 }
 
-function getAuthorsBooks(Id, page, limit){
-    var bookUrl = $('.record').data('book-url');
+function getPerformerEvents(Id, page, limit){
+    var eventUrl = $('.record').data('event-url');
     var offset = page * limit;
 
     $.ajax({
-        url: bookUrl,
+        url: eventUrl,
         method: 'GET',
         data:{
-            author: Id,
+            performer: Id,
         },
         success: function(json){
-            presentBook(json, "author", offset, limit);
+            presentSeminar(json, "performer", offset, limit);
             setUpPaging(json.length, limit);
             initChangeListingPage();
         }
@@ -75,152 +76,91 @@ function initChangeListingPage(){
         var url = location.href;
         var Id = url.split('/')[url.split('/').length - 1];
 
-        getAuthorsBooks(Id, page, limit);
+        getPerformerEvents(Id, page, limit);
     });
 }
 
-function initBookPresentation(){
+function initSeminarPresentation(){
 
     var url = location.href;
-    var ISBN = url.split('/')[url.split('/').length - 1];
+    var id = url.split('/')[url.split('/').length - 1];
 
-    var bookUrl = $('.record').data('book-url').replace('{ISBN}', ISBN);    
-    var authorsUrl = $('.record').data('author-url');
+    var seminarUrl = $('.record').data('seminar-url').replace('{id}', id);    
+    var eventUrl = $('.record').data('events-url');
 
     $.ajax({
-        url: bookUrl,
+        url: seminarUrl,
         method: 'GET',
         success: function(json){
-            presentBook(json, "book");
+            if(json.length > 0)
+                presentSeminar(json[0], "seminar");
+            else
+            {
+                //present error
+            }
         }
     });
 
     $.ajax({
-        url: authorsUrl,
+        url: eventUrl,
         method: 'GET',
         data:{
-            ISBN: ISBN
+            id: id
         },
         success: function(json){
-            presentAuthors(json, "book");
+            presentEvents(json, "seminar");
         }
     });
 }
 
-function presentAuthors(json, type){
-    if(type == "book"){
+function presentEvents(json, type){
+    if(type == "performer" || type == "seminar"){
         for(var i = 0; i < json.length; i++){
-            var presentation = $('.generic-author').html();
+            var presentation = $('.generic-event').html();
 
-            presentation = presentation.replace('{imageSrc}', json[i].Photo);
-            presentation = presentation.replace('{name}', json[i].NameSurname);
-            presentation = presentation.replace('{alt}', json[i].NameSurname);
-            presentation = presentation.replace('{href}', "/authors/author/" + json[i].Id);
+            presentation = presentation.replace('{imageSrc}', json[i].image);
+            presentation = presentation.replace('{name}', json[i].name + ' ' + json[i].surname);
+            presentation = presentation.replace('{alt}', json[i].name + ' ' + json[i].surname);
+            presentation = presentation.replace('{href}', "/events/event/" + json[i].id);
 
-            $('.authors .card-container').append(presentation);
+            $('.events .card-container').append(presentation);
         }
-    } else if(type == "author"){
+    } else if(type == "event"){
         var presentation = $('.generic-record').html();
 
-        presentation = presentation.replace('{Title}', json.NameSurname);
-        presentation = presentation.replace('{image}', json.Photo);
-        presentation = presentation.replace('{alt}', json.NameSurname);
-        presentation = presentation.replace('{Description}', json.Bio);
+        presentation = presentation.replace('{Title}', json[i].name + ' ' + json[i].surname);
+        presentation = presentation.replace('{image}', json.image);
+        presentation = presentation.replace('{alt}', json[i].name + ' ' + json[i].surname);
+        presentation = presentation.replace('{Description}', json.bio);
 
-        $('.author-presentation').append(presentation);
+        $('.event-presentation').append(presentation);
     }
 }
 
-function presentBook(json, type, offset, limit){
-    if(type == "book"){
+function presentSeminar(json, type, offset, limit){
+    if(type == "seminar"){
         var presentation = $('.generic-record').html();
 
-        presentation = presentation.replace('{Title}', json.Title);
-        presentation = presentation.replace('{image}', json.Image);
-        presentation = presentation.replace('{alt}', json.Title);
-        presentation = presentation.replace('{Description}', json.Synopsis);
-        presentation = presentation.replace('{PageNumber}', json.PageNumber);
-        presentation = presentation.replace('{ePrice}', json.ePrice);
-        presentation = presentation.replace('{Price}', json.Price);
-        presentation = presentation.replace('{Editor}', json.Editor);
-        presentation = presentation.replace('{ISBN}', json.ISBN);
-        presentation = presentation.replace('{ISBN}', json.ISBN);
-        presentation = presentation.replace('{ISBN}', json.ISBN);
-        presentation = presentation.replace('{ReleaseDate}', json.ReleaseDate);
-        presentation = presentation.replace('{Genres}', json.Genres.map(e => e.name).join(','));
-        presentation = presentation.replace('{Themes}', json.Themes.map(e => e.name).join(','));
-        presentation = presentation.replace('{Language}', json.Language);
+        presentation = presentation.replace('{Title}', json.name);
+        presentation = presentation.replace('{image}', json.image);
+        presentation = presentation.replace('{description}', json.description);
+        presentation = presentation.replace('{location}', json.location);
+        presentation = presentation.replace('{start}', json.start);
+        presentation = presentation.replace('{end}', json.end);
 
-        $('.book-presentation').append(presentation);
-    } else if(type == "author"){
-        $('.author-books .card-container .listing-result').html(' ');
+        $('.event-presentation').append(presentation);
+    } else if(type == "performer"){
+        $('.performer-events .card-container .listing-result').html(' ');
 
         for(var i = offset; i < offset + limit; i++){
-            var presentation = $('.generic-book').html();
+            var presentation = $('.generic-event').html();
             
-            presentation = presentation.replace('{name}', json[i].Title);
-            presentation = presentation.replace('{alt}', json[i].Title);
-            presentation = presentation.replace('{imageSrc}', json[i].Image);
-            presentation = presentation.replace('{href}', "/books/book/" + json[i].ISBN);
+            presentation = presentation.replace('{name}', json[i].name);
+            presentation = presentation.replace('{alt}', json[i].name);
+            presentation = presentation.replace('{imageSrc}', json[i].image);
+            presentation = presentation.replace('{href}', "/events/event/" + json[i].id);
 
-            $('.author-books .card-container .listing-result').append(presentation);
+            $('.performer-events .card-container .listing-result').append(presentation);
         }
     }
-}
-
-function presentReviews(json){
-    for(var i = 0; i < json.length; i++) {
-        var review = $('.generic-review').html();
-
-        review = review.replace('{username}', json[i].user.username);
-        review = review.replace('{rate}', json[i].rate);
-        review = review.replace('{review}', json[i].content);
-        review = review.replace('{date}', review[i].date);
-
-        $('.record .reviews-container').append(review);
-    }
-}
-
-function initAddReview(){
-    $(document).on('click', '.submit-add-review', function(){
-        var $form = $('.form-add-review');
-        var url = $form.data('target');
-
-        $.ajax({
-            url: url,
-            method: 'GET',
-            data:{
-                review: $form.find('#review-text').val(),
-                rate: $form.find('#number-rate').val(),
-                ISBN: $('.info-general-ISBN').data('isbn')
-            },
-            success: function(response) {
-                restoreReview();
-            },
-            error: function(response) {
-                alert(response.responseText);
-            }
-        });
-    });
-}
-
-function askReviews(){
-    var reviewsUrl = $('.record').data('review-url');
-    var ISBN = location.href.split('/')[location.href.split('/').length - 1];
-
-    $.ajax({
-        url: reviewsUrl,
-        method: 'GET',
-        data:{
-            ISBN: ISBN
-        },
-        success: function(json){
-            presentReviews(json);
-        }
-    });
-}
-
-function restoreReview(){
-    $('.record .reviews-container').html(' ');
-    askReviews();
 }

@@ -7,18 +7,17 @@ function initListing(){
     var listingType = checkListingType();
 
     switch(listingType){
-        case "books":{
-            initBookListing();
+        case "events":{
             initFilterCheckbox();
-            getBooks();
+            getseminars();
             break;            
         }
-        case "events":{
-            getElements('/v1/events', 'event');
+        case "seminars":{
+            getElements('/v1/seminars', 'seminar');
             break;
         }
-        case "authors":{
-            getElements('/v1/authors', 'author');
+        case "performers":{
+            getElements('/v1/performers', 'performer');
             break;
         }
         default:
@@ -35,10 +34,10 @@ function setUpNavbar(listingType){
 function checkListingType(){
     var url = location.href.toLocaleLowerCase();
 
-    if(url.includes('books')){
-        return "books";
-    } else if(url.includes('authors')){
-        return "authors";
+    if(url.includes('seminars')){
+        return "seminars";
+    } else if(url.includes('performers')){
+        return "performers";
     } else if(url.includes('events')){
         return "events";
     } else {
@@ -66,22 +65,10 @@ function getElements(url, type){
     });
 }
 
-function initBookListing(){
+function initEventsListing(){
     $('.filter-content-card').each(function(){
         var $container = $(this);
-        var type = $container.data('type');
-        var url = "";
-
-        switch(type){
-            case "genre":
-                url = "/v1/genres";
-                break;
-            case "theme":
-                url = "/v1/themes";
-                break;
-            default:
-                break;
-        }
+        var url = "v1/events/getTypes";
 
         if(url === ""){
             alert("Error loading filters");
@@ -114,7 +101,7 @@ function insertFilters(json, type, $container){
     }
 }
 
-function getBooks(){
+function getseminars(){
     var $filters = $('.filter-content-card');
     var page = $('.listing-result').data('page');
     var limit = $('.listing-result').data('limit');
@@ -130,26 +117,26 @@ function getBooks(){
     $.when(doBookApiRequest(filters[0].url, 'GET', { genres: filters[0].filters }),
             doBookApiRequest(filters[1].url, 'GET', { themes: filters[1].filters }))
     .done(function(json1, json2){
-        var booksToAdd = [];
+        var seminarsToAdd = [];
 
         for(var i = 0; i < json1[0].length; i++){
             for(var j = 0; j < json2[0].length; j++){
                 if(isBookEquivalent(json1[0][i], json2[0][j])){
-                    booksToAdd.push(json1[0][i]);
+                    seminarsToAdd.push(json1[0][i]);
                 }
             }
         }
 
-        setUpPaging(booksToAdd.length, limit);
+        setUpPaging(seminarsToAdd.length, limit);
 
-        draw(booksToAdd.slice(page * limit, (page * limit) + limit), 'book');
+        draw(seminarsToAdd.slice(page * limit, (page * limit) + limit), 'book');
     });
 }
 
 function initFilterCheckbox(){
     $(document).on('change', '.filter-checkbox', function(){
         $('.listing-result').data('page', 0);
-        getBooks();
+        getseminars();
     });
 }
 
@@ -174,7 +161,7 @@ function initChangeListingPage(){
     $(document).on('click', '.js-listing-page', function(){
         var page = $(this).data('value');
         $('.listing-result').data('page', page);
-        getAuthorsBooks();
+        getperformersseminars();
     });
 }
 
@@ -185,28 +172,28 @@ function draw(array, type){
         var html = $('.generic-card').html();
 
         switch(type){
-            case 'book': {
-                html = html.replace('{imageSrc}', array[i].Image);
-                html = html.replace('{alt}', array[i].Title);
-                html = html.replace('{href}', '/books/book/' + array[i].ISBN)
-                html = html.replace('{Title}', array[i].Title);
-                html = html.replace('{Description}', array[i].Descr);
+            case 'seminar': {
+                html = html.replace('{imageSrc}', array[i].image);
+                html = html.replace('{alt}', array[i].name);
+                html = html.replace('{href}', '/seminars/seminar/' + array[i].id)
+                html = html.replace('{Title}', array[i].name);
+                html = html.replace('{Description}', array[i].description);
                 break;
             }
             case 'event':{
-                html = html.replace('{imageSrc}', array[i].Image);
-                html = html.replace('{alt}', array[i].Name);
-                html = html.replace('{href}', '/events/event/' + array[i].Id)
-                html = html.replace('{Title}', array[i].Name);
-                html = html.replace('{Description}', array[i].Description);
+                html = html.replace('{imageSrc}', array[i].image);
+                html = html.replace('{alt}', array[i].name);
+                html = html.replace('{href}', '/events/event/' + array[i].id)
+                html = html.replace('{Title}', array[i].name);
+                html = html.replace('{Description}', array[i].description);
                 break;
             }
-            case 'author':{
-                html = html.replace('{imageSrc}', array[i].Photo);
-                html = html.replace('{alt}', array[i].NameSurname);
-                html = html.replace('{href}', '/authors/author/' + array[i].Id)
-                html = html.replace('{Title}', array[i].NameSurname);
-                html = html.replace('{Description}', array[i].Bio);
+            case 'performer':{
+                html = html.replace('{imageSrc}', array[i].photo);
+                html = html.replace('{alt}', array[i].name + ' ' + array[i].surname);
+                html = html.replace('{href}', '/performers/performer/' + array[i].id)
+                html = html.replace('{Title}', array[i].name + ' ' + array[i].surname);
+                html = html.replace('{Description}', array[i].bio);
                 break;
             }
             default:{

@@ -13,15 +13,15 @@ info:
 host: "localhost:8080"
 basePath: "/v1"
 tags:
-- name: "event"
+- name: "Event"
   description: "Everything about the festival store events"
-- name: "performer"
+- name: "Performer"
   description: "Everything about the festival store performers"
-- name: "seminar"
+- name: "Seminar"
   description: "Everything about the festival store seminars"
-- name: "booking"
+- name: "Booking"
   description: "Everything about users' booking"
-- name: "user"
+- name: "User"
   description: "Everything about the library store registered users"
 schemes:
 - "http"
@@ -29,7 +29,7 @@ paths:
   /event/findByName:
     get:
       tags:
-      - "event"
+      - "Event"
       summary: "Finds event by name"
       description: "Return all the events that match the passed name"
       operationId: "findByName"
@@ -68,7 +68,7 @@ paths:
   /event/findByDate:
     get:
       tags:
-      - "event"
+      - "Event"
       summary: "Finds events by date"
       description: "Returns all the events that will be presented in the passed date range"
       operationId: "findByDate"
@@ -114,7 +114,7 @@ paths:
   /event/findByPerformer:
     get:
       tags:
-      - "event"
+      - "Event"
       summary: "Finds events by performer"
       description: "Return all events performed by a specific artist"
       operationId: "findByPerformer"
@@ -151,10 +151,50 @@ paths:
         400:
           description: "Invalid performer ID"
       x-swagger-router-controller: "Event"
+  /event/findBySeminar:
+    get:
+      tags:
+      - "Event"
+      summary: "Finds events by seminar"
+      description: "Return all events discussed in a specific seminar"
+      operationId: "findBySeminar"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "query"
+        description: "The seminar ID"
+        required: true
+        type: "integer"
+        format: "int32"
+      - name: "offset"
+        in: "query"
+        description: "The number of objects to skip"
+        required: false
+        type: "integer"
+        format: "int32"
+        minimum: 0
+      - name: "limit"
+        in: "query"
+        description: "The number of objects to take"
+        required: false
+        type: "integer"
+        format: "int32"
+        minimum: 1
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Event"
+        400:
+          description: "Invalid seminar ID"
+      x-swagger-router-controller: "Event"
   /event/{ID}:
     get:
       tags:
-      - "ID"
+      - "Event"
       summary: "Find event by ID"
       description: "Returns the single event with the passed ID"
       operationId: "getByID"
@@ -180,7 +220,7 @@ paths:
   /events:
     get:
       tags:
-      - "event"
+      - "Event"
       summary: "Get all events"
       description: "Return all events in the store"
       operationId: "getAll"
@@ -210,7 +250,7 @@ paths:
   /performers:
     get:
       tags:
-      - "performer"
+      - "Performer"
       summary: "Get all performers"
       description: "Return all performers in the store"
       operationId: "getAll"
@@ -240,7 +280,7 @@ paths:
   /performer/findByEvent:
     get:
       tags:
-      - "performer"
+      - "Performer"
       summary: "Get performers by event"
       description: "Return all performers that perform an event"
       operationId: "findByEvent"
@@ -269,7 +309,7 @@ paths:
   /performer/{ID}:
     get:
       tags:
-      - "performer"
+      - "Performer"
       summary: "Get performer by ID"
       description: "Return performer by ID"
       operationId: "getByID"
@@ -296,7 +336,7 @@ paths:
   /seminars:
     get:
       tags:
-      - "seminars"
+      - "Seminar"
       summary: "Get all seminars"
       description: "Return all seminars in the store"
       operationId: "getAll"
@@ -326,7 +366,7 @@ paths:
   /seminar/findByName:
     get:
       tags:
-      - "seminar"
+      - "Seminar"
       summary: "Get seminar by name"
       description: "Return all the seminars that match the passed name"
       operationId: "getByName"
@@ -363,7 +403,7 @@ paths:
   /seminar/findByEvent:
     get:
       tags:
-      - "seminar"
+      - "Seminar"
       summary: "Get the seminar by discussed event"
       description: "Return the seminar in which is discussed a specific artist event"
       operationId: "findByEvent"
@@ -402,7 +442,7 @@ paths:
   /seminar/{ID}:
     get:
       tags:
-      - "seminar"
+      - "Seminar"
       summary: "Get seminar by ID"
       description: "Return seminar by ID"
       operationId: "getByID"
@@ -429,7 +469,7 @@ paths:
   /booking/findByUser:
     get:
       tags:
-      - "booking"
+      - "Booking"
       summary: "Get the user bookings"
       description: "Get all bookings of a specific user"
       operationId: "findByUser"
@@ -470,7 +510,7 @@ paths:
   /user:
     post:
       tags:
-      - "user"
+      - "User"
       summary: "Create user"
       description: "This can only be done by the logged in user."
       operationId: "createUser"
@@ -490,7 +530,7 @@ paths:
   /user/login:
     post:
       tags:
-      - "user"
+      - "User"
       summary: "Logs user into the system"
       description: ""
       operationId: "loginUser"
@@ -527,7 +567,7 @@ paths:
   /user/logout:
     get:
       tags:
-      - "user"
+      - "User"
       summary: "Logs out current logged in user session"
       description: ""
       operationId: "logoutUser"
@@ -541,7 +581,7 @@ paths:
   /user/{username}:
     get:
       tags:
-      - "user"
+      - "User"
       summary: "Get user by user name"
       description: ""
       operationId: "getUserByName"

@@ -89,7 +89,7 @@
     padding-left: 3%;
 }
 
-.bookpresentation{
+.eventpresentation{
     padding-top: 60px;
     align-content: center;
     text-align: center;
@@ -171,12 +171,6 @@
     margin-top: 10px;
 }
 
-.review{
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 10px;
-}
-
 .listing{
     margin-top: 20px;
 }
@@ -252,11 +246,11 @@
     padding: 10px;
 }
 
-.authors .card-container, .author-books .card-container {
+.performer .card-container, .performer-events .card-container {
     padding: 5px 0 5px 0;    
 }
 
-.authors .card-container, .author-books .card-container > .listing-result{
+.performer .card-container, .performer-events .card-container > .listing-result{
     display: flex;
 }
 
@@ -268,6 +262,6 @@ a.btn{
     color: #fff !important;
 }
 
-.author-books{
+.performer-events{
     margin-top: 10px;
 }

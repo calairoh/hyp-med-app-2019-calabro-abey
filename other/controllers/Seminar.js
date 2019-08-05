@@ -43,3 +43,15 @@ module.exports.findByEvent = function findByEvent (req, res, next) {
       utils.writeJson(res, response);
     });
 };
+
+module.exports.getByID = function getByID(req, res, next){
+  var id = req.swagger.params['ID'].value;
+
+  Seminar.getByID(id)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+}

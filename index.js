@@ -50,32 +50,32 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
 
   app.use(serveStatic(__dirname + "/public"));
 
-  app.use('/books/book/*', function(req, res, next){
-    res.sendFile(path.join(__dirname + '/public/pages/products/book.html'));
+  app.use('/seminars/seminar/*', function(req, res, next){
+    res.sendFile(path.join(__dirname + '/public/pages/products/seminar.html'));
   });
 
   app.use('/events/event/*', function(req, res, next){
     res.sendFile(path.join(__dirname + '/puclic/pages/products/event.html'));
   });
 
-  app.use('/authors/author/*', function(req, res, next){
-    res.sendFile(path.join(__dirname + '/public/pages/products/author.html'));
+  app.use('/performers/performer/*', function(req, res, next){
+    res.sendFile(path.join(__dirname + '/public/pages/products/performer.html'));
   });
 
-  app.use('/books', function(req, res, next){
+  app.use('/seminars', function(req, res, next){
     res.sendFile(path.join(__dirname + '/public/pages/listing/listing.html'));
   });
   
   app.use('/events', function(req, res, next){
-    res.sendFile(path.join(__dirname + '/public/listing/listing.html'));
+    res.sendFile(path.join(__dirname + '/public/pages/listing/listing.html'));
   });
 
-  app.use('/authors', function(req, res, next){
-    res.sendFile(path.join(__dirname + '/public/listing/listing.html'));
+  app.use('/performers', function(req, res, next){
+    res.sendFile(path.join(__dirname + '/public/pages/listing/listing.html'));
   });
 
   app.use('/account/login', function(req, res, next){
-    res.sendFile(path.join(__dirname + '/public/account/login.html'));
+    res.sendFile(path.join(__dirname + '/public/pages/account/login.html'));
   });
 
   app.use('/account/register', function(req, res, next){

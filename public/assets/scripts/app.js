@@ -3,8 +3,6 @@ $(document).ready(function(){
     getLatestElements();
 });
 
-
-
 function getLatestElements(){
     $('.js-latest-elements').each(function(){
         var $content = $(this);
@@ -24,8 +22,8 @@ function getLatestElements(){
                     case "event":
                         createEventsCard($content, response);
                         break;
-                    case "book":
-                        createBooksCard($content, response);
+                    case "performer":
+                        createPerformersCard($content, response);
                         break;
                     default:
                         break;
@@ -36,16 +34,16 @@ function getLatestElements(){
     
 }
 
-function createBooksCard($content, json){
+function createPerformersCard($content, json){
     for(var i = 0; i < json.length; i++){
         var html = $('.generic-card').html();
 
-        html = html.replace('{Title}', json[i].Title);
-        html = html.replace('{Description}', json[i].Description);
-        html = html.replace('{type}', 'book');
-        html = html.replace('{id}', json[i].Id);
-        html = html.replace('{imageSrc}', json[i].Image);
-        html = html.replace('{alt}', json[i].Title);
+        html = html.replace('{Title}', json[i].name + ' '+ json[i].surname);
+        html = html.replace('{Description}', json[i].bio);
+        html = html.replace('{type}', 'performer');
+        html = html.replace('{id}', json[i].id);
+        html = html.replace('{imageSrc}', json[i].photo);
+        html = html.replace('{alt}', json[i].name + ' '+ json[i].surname);
         $(html).insertBefore($content.find('.arrow-col'));
     }
 }
@@ -54,12 +52,12 @@ function createEventsCard($content, json){
     for(var i = 0; i < json.length; i++){
         var html = $('.generic-card').html();
 
-        html = html.replace('{Title}', json[i].Name);
-        html = html.replace('{Description}', json[i].Description);
+        html = html.replace('{Title}', json[i].name);
+        html = html.replace('{Description}', json[i].description);
         html = html.replace('{type}', 'event');
-        html = html.replace('{id}', json[i].Id);
-        html = html.replace('{imageSrc}', json[i].Image);
-        html = html.replace('{alt}', json[i].Title);
+        html = html.replace('{id}', json[i].id);
+        html = html.replace('{imageSrc}', json[i].image);
+        html = html.replace('{alt}', json[i].name);
         $(html).insertBefore($content.find('.arrow-col'));
     }
 }
