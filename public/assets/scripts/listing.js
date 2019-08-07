@@ -8,8 +8,7 @@ function initListing(){
 
     switch(listingType){
         case "events":{
-            initFilterCheckbox();
-            getseminars();
+            getElements('/v1/events', 'event');
             break;            
         }
         case "seminars":{

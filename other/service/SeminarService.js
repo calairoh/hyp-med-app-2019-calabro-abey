@@ -15,10 +15,10 @@ exports.seminarsDbSetup = function(database) {
         table.date("start");
         table.date("end");
         table.text("location");
+        table.text("image");
         table.text("description");
       });
-    }
-    
+    }    
   });
 };
 

@@ -88,6 +88,8 @@ function initSeminarPresentation(){
     var seminarUrl = $('.record').data('seminar-url').replace('{id}', id);    
     var eventUrl = $('.record').data('events-url');
 
+    $('.btn-add-chart').addClass('hidden');
+
     $.ajax({
         url: seminarUrl,
         method: 'GET',
@@ -119,11 +121,11 @@ function presentEvents(json, type){
             var presentation = $('.generic-event').html();
 
             presentation = presentation.replace('{imageSrc}', json[i].image);
-            presentation = presentation.replace('{name}', json[i].name + ' ' + json[i].surname);
-            presentation = presentation.replace('{alt}', json[i].name + ' ' + json[i].surname);
+            presentation = presentation.replace('{name}', json[i].name);
+            presentation = presentation.replace('{alt}', json[i].name);
             presentation = presentation.replace('{href}', "/events/event/" + json[i].id);
 
-            $('.events .card-container').append(presentation);
+            $('.seminar-events .card-container').append(presentation);
         }
     } else if(type == "event"){
         var presentation = $('.generic-record').html();
