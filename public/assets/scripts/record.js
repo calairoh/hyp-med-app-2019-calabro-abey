@@ -6,10 +6,57 @@ $(document).ready(function(){
     } else if(url.includes("seminar")){
         initSeminarPresentation();
     }  else if(url.includes("event")){
-        //init events
+        initEventPresentation();
     }
     
 });
+
+function initCurrentNotFounds(){
+
+}
+
+function initRelatedNotFounds(){
+    $('.related-records').addClass('hidden');
+}
+
+function initEventPresentation(){
+    var url = location.href;
+    var id = url.split('/')[url.split('/').length - 1];
+
+    var currentUrl = $('.record').data('current-url').replace('{id}', id);    
+    var relatedUrl = $('.record').data('related-url');
+    var page = $('.listing-result').data('page');
+    var limit = $('.listing-result').data('limit');
+
+    $.ajax({
+        url: currentUrl,
+        method: 'GET',
+        success: function(json){
+            if(json.length != undefined)
+                presentEvents(json[0], "event");
+            else
+                initCurrentNotFounds();
+        }
+    });
+
+    $.ajax({
+        url: relatedUrl,
+        method: 'GET',
+        data:{
+            id: id
+        },
+        success: function(json){
+            if(json.length > 0){
+                presentPerformers(json, 'event', page, limit);
+                setUpPaging(json.length, limit);
+                initChangeListingPage();
+            }
+            else {
+                initRelatedNotFounds();
+            }
+        }
+    });
+}
 
 function initPerformerPresentation(){
     var url = location.href;
@@ -17,35 +64,73 @@ function initPerformerPresentation(){
     
     var limit = $('.listing-result').data('limit');
     var page = $('.listing-result').data('page');           
-    var performersUrl = $('.record').data('performer-url').replace('{Id}', Id);
-
-    getPerformerEvents(Id, page, limit);
+    var performersUrl = $('.record').data('current-url').replace('{Id}', Id);
+    var eventsUrl = $('.record').data('related-url');
 
     $.ajax({
         url: performersUrl,
         method: 'GET',
         success: function(json){
-            presentEvents(json, "performer");
+            if(json.length != undefined)
+                presentEvents(json, "performer");
+            else
+                initCurrentNotFounds();
         }
     });
 
-
+    $.ajax({
+        url: eventsUrl,
+        method: 'GET',
+        data:{
+            id: Id,
+        },
+        success: function(json){
+            if(json.length > 0){
+                presentEvents(json, "performer", page, limit);
+                setUpPaging(json.length, limit);
+                initChangeListingPage();
+            } else {
+                initRelatedNotFounds();
+            }
+        }
+    });
 }
 
-function getPerformerEvents(Id, page, limit){
-    var eventUrl = $('.record').data('event-url');
-    var offset = page * limit;
+function initSeminarPresentation(){
+
+    var url = location.href;
+    var id = url.split('/')[url.split('/').length - 1];
+
+    var seminarUrl = $('.record').data('current-url').replace('{id}', id);    
+    var eventUrl = $('.record').data('related-url');
+    var limit = $('.listing-result').data('limit');
+    var page = $('.listing-result').data('page');
+
+    $.ajax({
+        url: seminarUrl,
+        method: 'GET',
+        success: function(json){
+            if(json.length != undefined)
+                presentSeminar(json[0], "seminar");
+            else
+                initCurrentNotFounds();
+        }
+    });
 
     $.ajax({
         url: eventUrl,
         method: 'GET',
         data:{
-            performer: Id,
+            id: id
         },
         success: function(json){
-            presentSeminar(json, "performer", offset, limit);
-            setUpPaging(json.length, limit);
-            initChangeListingPage();
+            if(json.length > 0){
+                presentEvents(json, "seminar");
+                setUpPaging(json.length, limit);
+                initChangeListingPage();
+            } else {
+                initRelatedNotFounds();
+            }
         }
     });
 }
@@ -80,41 +165,6 @@ function initChangeListingPage(){
     });
 }
 
-function initSeminarPresentation(){
-
-    var url = location.href;
-    var id = url.split('/')[url.split('/').length - 1];
-
-    var seminarUrl = $('.record').data('seminar-url').replace('{id}', id);    
-    var eventUrl = $('.record').data('events-url');
-
-    $('.btn-add-chart').addClass('hidden');
-
-    $.ajax({
-        url: seminarUrl,
-        method: 'GET',
-        success: function(json){
-            if(json.length > 0)
-                presentSeminar(json[0], "seminar");
-            else
-            {
-                //present error
-            }
-        }
-    });
-
-    $.ajax({
-        url: eventUrl,
-        method: 'GET',
-        data:{
-            id: id
-        },
-        success: function(json){
-            presentEvents(json, "seminar");
-        }
-    });
-}
-
 function presentEvents(json, type){
     if(type == "performer" || type == "seminar"){
         for(var i = 0; i < json.length; i++){
@@ -125,17 +175,20 @@ function presentEvents(json, type){
             presentation = presentation.replace('{alt}', json[i].name);
             presentation = presentation.replace('{href}', "/events/event/" + json[i].id);
 
-            $('.seminar-events .card-container').append(presentation);
+            $('.related-records .card-container .listing-result').append(presentation);
         }
     } else if(type == "event"){
         var presentation = $('.generic-record').html();
 
-        presentation = presentation.replace('{Title}', json[i].name + ' ' + json[i].surname);
+        presentation = presentation.replace('{Title}', json.name);
         presentation = presentation.replace('{image}', json.image);
-        presentation = presentation.replace('{alt}', json[i].name + ' ' + json[i].surname);
-        presentation = presentation.replace('{Description}', json.bio);
+        presentation = presentation.replace('{alt}', json.name);
+        presentation = presentation.replace('{description}', json.description);
+        presentation = presentation.replace('{date}', json.date);
+        presentation = presentation.replace('{location}', json.location);
+        presentation = presentation.replace('{type}', json.type);
 
-        $('.event-presentation').append(presentation);
+        $('.current-presentation').append(presentation);
     }
 }
 
@@ -150,19 +203,43 @@ function presentSeminar(json, type, offset, limit){
         presentation = presentation.replace('{start}', json.start);
         presentation = presentation.replace('{end}', json.end);
 
-        $('.event-presentation').append(presentation);
+        $('.current-presentation').append(presentation);
     } else if(type == "performer"){
-        $('.performer-events .card-container .listing-result').html(' ');
-
         for(var i = offset; i < offset + limit; i++){
             var presentation = $('.generic-event').html();
             
             presentation = presentation.replace('{name}', json[i].name);
             presentation = presentation.replace('{alt}', json[i].name);
             presentation = presentation.replace('{imageSrc}', json[i].image);
-            presentation = presentation.replace('{href}', "/events/event/" + json[i].id);
+            presentation = presentation.replace('{href}', "/seminars/seminar/" + json[i].id);
 
-            $('.performer-events .card-container .listing-result').append(presentation);
+            $('.related-records .card-container .listing-result').append(presentation);
+        }
+    }
+}
+
+function presentPerformers(json, type, offset, limit){
+    if(type == "performer"){
+        var presentation = $('.generic-record').html();
+
+        presentation = presentation.replace('{Title}', json.name);
+        presentation = presentation.replace('{image}', json.image);
+        presentation = presentation.replace('{description}', json.description);
+        presentation = presentation.replace('{location}', json.location);
+        presentation = presentation.replace('{start}', json.start);
+        presentation = presentation.replace('{end}', json.end);
+
+        $('.current-presentation').append(presentation);
+    } else if(type == "event"){
+        for(var i = offset; i < offset + limit; i++){
+            var presentation = $('.generic-event').html();
+            
+            presentation = presentation.replace('{name}', json[i].name + ' ' + json[i].surname);
+            presentation = presentation.replace('{alt}', json[i].name + ' ' + json[i].surname);
+            presentation = presentation.replace('{imageSrc}', json[i].photo);
+            presentation = presentation.replace('{href}', "/performers/performer/" + json[i].id);
+
+            $('.related-records .card-container .listing-result').append(presentation);
         }
     }
 }

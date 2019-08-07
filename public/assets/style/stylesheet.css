@@ -223,7 +223,11 @@
 }
 
 .btn-add-chart{
-    margin: auto;
+    margin-top: 1rem;
+    border-color: #555;
+    color: #555;
+    background-color: #fff;
+
 }
 
 .info-general{
@@ -258,15 +262,11 @@
     display: flex;
 }
 
-a.btn{
-    color: #fff !important;
-}
-
 .performer-events{
     margin-top: 10px;
 }
 
-.seminar-events{
+.related-records{
     margin-top: 2rem;
 }
 

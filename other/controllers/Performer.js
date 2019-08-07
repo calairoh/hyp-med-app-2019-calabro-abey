@@ -17,8 +17,8 @@ module.exports.getAll = function getAll (req, res, next) {
 };
 
 module.exports.getByID = function getByID (req, res, next) {
-  var ID = req.swagger.params['ID'].value;
-  Performer.getByID(ID)
+  var id = req.swagger.params['id'].value;
+  Performer.getByID(id)
     .then(function (response) {
       utils.writeJson(res, response[0]);
     })
@@ -28,8 +28,8 @@ module.exports.getByID = function getByID (req, res, next) {
 };
 
 module.exports.findByEvent = function findByEvent(req, res, next){
-  var ID = req.swagger.params['ID'].value;
-  Performer.findByEvent(ID)
+  var id = req.swagger.params['id'].value;
+  Performer.findByEvent(id)
   .then(function (response) {
     utils.writeJson(res, response);
   })

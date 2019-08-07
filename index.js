@@ -55,7 +55,7 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
   });
 
   app.use('/events/event/*', function(req, res, next){
-    res.sendFile(path.join(__dirname + '/puclic/pages/products/event.html'));
+    res.sendFile(path.join(__dirname + '/public/pages/products/event.html'));
   });
 
   app.use('/performers/performer/*', function(req, res, next){

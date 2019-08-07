@@ -287,7 +287,7 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "ID"
+      - name: "id"
         in: "query"
         description: "The event ID"
         required: true
@@ -305,8 +305,8 @@ paths:
           description: "Event ID not valid"
         404:
           description: "Event not found"
-      x-swagger-router-controller: "Author"
-  /performer/{ID}:
+      x-swagger-router-controller: "Performer"
+  /performer/{id}:
     get:
       tags:
       - "Performer"
@@ -316,7 +316,7 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "ID"
+      - name: "id"
         in: "path"
         description: "The performer ID"
         required: true

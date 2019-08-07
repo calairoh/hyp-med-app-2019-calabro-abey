@@ -47,7 +47,7 @@ exports.getAll = function(offset, limit) {
  **/
 exports.findByEvent = function(id, offset, limit) {
   return sqlDb("performer")
-        .innerjoin("performerEvent", "performerEvent.performerId", "performer.id")
+        .innerJoin("performerEvent", "performerEvent.performerId", "performer.id")
         .where("performerEvent.eventId", id)
         .offset(offset)
         .limit(limit);

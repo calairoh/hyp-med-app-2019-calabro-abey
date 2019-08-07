@@ -50,8 +50,8 @@ exports.getAll = function(offset, limit) {
  **/
 exports.findByName = function(name, offset, limit) {
   return sqlDb("event")
-          .innerjoin("performerEvent", "performerEvent.eventId", "event.id")
-          .innerjoin("performer", "performer.id", "performerEvent.performerId")
+          .innerJoin("performerEvent", "performerEvent.eventId", "event.id")
+          .innerJoin("performer", "performer.id", "performerEvent.performerId")
           .where("event.name", "like", "%" + name + "%")
           .offset(offset)
           .limit(limit);
@@ -70,8 +70,8 @@ exports.findByName = function(name, offset, limit) {
  **/
 exports.findByDate = function(start, end ,offset, limit) {
   return sqlDb("event")
-        .innerjoin("performerEvent", "performerEvent.eventId", "event.id")
-        .innerjoin("performer", "performer.id", "performerEvent.performerId")
+        .innerJoin("performerEvent", "performerEvent.eventId", "event.id")
+        .innerJoin("performer", "performer.id", "performerEvent.performerId")
         .where("event.date", ">", start)
         .andWhere("event.date", "<", end)
         .offset(offset)
@@ -89,8 +89,8 @@ exports.findByDate = function(start, end ,offset, limit) {
  */
 exports.findByPerformer = function(id, offset, limit){
   return sqlDb("event")
-        .innerjoin("performerEvent", "performerEvent.eventId", "event.id")
-        .innerjoin("performer", "performer.id", "performerEvent.performerId")
+        .innerJoin("performerEvent", "performerEvent.eventId", "event.id")
+        .innerJoin("performer", "performer.id", "performerEvent.performerId")
         .where("performer.id", id)
         .offset(offset)
         .limit(limit);
@@ -105,8 +105,6 @@ exports.findByPerformer = function(id, offset, limit){
  */
 exports.getByID = function(id){
   return sqlDb("event")
-        .innerjoin("performerEvent", "performerEvent.eventId", "event.id")
-        .innerjoin("performer", "performer.id", "performerEvent.performerId")
         .where("event.id", id);
 }
 

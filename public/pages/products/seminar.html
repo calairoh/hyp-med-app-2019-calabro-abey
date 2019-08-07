@@ -64,15 +64,24 @@
                 </div>                                 
             </div>
             <div class="col-md-9 record" data-seminar-url="/v1/seminar/{id}" data-events-url="/v1/event/findBySeminar">    
-                <div class="event-presentation"></div>
+                <div class="current-presentation"></div>
 
-                <div class="seminar-events">
+                <div class="related-records">
                     <div class="card">
                         <article class="card-group-item">
                             <header class="card-header">
                                 <h6 class="title">Events</h6>
                             </header>
-                            <div class="card-container">                     
+                            <div class="card-container"> 
+                                <div class="listing-result" data-page="0" data-limit="4">
+
+                                </div>
+                                <div class="row row-pagination">
+                                    <nav class="nav-pagination" aria-label="Page navigation example">
+                                        <ul class="pagination">
+                                        </ul>
+                                    </nav>
+                                </div>                    
                             </div>
                         </article>
                     </div>
@@ -83,8 +92,7 @@
         <div class="hidden generic-record">    
             <div class="row">
                 <div class="col-md-4 image-container">
-                    <img src="{image}" alt="{alt}"> 
-                    <a class="btn btn-primary btn-add-chart" data-id="{id}">Add to chart</a>         
+                    <img src="{image}" alt="{alt}" />         
                 </div>
                 <div class="col-md-8 info-container">
                     <a class="info-title">{Title}</a>
@@ -128,6 +136,10 @@
                     </div>
                 </div>
             </div>
+        </div>
+        
+        <div class="hidden generic-page-number">
+            <li class="page-item js-listing-page {active}" data-value="{value}"><a class="page-link">{page}</a></li>
         </div>      
     </body>
   

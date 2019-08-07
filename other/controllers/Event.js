@@ -45,7 +45,7 @@ module.exports.findByPerformer = function findByPerformer (req, res, next) {
 module.exports.getByID = function getByID (req, res, next) {
   var ID = req.swagger.params['ID'].value;
   
-  Book.getByID(ID)
+  Event.getByID(ID)
     .then(function (response) {
       utils.writeJson(res, response);
     })
