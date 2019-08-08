@@ -7,6 +7,10 @@ function initListing(){
     var listingType = checkListingType();
 
     switch(listingType){
+        case "today":{
+            getElements('/v1/events/findBydate', 'event');
+            break;
+        }
         case "events":{
             getElements('/v1/events', 'event');
             break;            
@@ -37,6 +41,8 @@ function checkListingType(){
         return "seminars";
     } else if(url.includes('performers')){
         return "performers";
+    } else if(url.includes('today')){
+        return "today";
     } else if(url.includes('events')){
         return "events";
     } else {
