@@ -32,7 +32,7 @@ function initEventPresentation(){
         url: currentUrl,
         method: 'GET',
         success: function(json){
-            if(json.length != undefined)
+            if(json != undefined)
                 presentEvents(json[0], "event");
             else
                 initCurrentNotFounds();
@@ -71,8 +71,8 @@ function initPerformerPresentation(){
         url: performersUrl,
         method: 'GET',
         success: function(json){
-            if(json.length != undefined)
-                presentEvents(json, "performer");
+            if(json != undefined)
+                presentPerformers(json, "performer");
             else
                 initCurrentNotFounds();
         }
@@ -110,7 +110,7 @@ function initSeminarPresentation(){
         url: seminarUrl,
         method: 'GET',
         success: function(json){
-            if(json.length != undefined)
+            if(json != undefined)
                 presentSeminar(json[0], "seminar");
             else
                 initCurrentNotFounds();
@@ -125,7 +125,7 @@ function initSeminarPresentation(){
         },
         success: function(json){
             if(json.length > 0){
-                presentEvents(json, "seminar");
+                presentEvents(json, "seminar", page, limit);
                 setUpPaging(json.length, limit);
                 initChangeListingPage();
             } else {
@@ -187,6 +187,7 @@ function presentEvents(json, type){
         presentation = presentation.replace('{date}', json.date);
         presentation = presentation.replace('{location}', json.location);
         presentation = presentation.replace('{type}', json.type);
+        presentation = presentation.replace('{seminar}', '<a href="/seminars/seminar/' + json.seminarId + '">' + json.seminarName + '</a>');
 
         $('.current-presentation').append(presentation);
     }
@@ -222,12 +223,9 @@ function presentPerformers(json, type, offset, limit){
     if(type == "performer"){
         var presentation = $('.generic-record').html();
 
-        presentation = presentation.replace('{Title}', json.name);
-        presentation = presentation.replace('{image}', json.image);
-        presentation = presentation.replace('{description}', json.description);
-        presentation = presentation.replace('{location}', json.location);
-        presentation = presentation.replace('{start}', json.start);
-        presentation = presentation.replace('{end}', json.end);
+        presentation = presentation.replace('{Title}', json.name + ' ' + json.surname);
+        presentation = presentation.replace('{image}', json.photo);
+        presentation = presentation.replace('{description}', json.bio);
 
         $('.current-presentation').append(presentation);
     } else if(type == "event"){

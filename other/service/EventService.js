@@ -105,6 +105,8 @@ exports.findByPerformer = function(id, offset, limit){
  */
 exports.getByID = function(id){
   return sqlDb("event")
+        .select("event.id", "event.name", "event.date", "event.location", "event.image", "event.description", "event.type", "event.seminarId", { seminarName: "seminar.name"})
+        .leftJoin("seminar", "seminar.id", "event.seminarId")
         .where("event.id", id);
 }
 
