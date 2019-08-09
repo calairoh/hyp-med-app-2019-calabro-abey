@@ -78,6 +78,30 @@ exports.findByDate = function(start, end ,offset, limit) {
         .limit(limit);
 }
 
+
+/**
+ * Finds event by type
+ * Return all the events that have the argument type
+ *
+ * type The type you are looking for
+ * returns Event
+ **/
+exports.findByType = function(type){
+  return sqlDb('event')
+        .where('event.type', type);
+}
+
+/**
+ * Finds event by name
+ * Return all the events that match the passed name
+ *
+ **/
+exports.getTypes = function(){
+  return sqlDb("event")
+        .select("event.type")
+        .distinct();
+}
+
 /**
  * Finds events by performer
  * Return all events performed by a specific artist

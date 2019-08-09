@@ -16,6 +16,28 @@ module.exports.findByName = function findByName (req, res, next) {
     });
 };
 
+module.exports.findByType = function findByType(req, res, next){
+  var type = req.swagger.params['type'].value;
+
+  Event.findByType(type)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    }); 
+}
+
+module.exports.getTypes = function getTypes(req, res, next){
+  Event.getTypes()
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    }); 
+}
+
 module.exports.findByDate = function findByDate (req, res, next) {
   var start = req.swagger.params['start'].value;
   var end = req.swagger.params['end'].value;

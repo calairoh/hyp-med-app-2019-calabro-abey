@@ -26,6 +26,48 @@ tags:
 schemes:
 - "http"
 paths:
+  /event/getTypes:
+    get:
+      tags:
+      - "Event"
+      summary: "Get all event types"
+      description: "Return all the event types"
+      operationId: "getTypes"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              type: "string"
+      x-swagger-router-controller: "Event"
+  /event/findByType:
+    get:
+      tags:
+      - "Event"
+      summary: "Finds event by type"
+      description: "Return all the events that have the argument type"
+      operationId: "findByType"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "type"
+        in: "query"
+        description: "The type you are looking for"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Event"
+        400:
+          description: "Invalid types value"
+      x-swagger-router-controller: "Event"
   /event/findByName:
     get:
       tags:

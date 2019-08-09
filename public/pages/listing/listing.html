@@ -50,9 +50,9 @@
             <div class="card">
               <article class="card-group-item">
                 <header class="card-header">
-                    <h6 class="title">Genres</h6>
+                    <h6 class="title">Types</h6>
                 </header>
-                <div class="filter-content filter-content-card" data-url="/v1/events/getTypes" data-type="types">                   
+                <div class="filter-content filter-content-card" data-url="/v1/event/getTypes" data-type="types">                   
                       
                 </div>
               </article>
@@ -77,7 +77,7 @@
       </div>    
 
       <div class="col-md-9 listing">
-        <div class="row listing-result" data-page="0" data-limit="12">
+        <div class="row listing-result" data-url="/v1/event/findByType" data-page="0" data-limit="12">
 
         </div>
         <div class="row row-pagination">
@@ -95,7 +95,7 @@
 
     <div class="hidden generic-check-filter">
       <div class="form-check">
-        <input class="form-check-input filter-checkbox" data-type="{type}" id="{name}" type="checkbox" value="{name}">
+        <input class="form-check-input filter-checkbox" id="{name}" type="checkbox" value="{name}">
         <label class="form-check-label" for="{name}">{name}</label>
       </div>
     </div>

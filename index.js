@@ -51,15 +51,15 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
   app.use(serveStatic(__dirname + "/public"));
 
   app.use('/seminars/seminar/*', function(req, res, next){
-    res.sendFile(path.join(__dirname + '/public/pages/products/seminar.html'));
+    res.sendFile(path.join(__dirname + '/public/pages/singles/seminar.html'));
   });
 
   app.use('/events/event/*', function(req, res, next){
-    res.sendFile(path.join(__dirname + '/public/pages/products/event.html'));
+    res.sendFile(path.join(__dirname + '/public/pages/singles/event.html'));
   });
 
   app.use('/performers/performer/*', function(req, res, next){
-    res.sendFile(path.join(__dirname + '/public/pages/products/performer.html'));
+    res.sendFile(path.join(__dirname + '/public/pages/singles/performer.html'));
   });
 
   app.use('/events/today', function(req, res, next){

@@ -14,7 +14,9 @@ function initListing(){
             break;
         }
         case "events":{
-            getElements('/v1/events', 'event');
+            initEventsListing();
+            initFilterCheckbox();
+            $('.filter-checkbox').change();
             break;            
         }
         case "seminars":{
@@ -82,7 +84,7 @@ function getElements(url, type, param){
 function initEventsListing(){
     $('.filter-content-card').each(function(){
         var $container = $(this);
-        var url = "v1/events/getTypes";
+        var url = $container.data('url');
 
         if(url === ""){
             alert("Error loading filters");
@@ -92,7 +94,7 @@ function initEventsListing(){
             url: url,
             method: 'GET',
             success: function(json){
-                insertFilters(json, type, $container);
+                insertFilters(json, $container);
             }
         });
 
@@ -100,57 +102,66 @@ function initEventsListing(){
     });
 }
 
-function insertFilters(json, type, $container){
+function insertFilters(json, $container){
 
     for(var i = 0; i < json.length; i++){
         var html = $('.generic-check-filter').html();
 
-        html = html.replace('{type}', type);
-        html = html.replace('{name}', json[i].name);
-        html = html.replace('{name}', json[i].name);
-        html = html.replace('{name}', json[i].name);
-        html = html.replace('{name}', json[i].name);
+        html = html.replace('{name}', json[i].type);
+        html = html.replace('{name}', json[i].type);
+        html = html.replace('{name}', json[i].type);
+        html = html.replace('{name}', json[i].type);
 
         $container.append(html);
     }
 }
 
-function getseminars(){
-    var $filters = $('.filter-content-card');
+function getEvents(){
     var page = $('.listing-result').data('page');
     var limit = $('.listing-result').data('limit');
+    var url = $('.listing-result').data('url');
 
-    filters = [];
-    for(var i = 0; i < $filters.length; i++){
-        filters.push({
-            url: $filters.eq(i).data('url'),
-            filters: getApiRequestFromFilters($filters.eq(i).find(".filter-checkbox:checked"))
-        });            
-    }
+    var events = [];
+    var $filters = $('.filter-checkbox:checked');
 
-    $.when(doBookApiRequest(filters[0].url, 'GET', { genres: filters[0].filters }),
-            doBookApiRequest(filters[1].url, 'GET', { themes: filters[1].filters }))
-    .done(function(json1, json2){
-        var seminarsToAdd = [];
-
-        for(var i = 0; i < json1[0].length; i++){
-            for(var j = 0; j < json2[0].length; j++){
-                if(isBookEquivalent(json1[0][i], json2[0][j])){
-                    seminarsToAdd.push(json1[0][i]);
-                }
+    if($filters === undefined || $filters.length === 0){
+        $.ajax({
+            url: '/v1/events',
+            method: 'GET',
+            success: function(json){
+                drawEvents(json, page, limit);
             }
+        });
+    } else {
+        var funs = []
+        for(var i = 0; i < $filters.length; i++){
+           $.ajax({
+                url: url,
+                method: 'GET',
+                data: {
+                    type: $filters.eq(i).val()
+                },
+                success: function(json){
+                    events = events.concat(json);
+
+                    if(i === $filters.length)
+                        drawEvents(events, page, limit);
+                }
+            });
         }
+    }    
+}
 
-        setUpPaging(seminarsToAdd.length, limit);
-
-        draw(seminarsToAdd.slice(page * limit, (page * limit) + limit), 'book');
-    });
+function drawEvents(events, page, limit){
+    setUpPaging(events.length, limit);
+    
+    draw(events.slice(page * limit, (page * limit) + limit), 'event');
 }
 
 function initFilterCheckbox(){
     $(document).on('change', '.filter-checkbox', function(){
         $('.listing-result').data('page', 0);
-        getseminars();
+        getEvents();
     });
 }
 
