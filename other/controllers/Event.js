@@ -17,10 +17,11 @@ module.exports.findByName = function findByName (req, res, next) {
 };
 
 module.exports.findByDate = function findByDate (req, res, next) {
-  var date = req.swagger.params['date'].value;
+  var start = req.swagger.params['start'].value;
+  var end = req.swagger.params['end'].value;
   var offset = req.swagger.params['offset'].value;
   var limit = req.swagger.params['limit'].value;
-  Event.findByDate(date, offset, limit)
+  Event.findByDate(start, end, offset, limit)
     .then(function (response) {
       utils.writeJson(res, response);
     })

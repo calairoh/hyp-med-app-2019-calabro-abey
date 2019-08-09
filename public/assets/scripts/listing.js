@@ -8,7 +8,9 @@ function initListing(){
 
     switch(listingType){
         case "today":{
-            getElements('/v1/events/findBydate', 'event');
+            var date = new Date();
+            var strDate = date.toLocaleDateString().replace('/', '-').replace('/', '-');
+            getElements('/v1/event/findBydate', 'event', strDate);
             break;
         }
         case "events":{
@@ -50,17 +52,24 @@ function checkListingType(){
     }
 }
 
-function getElements(url, type){
+function getElements(url, type, param){
     var page = $('.listing-result').data('page');
     var limit = $('.listing-result').data('limit');
+
+    var data = { };
+
+    if(param != undefined){
+        data.start = param;
+        data.end = param;
+    }
+
+    data.offset = page;
+    data.limit = limit;
 
     $.ajax({
         url: url,
         method: 'GET',
-        data: {
-            page: page,
-            limit: limit
-        },
+        data: data,
         success: function(json){
             draw(json, type);
         },
@@ -172,6 +181,10 @@ function initChangeListingPage(){
 
 function draw(array, type){
     $('.listing-result').html(' ');
+
+    if(array === undefined || array.length === 0){
+        $('.no-records').removeClass('hidden');
+    }
 
     for(var i = 0; i < array.length; i++){
         var html = $('.generic-card').html();

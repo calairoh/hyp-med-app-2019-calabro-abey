@@ -273,3 +273,16 @@
 .related-record-card{
     margin: 0.5rem;
 }
+
+.no-records{
+    margin: auto;
+}
+
+.no-records-p{
+    margin: auto;
+    color: #888;
+    padding: 10px;
+    font-size: 1.5rem;
+    font-weight: 650;
+    font-variant-caps: small-caps;
+}
