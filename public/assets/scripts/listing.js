@@ -66,14 +66,15 @@ function getElements(url, type, param){
     }
 
     data.offset = page;
-    data.limit = limit;
+    data.limit = 2000;
 
     $.ajax({
         url: url,
         method: 'GET',
         data: data,
         success: function(json){
-            draw(json, type);
+            setUpPaging(json.length, limit);    
+            draw(json.slice(page * limit, (page * limit) + limit), type);
         },
         error: function(){
             console.log('Error when request events');
@@ -133,7 +134,6 @@ function getEvents(){
             }
         });
     } else {
-        var funs = []
         for(var i = 0; i < $filters.length; i++){
            $.ajax({
                 url: url,
