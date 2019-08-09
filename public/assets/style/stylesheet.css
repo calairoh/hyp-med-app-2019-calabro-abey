@@ -286,3 +286,31 @@
     font-weight: 650;
     font-variant-caps: small-caps;
 }
+
+.block-row {
+    display: flex;
+    padding: 15px 0;
+}
+
+.block-row:not(:last-child){
+    border-bottom: 1px #ddd solid;
+}
+
+.block-text{
+    padding: 10px;    
+    margin: auto;
+    color: #555;
+    font-size: 1rem;
+}
+
+.block-title{
+    color: #555;
+    padding: 10px;
+    font-size: 1.5rem;
+    font-weight: 650;
+    font-variant-caps: small-caps;
+}
+
+.about-us-row{
+    padding: 0 20px;
+}

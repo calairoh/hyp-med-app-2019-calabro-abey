@@ -86,6 +86,10 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
     res.sendFile(path.join(__dirname + '/public/account/register.html'));
   });  
 
+  app.use('/about-us', function(req, res, next){
+    res.sendFile(path.join(__dirname + '/public/pages/singles/about-us.html'));
+  });
+
   setupDataLayer().then(() => {
     // Start the server
     http.createServer(app).listen(serverPort, function() {
