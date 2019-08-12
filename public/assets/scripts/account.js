@@ -8,21 +8,26 @@ function signIn(){
         e.preventDefault();
         var url = $(this).data('action');
         var formSerialize = $(this).serializeArray();
-        var username = formSerialize[0].value;
-        var password = formSerialize[1].value;
+        
+        var loginObj = {
+            username: formSerialize[0].value,
+            password: formSerialize[1].value
+        };
 
         $.ajax({
             url: url,
-            method: 'GET',
+            method: 'POST',
             data: {
-                username: username,
-                password: password
+                loginObj: loginObj
             },
             success: function(result){
                 if(result.code === 200)
-                    location.href = "/index.html";
+                    location.href = "/";
                 else
                     alert("login failure");
+            }, 
+            error: function(){
+                alert("login failure");
             }
         });
     });
@@ -51,8 +56,7 @@ function signUp(){
             },
             success: function(result){
                 if(result.code === 200){
-                    alert("Registrazione OK");
-                    location.href = "/account/login.html";
+                    location.href = "/account/login";
                 }
                 else {
                     alert(result.msg);

@@ -579,16 +579,12 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "username"
-        in: "query"
-        description: "The user name for login"
+      - name: "loginObj"
+        in: "body"
+        description: "The object containing username and password for login"
         required: true
-        type: "string"
-      - name: "password"
-        in: "query"
-        description: "The password for login in clear text"
-        required: true
-        type: "string"
+        schema: 
+          $ref: "#/definitions/UserLogin"
       responses:
         200:
           description: "successful operation"
@@ -645,7 +641,7 @@ paths:
         404:
           description: "User not found"
       x-swagger-router-controller: "User"
-definitions:
+definitions:  
   Performer:
     type: "object"
     properties:
@@ -666,6 +662,14 @@ definitions:
       Name: "Umberto"
       Surname: "Eco"
       Id: 1
+  UserLogin:
+    type: "object"
+    properties:
+      username:
+        type: "string"
+      password:
+        type: "string"
+        format: "password"
   User:
     type: "object"
     properties:

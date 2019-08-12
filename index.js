@@ -83,7 +83,7 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
   });
 
   app.use('/account/register', function(req, res, next){
-    res.sendFile(path.join(__dirname + '/public/account/register.html'));
+    res.sendFile(path.join(__dirname + '/public/pages/account/register.html'));
   });  
 
   app.use('/about-us', function(req, res, next){

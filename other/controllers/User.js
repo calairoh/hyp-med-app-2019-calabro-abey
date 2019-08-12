@@ -59,8 +59,9 @@ module.exports.getUserByName = function getUserByName (req, res, next) {
 };
 
 module.exports.loginUser = function loginUser (req, res, next) {
-  var username = req.swagger.params['username'].value;
-  var password = req.swagger.params['password'].value;  
+  var loginObj = req.swagger.params['loginObj'].value;
+  var username = loginObj.username;
+  var password = loginObj.password;
 
   User.loginUser(username,password)
     .then(function (response) {
