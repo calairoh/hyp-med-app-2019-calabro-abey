@@ -58,6 +58,25 @@ module.exports.getUserByName = function getUserByName (req, res, next) {
     });
 };
 
+module.exports.getUserLoggedInfo = function getUserLoggedInfo(req, res, next){
+  if(req.session.loggedin === true){
+    User.getUserByName(req.session.username)
+    .then(function(response){
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+  } else {
+
+    var msg = {
+      msg: "no user logged in"
+    };
+
+    utils.writeJson(res, msg);
+  }
+}
+
 module.exports.loginUser = function loginUser (req, res, next) {
   var loginObj = req.swagger.params['loginObj'].value;
   var username = loginObj.username;
@@ -79,6 +98,8 @@ module.exports.loginUser = function loginUser (req, res, next) {
           message.code = 200;          
         }
       }
+      console.log(message);
+      console.log(response);
       
       utils.writeJson(res, message);
     })
@@ -89,13 +110,22 @@ module.exports.loginUser = function loginUser (req, res, next) {
 };
 
 module.exports.logoutUser = function logoutUser (req, res, next) {
-  User.logoutUser()
+  req.session.loggedin = false;
+  req.session.username = undefined;
+
+  var msg = {
+    msg: "Logout executed"
+  };
+
+  utils.writeJson(res, msg);
+
+  /*User.logoutUser()
     .then(function (response) {
       utils.writeJson(res, response);
     })
     .catch(function (response) {
       utils.writeJson(res, response);
-    });
+    });*/
 };
 
 module.exports.updateUser = function updateUser (req, res, next) {

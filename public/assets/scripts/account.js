@@ -17,9 +17,7 @@ function signIn(){
         $.ajax({
             url: url,
             method: 'POST',
-            data: {
-                loginObj: loginObj
-            },
+            data: loginObj,
             success: function(result){
                 if(result.code === 200)
                     location.href = "/";

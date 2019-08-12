@@ -569,6 +569,21 @@ paths:
         default:
           description: "successful operation"
       x-swagger-router-controller: "User"
+  /user/logged:
+    get:
+      tags:
+      - "User"
+      summary: "Get current user info"
+      description: "Return the info of logged user, if exists"
+      operationId: "getUserLoggedInfo"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "string"
+      x-swagger-router-controller: "User"
   /user/login:
     post:
       tags:
@@ -588,15 +603,6 @@ paths:
       responses:
         200:
           description: "successful operation"
-          headers:
-            X-Rate-Limit:
-              type: "integer"
-              format: "int32"
-              description: "calls per hour allowed by the user"
-            X-Expires-After:
-              type: "string"
-              format: "date-time"
-              description: "date in UTC when token expires"
           schema:
             type: "string"
         400:
