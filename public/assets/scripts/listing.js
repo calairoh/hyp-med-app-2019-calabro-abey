@@ -23,6 +23,10 @@ function initListing(){
             getElements('/v1/seminars', 'seminar');
             break;
         }
+        case "types":{
+            getElements('/v1/event/getTypes', 'type');
+            break;
+        }
         case "performers":{
             getElements('/v1/performers', 'performer');
             break;
@@ -47,6 +51,8 @@ function checkListingType(){
         return "performers";
     } else if(url.includes('today')){
         return "today";
+    }  else if(url.includes('types')){
+        return "types";
     } else if(url.includes('events')){
         return "events";
     } else {
@@ -115,6 +121,10 @@ function insertFilters(json, $container){
 
         $container.append(html);
     }
+
+    var url = new URL(location.href);
+    var type = url.searchParams.get("type");
+    $('#' + type).prop( "checked", true);
 }
 
 function getEvents(){
@@ -223,6 +233,12 @@ function draw(array, type){
                 html = html.replace('{href}', '/performers/performer/' + array[i].id)
                 html = html.replace('{Title}', array[i].name + ' ' + array[i].surname);
                 html = html.replace('{Description}', array[i].bio);
+                break;
+            }
+            case 'type':{
+                html = $('.generic-card-event-type').html();
+                html = html.replace('{Title}', array[i].type);
+                html = html.replace('{href}', '/events?type=' + array[i].type);
                 break;
             }
             default:{
