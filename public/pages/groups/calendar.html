@@ -1,0 +1,88 @@
+
+<html lang="en">
+    <head>
+        <link type="text/css" rel="stylesheet" href="/assets/contents/bootstrap/css/bootstrap.min.css">
+        <link type="text/css" rel="stylesheet" href="/assets/style/stylesheet.css">
+      
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+        <title>SAS Books</title>
+    </head>
+    <body>
+        <div class="row">
+            <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+                <a class="navbar-brand" href="#">
+                Library
+                </a>
+                <button class="navbar-toggler" aria-expanded="false" aria-controls="navbarCollapse" aria-label="Toggle navigation" type="button" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item seminars-nav">
+                        <a class="nav-link" href="/seminars">Seminars
+                            <span class="sr-only">
+                            (current)
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item events-nav">
+                        <a class="nav-link active" href="/events">Events</a>
+                    </li>
+                    <li class="nav-item performers-nav">
+                        <a class="nav-link" href="/performers">Performers</a>
+                    </li>
+                    <li class="nav-item about-us-nav">
+                        <a class="nav-link" href="/about-us">About us</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav mr-right">
+                    <li class="nav-item">
+                    <a class="nav-link" href="account/login">Login</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    
+        <div class="row results">        
+            <div class="col-md-3 sidebar">
+                <div class="row">
+                    <div class="card">
+                        <article class="card-group-item">
+                        <header class="card-header">
+                            <h6 class="title">Categories</h6>
+                        </header>
+                        <div class="filter-content">
+                            <ul class="links">
+                                <li><a href="/events/today">What happens today</a></li>
+                                <li><a href="/calendar">Calendar</a></li>
+                                <li><a href="/events/types">All events types</a></li>
+                            </ul>
+                        </div>
+                        </article>
+                    </div>
+                </div>                                 
+            </div>
+            <div class="col-md-9">    
+                <div class="month-container">
+                    <a class="previous-month" href="#"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                    <p class="month"></p>
+                    <a class="next-month" href="#"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                </div>
+
+                <div class="calendar-records">
+                    
+                </div>
+            </div> 
+        </div>    
+    </body>
+  
+    <script src="/assets/contents/jquery-3.4.1.js" type="text/javascript"></script>
+    <script src="/assets/contents/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/scripts/calendar.js" type="text/javascript"></script>
+  
+  </html>
