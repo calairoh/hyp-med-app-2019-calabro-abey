@@ -72,8 +72,8 @@ exports.findByDate = function(start, end ,offset, limit) {
   return sqlDb("event")
         .innerJoin("performerEvent", "performerEvent.eventId", "event.id")
         .innerJoin("performer", "performer.id", "performerEvent.performerId")
-        .where("event.date", ">", start)
-        .andWhere("event.date", "<", end)
+        .where("event.date", ">=", start)
+        .andWhere("event.date", "<=", end)
         .offset(offset)
         .limit(limit);
 }

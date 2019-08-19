@@ -287,6 +287,10 @@
     font-variant-caps: small-caps;
 }
 
+.calendar-records > .no-records {
+    text-align: center;
+}
+
 .block-row {
     display: flex;
     padding: 15px 0;
@@ -313,4 +317,44 @@
 
 .about-us-row{
     padding: 0 20px;
+}
+
+.month-container{
+    margin: 20px auto;
+    text-align: center;
+    width: 100%;
+}
+
+.previous-month .next-month{
+    margin: auto 5px;
+    color: #555;
+}
+
+.month{
+    color: #555;
+    padding: 10px;
+    font-size: 1.5rem;
+    font-weight: 650;
+    font-variant-caps: small-caps;
+}
+
+.calendar-date{
+    color: #555;
+    padding: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-variant-caps: small-caps;
+}
+
+.calendar-event{
+    color: #666;
+    padding: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-variant-caps: titling-caps;
+}
+
+.calendar-record{
+    margin: auto;
+    width: 100%;
 }
