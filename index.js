@@ -94,8 +94,20 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
     res.sendFile(path.join(__dirname + '/public/pages/account/register.html'));
   });  
 
+  app.use('/account/reservation', function(req, res, next){
+    res.sendFile(path.join(__dirname + '/public/pages/account/reservation.html'));
+  });  
+
   app.use('/about-us', function(req, res, next){
     res.sendFile(path.join(__dirname + '/public/pages/singles/about-us.html'));
+  });
+
+  app.use('/notfound', function(req, res, next){
+    res.sendFile(path.join(__dirname + '/public/pages/errors/404.html'));
+  });
+
+  app.use('*', function(req, res, next){
+    res.sendFile(path.join(__dirname + '/public/pages/errors/404.html'));
   });
 
   setupDataLayer().then(() => {

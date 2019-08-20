@@ -23,6 +23,7 @@ function initEventPresentation(){
     var url = location.href;
     var id = url.split('/')[url.split('/').length - 1];
 
+    $('.btn-add-reservation').prop('href', '/account/reservation/' + id);
     var currentUrl = $('.record').data('current-url').replace('{id}', id);    
     var relatedUrl = $('.record').data('related-url');
     var page = $('.listing-result').data('page');

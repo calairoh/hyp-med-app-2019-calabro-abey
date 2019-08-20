@@ -222,7 +222,7 @@
     width: 100%;
 }
 
-.btn-add-chart{
+.btn-add-reservation{
     margin-top: 1rem;
     border-color: #555;
     color: #555;
@@ -361,4 +361,38 @@
 
 .calendar-records{
     margin-left: 20px;
+}
+
+.btn-reservation-confirm{
+    color: #fff !important;
+}
+
+.summary{
+    padding: 20px;
+    margin: 20px auto;
+    width: 80%;
+    text-align: center;
+    border-radius: 0.25rem;
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+.summary-presentation{
+    color: #555;
+    padding: 10px 0 20px 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    font-variant-caps: small-caps;
+}
+
+.summary-event{
+    margin-top: 10px;
+    text-align: left;
+}
+
+.summary-event span{
+    color: #555;
+    padding: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+    font-variant-caps: small-caps;
 }
