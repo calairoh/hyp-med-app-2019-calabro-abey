@@ -64,7 +64,8 @@ function drawEvents(json){
 
     for(var i = 0; i < json.length; i++){
         var calendarRecord = $('.calendar-record').html();
-        calendarRecord = calendarRecord.replace('{date}', json[i].date);
+        var date = new Date(json[i].date);
+        calendarRecord = calendarRecord.replace('{date}', date.toDateString());
         calendarRecord = calendarRecord.replace('{event}', json[i].name);
         calendarRecord = calendarRecord.replace('{type}', json[i].type);
         calendarRecord = calendarRecord.replace('{eventHref}', "/events/event/" + json[i].id);

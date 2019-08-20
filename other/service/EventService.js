@@ -73,7 +73,7 @@ exports.findByDate = function(start, end ,offset, limit) {
         .innerJoin("performerEvent", "performerEvent.eventId", "event.id")
         .innerJoin("performer", "performer.id", "performerEvent.performerId")
         .where("event.date", ">=", start)
-        .andWhere("event.date", "<=", end)
+        .andWhere("event.date", "<", end)
         .offset(offset)
         .limit(limit);
 }
