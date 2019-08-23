@@ -95,6 +95,7 @@ module.exports.loginUser = function loginUser (req, res, next) {
         if(response.password === password){
           req.session.loggedin = true;
           req.session.username = username;
+          req.session.userId = response.id;
           message.code = 200;          
         }
       }

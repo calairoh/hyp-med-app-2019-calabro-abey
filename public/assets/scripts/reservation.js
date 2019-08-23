@@ -10,7 +10,7 @@ function initReservationPage(){
         url: url,
         method: "GET",
         success: function(json){
-            if(json.msg !== undefined){
+            if(json.msg !== 'no user logged in'){
                 initReservationPageStrings();
             } else {
                 location.href = "/account/login";
@@ -39,7 +39,8 @@ function initReservationPageStrings(){
 }
 
 function initReservationPageEvent(json){
-    $('.summary-event-date').html(json.date);
+    var date = new Date(json.date);
+    $('.summary-event-date').html(date.toDateString());
     $('.summary-event-name').html(json.name);
     $('.summary-event-type').html(json.type);
     $('.summary-event-seminar').html(json.seminarName);
@@ -64,7 +65,8 @@ function initReservationPagePerformers(json){
 
 function initReservationConfirm(){
     $(document).on('click', '.btn-reservation-confirm', function(){
-        var eventId = location.href.searchParams.get('id');
+        var currentUrl = location.href.split('/');
+        var eventId = currentUrl[currentUrl.length - 1];
         if(eventId !== undefined && eventId !== null){
             var url = "/booking/add/" + eventId;        
 

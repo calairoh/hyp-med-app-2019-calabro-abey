@@ -4,20 +4,25 @@ var utils = require('../utils/writer.js');
 var Booking = require('../service/BookingService');
 
 module.exports.findByUser = function findByUser (req, res, next) {
-  //Prendere lo userID dalla sessione e passarlo
-  Booking.findByUser(cart)
+  if(req.session.loggedin === true){
+    Booking.findByUser(req.session.id)
     .then(function (response) {
       utils.writeJson(res, response);
     })
     .catch(function (response) {
       utils.writeJson(res, response);
     });
+  } else {
+    var msg = { msg: "no logged" }
+    utils.writeJson(res, msg);
+  }
+  
 };
 
 module.exports.add = function add (req, res, next) {
-  var username = req.swagger.params['username'].value;
   var ID = req.swagger.params['ID'].value;
-  Booking.add(username, ID)
+
+  Booking.add(req.session.userId, ID)
     .then(function (response) {
       utils.writeJson(res, response);
     })
