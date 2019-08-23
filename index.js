@@ -98,6 +98,10 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
     res.sendFile(path.join(__dirname + '/public/pages/account/reservation.html'));
   });  
 
+  app.use('/account/reservations', function(req, res, next){
+    res.sendFile(path.join(__dirname + '/public/pages/account/reservations.html'));
+  }); 
+
   app.use('/about-us', function(req, res, next){
     res.sendFile(path.join(__dirname + '/public/pages/singles/about-us.html'));
   });

@@ -27,7 +27,10 @@ exports.bookingDbSetup = function(database) {
  * userId Stirng Id of logged user
  **/
 exports.findByUser = function(userId) {
+  console.log("user " + userId);
   return sqlDb("booking")
+        .select('event.id', 'event.date', 'event.name')
+        .innerJoin('event', 'event.id', 'booking.eventId')
         .where("userId", userId);
 }
 

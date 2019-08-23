@@ -5,7 +5,7 @@ var Booking = require('../service/BookingService');
 
 module.exports.findByUser = function findByUser (req, res, next) {
   if(req.session.loggedin === true){
-    Booking.findByUser(req.session.id)
+    Booking.findByUser(req.session.userId)
     .then(function (response) {
       utils.writeJson(res, response);
     })

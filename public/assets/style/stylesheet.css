@@ -367,7 +367,7 @@
     color: #fff !important;
 }
 
-.summary{
+.summary, .reservations{
     padding: 20px;
     margin: 20px auto;
     width: 80%;
@@ -394,5 +394,62 @@
     padding: 10px;
     font-size: 1rem;
     font-weight: 500;
+    font-variant-caps: small-caps;
+}
+
+.passed-reservations .to-come-reservations{
+    color: #666;
+    padding: 10px 0 20px 0;
+    font-size: 1.25rem;    
+    font-variant-caps: small-caps;
+}
+
+.passed-reservations{
+    font-weight: 550;
+}
+
+.to-come-reservations{
+    font-weight: 600;
+}
+
+.messages{
+    padding: 20px;
+    margin: auto;
+    text-align: center;
+}
+
+.messages > .message{
+    color: #555;
+    padding: 10px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    font-variant-caps: small-caps;
+}
+
+.reservations p{
+    color: #555;
+    padding: 10px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-variant-caps: small-caps;
+}
+
+.reservation-body{
+    margin: 10px auto;
+}
+
+.reservation-body-date{
+    color: #666;
+    padding: 10px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    font-variant-caps: small-caps;
+}
+
+.reservation-body-event{
+    color: #555;
+    padding: 10px;
+    font-size: 1.25rem;
+    font-weight: 650;
     font-variant-caps: small-caps;
 }

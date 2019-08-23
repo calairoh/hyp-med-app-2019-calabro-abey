@@ -68,11 +68,11 @@ function initReservationConfirm(){
         var currentUrl = location.href.split('/');
         var eventId = currentUrl[currentUrl.length - 1];
         if(eventId !== undefined && eventId !== null){
-            var url = "/booking/add/" + eventId;        
+            var url = "/v1/booking/add/" + eventId;        
 
             $.ajax({
                 url: url,
-                method: 'GET',
+                method: 'POST',
                 success: function(){
                     location.href = "/account/reservations?new=1";
                 },
