@@ -10,26 +10,35 @@ function getLatestElements(){
         var limit = parseInt($content.data('limit'));
         var type = $content.data('type');
 
-        $.ajax({
-            url: url,
-            method: 'GET',
-            data: {
-                offset: 0,
-                lenght: limit
-            },
-            success: function(response){
-                switch(type){
-                    case "event":
-                        createEventsCard($content, response);
-                        break;
-                    case "performer":
-                        createPerformersCard($content, response);
-                        break;
-                    default:
-                        break;
-                }                
-            }
-        });
+        if(type === "event"){
+            var date = new Date();
+            $.ajax({
+                url: url,
+                method: 'GET',
+                data: {
+                    offset: 0,
+                    lenght: limit,
+                    start: date.toLocaleDateString().replace('/', '-').replace('/', '-'),
+                    end: date.toLocaleDateString().replace('/', '-').replace('/', '-')
+                },
+                success: function(response){
+                    createEventsCard($content, response);
+                }       
+            });
+        } else {
+            $.ajax({
+                url: url,
+                method: 'GET',
+                data: {
+                    offset: 0,
+                    lenght: limit
+                },
+                success: function(response){
+                    createPerformersCard($content, response);             
+                }
+            });
+        }
+        
     });
     
 }
@@ -49,6 +58,12 @@ function createPerformersCard($content, json){
 }
 
 function createEventsCard($content, json){
+    if(json === undefined || json.length === 0){
+        $('.no-events-today').removeClass('hidden');
+        $('.no-events-today').parent().removeClass('hidden');
+        $('.js-today-elements .arrow-col').addClass('hidden');
+    }
+
     for(var i = 0; i < json.length; i++){
         var html = $('.generic-card').html();
 
