@@ -91,3 +91,10 @@ form{
     margin-top: 3rem !important;
     margin-bottom: 1rem !important;
 }
+
+.error{
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    padding: 15px;
+}
