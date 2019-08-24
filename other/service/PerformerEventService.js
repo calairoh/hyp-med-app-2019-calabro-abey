@@ -15,7 +15,6 @@ exports.performerEventDbSetup = function(database) {
         //table.foreign("eventId").references("event.id");
         //table.foreign("performerId").references("performer.id");
       });
-    }
-    
+    }    
   });
 };
