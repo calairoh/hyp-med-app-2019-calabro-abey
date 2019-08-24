@@ -36,7 +36,7 @@ async function setupDataLayer() {
   await strongEntitiesSetup();  
   await events();
   
-  performerEventDbSetup(sqlDb);
+  //performerEventDbSetup(sqlDb);
   return bookingDbSetup(sqlDb);
 }
 
