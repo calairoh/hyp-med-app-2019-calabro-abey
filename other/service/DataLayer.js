@@ -9,15 +9,15 @@ let { performerEventDbSetup } = require("./PerformerEventService");
 
 var sqlDb = sqlDbFactory({
   client: process.env.CLIENT,
-  connectionString: process.env.DATABASE_URL,
+  connection: process.env.DATABASE_URL,
   /*connection: {
     host: '127.0.0.1',
     user: 'postgres',
     password: 'standard',
     database: 'library'
   },*/
-  ssl: true/*,
-  debug: true*/
+  ssl: true,
+  debug: true
 });
 
 async function strongEntitiesSetup(){
@@ -36,7 +36,7 @@ async function setupDataLayer() {
   await strongEntitiesSetup();  
   await events();
   
-  //performerEventDbSetup(sqlDb);
+  performerEventDbSetup(sqlDb);
   return bookingDbSetup(sqlDb);
 }
 
