@@ -12,8 +12,26 @@ function initReservationPage(){
         success: function(json){
             if(json.msg !== 'no user logged in'){
                 initReservationPageStrings();
+                checkUserReservations();
             } else {
                 location.href = "/account/login";
+            }
+        }
+    });
+}
+
+function checkUserReservations(){
+    var url = location.href.split('/');
+    var eventId = url[url.length - 1];
+
+    $.ajax({
+        url: "/v1/booking/findByUser",
+        method: 'GET',
+        success: function(json){
+            for(var i = 0; i < json.length; i++){
+                if(json[i].id == eventId){
+                    location.href = "/account/reservations?ae=1";
+                }
             }
         }
     });

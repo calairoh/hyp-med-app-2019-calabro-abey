@@ -5,10 +5,16 @@ $(document).ready(function(){
 function initPersonalReservations(){
     var url = new URL(location.href);
     var newRes = url.searchParams.get('new');
+    var ae = url.searchParams.get('ae');
 
     if(newRes == 1){
         $('.reservation-added').removeClass('hidden');
         $('.reservation-added').parent().removeClass('hidden');
+    }
+
+    if(ae == 1){
+        $('.already-reserved').removeClass('hidden');
+        $('.already-reserved').parent().removeClass('hidden');
     }
 
     $.ajax({
