@@ -181,14 +181,24 @@ function presentEvents(json, type){
     } else if(type == "event"){
         var presentation = $('.generic-record').html();
 
+        var date = new Date(json.date);
+
         presentation = presentation.replace('{Title}', json.name);
         presentation = presentation.replace('{image}', json.image);
         presentation = presentation.replace('{alt}', json.name);
         presentation = presentation.replace('{description}', json.description);
-        presentation = presentation.replace('{date}', json.date);
+        presentation = presentation.replace('{date}', date.toDateString());
         presentation = presentation.replace('{location}', json.location);
         presentation = presentation.replace('{type}', json.type);
         presentation = presentation.replace('{seminar}', '<a href="/seminars/seminar/' + json.seminarId + '">' + json.seminarName + '</a>');
+
+        if(date <= new Date()){
+            presentation = presentation.replace('{disabled}', 'disabled');
+            presentation = presentation.replace('{btnText}', 'Booking closed');
+        } else {
+            presentation = presentation.replace('{disabled}', '');
+            presentation = presentation.replace('{btnText}', 'Add reservation');
+        }
 
         $('.current-presentation').append(presentation);
     }
@@ -207,7 +217,8 @@ function presentSeminar(json, type, offset, limit){
 
         $('.current-presentation').append(presentation);
     } else if(type == "performer"){
-        for(var i = offset; i < offset + limit; i++){
+        var max = min(json.length, offset + limit);
+        for(var i = offset; i < max; i++){
             var presentation = $('.generic-event').html();
             
             presentation = presentation.replace('{name}', json[i].name);
@@ -230,7 +241,8 @@ function presentPerformers(json, type, offset, limit){
 
         $('.current-presentation').append(presentation);
     } else if(type == "event"){
-        for(var i = offset; i < offset + limit; i++){
+        var max = min(json.length, offset + limit);
+        for(var i = offset; i < max; i++){
             var presentation = $('.generic-event').html();
             
             presentation = presentation.replace('{name}', json[i].name + ' ' + json[i].surname);
@@ -241,4 +253,10 @@ function presentPerformers(json, type, offset, limit){
             $('.related-records .card-container .listing-result').append(presentation);
         }
     }
+}
+
+function min(num1, num2){
+    if(num1 <= num2)
+        return num1;
+    return num2;
 }
