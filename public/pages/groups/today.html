@@ -5,7 +5,7 @@
         <link type="text/css" rel="stylesheet" href="/assets/style/stylesheet.css">
       
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-        <title>Festivals</title>
+        <title>Festival - What's happens today</title>
     </head>
     <body>
         <div class="row">
@@ -41,8 +41,17 @@
                 </ul>
 
                 <ul class="navbar-nav mr-right">
-                    <li class="nav-item">
+                    <li class="nav-item nav-no-logged hidden">
                         <a class="nav-link" href="/account/login">Login</a>
+                    </li>
+                    <li class="nav-item nav-logged hidden">
+                        <div class="dropdown">
+                        <a class="nav-link nav-link-name dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">                  
+                            <a class="dropdown-item" href="/account/reservations">Booking list</a>
+                            <a class="dropdown-item btn-logout">Logout</a>
+                        </div>
+                        </div>
                     </li>
                 </ul>
             </nav>
@@ -68,8 +77,8 @@
                 </div>                                 
             </div>
             <div class="col-md-9 listing">
-                <div class="row no-records hidden">
-                    <p class="no-records-p">There are no events on this day</p>
+                <div class="row messages hidden">
+                    <p class="message">There are no events on this day</p>
                 </div>
                 <div class="row listing-result" data-page="0" data-limit="12">
         
@@ -110,5 +119,6 @@
     <script src="/assets/contents/jquery-3.4.1.js" type="text/javascript"></script>
     <script src="/assets/contents/bootstrap/js/bootstrap.min.js"></script>
     <script src="/assets/scripts/listing.js" type="text/javascript"></script>
+    <script src="/assets/scripts/general.js" type="text/javascript"></script>
   
   </html>

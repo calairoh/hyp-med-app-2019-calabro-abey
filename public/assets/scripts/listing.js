@@ -9,7 +9,7 @@ function initListing(){
     switch(listingType){
         case "today":{
             var date = new Date();
-            var strDate = date.toLocaleDateString().replace('/', '-').replace('/', '-');
+            var strDate = dateToDbFormat(date);
             getElements('/v1/event/findBydate', 'event', strDate);
             break;
         }
@@ -204,7 +204,7 @@ function draw(array, type){
     $('.listing-result').html(' ');
 
     if(array === undefined || array.length === 0){
-        $('.no-records').removeClass('hidden');
+        $('.messages').removeClass('hidden');
     }
 
     for(var i = 0; i < array.length; i++){

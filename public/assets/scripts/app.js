@@ -18,11 +18,14 @@ function getLatestElements(){
                 data: {
                     offset: 0,
                     lenght: limit,
-                    start: date.toLocaleDateString().replace('/', '-').replace('/', '-'),
-                    end: date.toLocaleDateString().replace('/', '-').replace('/', '-')
+                    start: dateToDbFormat(date),
+                    end: dateToDbFormat(date)
                 },
                 success: function(response){
                     createEventsCard($content, response);
+                },
+                error: function(){
+                    initNoEvents();
                 }       
             });
         } else {
@@ -57,11 +60,9 @@ function createPerformersCard($content, json){
     }
 }
 
-function createEventsCard($content, json){
+function createEventsCard($content, json){    
     if(json === undefined || json.length === 0){
-        $('.no-events-today').removeClass('hidden');
-        $('.no-events-today').parent().removeClass('hidden');
-        $('.js-today-elements .arrow-col').addClass('hidden');
+        initNoEvents();
     }
 
     for(var i = 0; i < json.length; i++){
@@ -75,4 +76,10 @@ function createEventsCard($content, json){
         html = html.replace('{alt}', json[i].name);
         $(html).insertBefore($content.find('.arrow-col'));
     }
+}
+
+function initNoEvents(){
+    $('.no-events-today').removeClass('hidden');
+    $('.no-events-today').parent().removeClass('hidden');
+    $('.js-today-elements .arrow-col').addClass('hidden');
 }

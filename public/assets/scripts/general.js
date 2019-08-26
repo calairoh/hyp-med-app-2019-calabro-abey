@@ -37,3 +37,9 @@ function logout(){
         });
     }); 
 }
+
+function dateToDbFormat(d){
+    var date = new Date(d);
+
+    return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+}
