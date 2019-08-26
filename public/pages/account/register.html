@@ -4,21 +4,27 @@
         <link type="text/css" rel="stylesheet" href="/assets/style/login.css">
     </head>
     <body class="text-center">
+        
+        <div class="messages hidden">
+            <div class="message error"> 
+            </div>
+        </div>
+
         <form class="form-signup" data-action="/v1/user">
             <h1 class="form-title font-weight-normal">Please Sign Up</h1>
             <div class="form-group">
-                <input type="text" id="txtUsername" name="username" class="form-control" placeholder="Username" required />
-                <input type="mail" id="txtMail" name="email" class="form-control" placeholder="Email" required />         
-                <input type="password" id="txtPassword1" name="password1" class="form-control" placeholder="Password..." required />
-                <input type="password" id="txtPassword2" name="password2" class="form-control" placeholder="Retype the password..." required >
+                <input type="text" data-name="username" id="txtUsername" name="username" class="form-control required" placeholder="Username" />
+                <input type="mail" data-name="email" id="txtMail" name="email" class="form-control required mail" placeholder="Email" />         
+                <input type="password" data-name="password" id="txtPassword1" name="password1" class="form-control required equals password" placeholder="Password..." />
+                <input type="password" data-name="confirm-password" id="txtPassword2" name="password2" class="form-control required equals password" placeholder="Retype the password..." >
             </div>
             <div class="form-group">
-                <input type="text" id="txtName" name="name" class="form-control" placeholder="Name" required />
-                <input type="text" id="txtSurname" name="email" class="form-control" placeholder="Surname" required />            
-                <input type="text" id="txtAddress" name="address" class="form-control" placeholder="Address" />
-                <input type="text" id="txtCity" name="city" class="form-control" placeholder="City" />
-                <input type="text" id="txtPostalCode" name="postalCode" class="form-control" placeholder="Postal code" />
-                <input type="text" id="txtCountry" name="country" class="form-control" placeholder="Country" />
+                <input type="text" data-name="name" id="txtName" name="name" class="form-control required " placeholder="Name" />
+                <input type="text" data-name="surname" id="txtSurname" name="email" class="form-control required" placeholder="Surname" />            
+                <input type="text" data-name="address" id="txtAddress" name="address" class="form-control required" placeholder="Address" />
+                <input type="text" data-name="city" id="txtCity" name="city" class="form-control required" placeholder="City" />
+                <input type="text" data-name="postal code" id="txtPostalCode" name="postalCode" class="form-control required postalCode" placeholder="Postal code" />
+                <input type="text" data-name="country" id="txtCountry" name="country" class="form-control required" placeholder="Country" />
             </div>
             <div class="form-group">
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>            
