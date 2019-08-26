@@ -56,6 +56,7 @@ function createPerformersCard($content, json){
         html = html.replace('{id}', json[i].id);
         html = html.replace('{imageSrc}', json[i].photo);
         html = html.replace('{alt}', json[i].name + ' '+ json[i].surname);
+        html = html.replace('{href}', '/performers/performer/' + json[i].id);
         $(html).insertBefore($content.find('.arrow-col'));
     }
 }
@@ -74,6 +75,7 @@ function createEventsCard($content, json){
         html = html.replace('{id}', json[i].id);
         html = html.replace('{imageSrc}', json[i].image);
         html = html.replace('{alt}', json[i].name);
+        html = html.replace('{href}', '/events/event/' + json[i].id);
         $(html).insertBefore($content.find('.arrow-col'));
     }
 }

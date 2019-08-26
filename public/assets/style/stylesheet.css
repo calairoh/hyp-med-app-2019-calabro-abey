@@ -454,3 +454,19 @@
     font-weight: 650;
     font-variant-caps: small-caps;
 }
+
+@media only screen and (max-width: 667px){
+    .results{
+        margin-top: 30px;
+    }
+
+    .info-title{
+        margin: auto;
+        width: 100%;
+        text-align: center;
+    }
+
+    .block-row{
+        display: inline;
+    }
+}
