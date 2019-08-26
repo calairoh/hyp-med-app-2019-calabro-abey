@@ -11,24 +11,29 @@ function initListing(){
             var date = new Date();
             var strDate = dateToDbFormat(date);
             getElements('/v1/event/findBydate', 'event', strDate);
+            setupBreadCrumb("Events");
             break;
         }
         case "events":{
             initEventsListing();
             initFilterCheckbox();
             $('.filter-checkbox').change();
+            setupBreadCrumb("Events");
             break;            
         }
         case "seminars":{
             getElements('/v1/seminars', 'seminar');
+            setupBreadCrumb("Seminars");
             break;
         }
         case "types":{
             getElements('/v1/event/getTypes', 'type');
+            setupBreadCrumb("Types");
             break;
         }
         case "performers":{
             getElements('/v1/performers', 'performer');
+            setupBreadCrumb("Performers");
             break;
         }
         default:
@@ -269,4 +274,8 @@ function getApiRequestFromFilters($filters){
             })
             .get()
             .join();
+}
+
+function setupBreadCrumb(type){
+    $('.breadcrumb-item.active').html(type);
 }

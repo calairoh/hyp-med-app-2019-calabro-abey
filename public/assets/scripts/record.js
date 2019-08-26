@@ -11,10 +11,6 @@ $(document).ready(function(){
     
 });
 
-function initCurrentNotFounds(){
-
-}
-
 function initRelatedNotFounds(){
     $('.related-records').addClass('hidden');
 }
@@ -201,6 +197,8 @@ function presentEvents(json, type){
         }
 
         $('.current-presentation').append(presentation);
+
+        setupBreadCrumb(json.name);
     }
 }
 
@@ -216,6 +214,8 @@ function presentSeminar(json, type, offset, limit){
         presentation = presentation.replace('{end}', json.end);
 
         $('.current-presentation').append(presentation);
+
+        setupBreadCrumb(json.name);
     } else if(type == "performer"){
         var max = min(json.length, offset + limit);
         for(var i = offset; i < max; i++){
@@ -240,6 +240,8 @@ function presentPerformers(json, type, offset, limit){
         presentation = presentation.replace('{description}', json.bio);
 
         $('.current-presentation').append(presentation);
+
+        setupBreadCrumb(json.name + ' ' + json.surname)
     } else if(type == "event"){
         var max = min(json.length, offset + limit);
         for(var i = offset; i < max; i++){
@@ -259,4 +261,28 @@ function min(num1, num2){
     if(num1 <= num2)
         return num1;
     return num2;
+}
+
+function setupBreadCrumb(name){
+    $('.breadcrumb-item.active').html(name);
+
+    var previousUrl = document.referrer;
+
+    if(previousUrl.includes('events')){
+        $('.breadcrumb-item.hidden > a').prop('href', previousUrl);
+        $('.breadcrumb-item.hidden > a').html('Events');
+        $('.breadcrumb-item.hidden').removeClass('hidden');
+    } else if(previousUrl.includes('performers')){
+        $('.breadcrumb-item.hidden > a').prop('href', previousUrl);
+        $('.breadcrumb-item.hidden > a').html('Performers');
+        $('.breadcrumb-item.hidden').removeClass('hidden');
+    } else if(previousUrl.includes('seminars')){
+        $('.breadcrumb-item.hidden > a').prop('href', previousUrl);
+        $('.breadcrumb-item.hidden > a').html('Seminars');
+        $('.breadcrumb-item.hidden').removeClass('hidden');
+    } else if(previousUrl.includes('calendar')){
+        $('.breadcrumb-item.hidden > a').prop('href', previousUrl);
+        $('.breadcrumb-item.hidden > a').html('Calendar');
+        $('.breadcrumb-item.hidden').removeClass('hidden');
+    } 
 }

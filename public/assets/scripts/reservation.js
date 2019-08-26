@@ -63,6 +63,9 @@ function initReservationPageEvent(json){
     $('.summary-event-type').html(json.type);
     $('.summary-event-seminar').html(json.seminarName);
 
+    $('breadcrumb-item.hidden > a').prop('href', '/events/event/' + json.id);
+    $('breadcrumb-item.hidden').removeClass('hidden');
+
     $.ajax({
         url: "/v1/performer/findByEvent",
         method: 'GET',
