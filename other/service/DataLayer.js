@@ -16,7 +16,7 @@ var sqlDb = sqlDbFactory({
     password: 'standard',
     database: 'library'
   },*/
-  ssl: true,
+  ssl: true, 
   debug: true
 });
 
