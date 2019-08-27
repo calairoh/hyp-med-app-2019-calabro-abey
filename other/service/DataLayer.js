@@ -17,7 +17,7 @@ var sqlDb = sqlDbFactory({
     database: 'library'
   },*/
   ssl: true, 
-  debug: true
+  debug: true 
 });
 
 async function strongEntitiesSetup(){
