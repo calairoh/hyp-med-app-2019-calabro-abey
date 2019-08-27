@@ -8,52 +8,42 @@
     </head>
     <body>
         <div class="row">
-            <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
-                <a class="navbar-brand" href="/">
-                Festival
-                </a>
-                <button class="navbar-toggler" aria-expanded="false" aria-controls="navbarCollapse" aria-label="Toggle navigation" type="button" data-toggle="collapse" data-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
-                    </li>
-                    <li class="nav-item seminars-nav">
-                        <a class="nav-link" href="/seminars">Seminars</a>
-                    </li>
-                    <li class="nav-item events-nav">
-                        <a class="nav-link" href="/events">Events
-                            <span class="sr-only">
-                            (current)
-                            </span>
+                <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+                        <a class="navbar-brand" href="/" title="Home">
+                          Festival
                         </a>
-                    </li>
-                    <li class="nav-item performers-nav">
-                        <a class="nav-link" href="/performers">Performers</a>
-                    </li>
-                    <li class="nav-item about-us-nav">
-                        <a class="nav-link" href="/contact-us">Contact us</a>
-                    </li>
-                </ul>
-    
-                <ul class="navbar-nav mr-right">
-                        <li class="nav-item nav-no-logged hidden">
-                          <a class="nav-link" href="/account/login">Login</a>
-                        </li>
-                        <li class="nav-item nav-logged hidden">
-                          <div class="dropdown">
-                            <a class="nav-link nav-link-name dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">                  
-                              <a class="dropdown-item" href="/account/reservations">Booking list</a>
-                              <a class="dropdown-item btn-logout">Logout</a>
-                            </div>
-                          </div>
-                        </li>
-                    </ul>
-            </nav>
+                        <button class="navbar-toggler" aria-expanded="false" aria-controls="navbarCollapse" aria-label="Toggle navigation" type="button" data-toggle="collapse" data-target="#navbarCollapse">
+                          <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarCollapse">
+                          
+                        <ul class="navbar-nav mr-auto">
+                          <li class="nav-item seminars-nav">
+                            <a class="nav-link" href="/seminars" title="Go to seminar list">Seminars</a>
+                          </li>
+                          <li class="nav-item events-nav">
+                            <a class="nav-link" href="/events" title="Go to event list">Events</a>
+                          </li>
+                          <li class="nav-item performers-nav">
+                            <a class="nav-link" href="/performers" title="Go to perfomer list">Performers</a>
+                          </li>
+                        </ul>
+                
+                        <ul class="navbar-nav mr-right">
+                            <li class="nav-item nav-no-logged hidden">
+                              <a class="nav-link" href="/account/login">Login</a>
+                            </li>
+                            <li class="nav-item nav-logged hidden">
+                              <div class="dropdown">
+                                <a class="nav-link nav-link-name dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">                  
+                                  <a class="dropdown-item" href="/account/reservations">Booking list</a>
+                                  <a class="dropdown-item btn-logout">Logout</a>
+                                </div>
+                              </div>
+                            </li>
+                        </ul>
+                </nav>
         </div>
             
         <div class="row results">        
@@ -73,7 +63,23 @@
                         </div>
                         </article>
                     </div>
-                </div>                                 
+                </div>
+                
+                <div class="row">
+                    <div class="card">
+                        <article class="card-group-item">
+                        <header class="card-header">
+                            <h6 class="title">Info</h6>
+                        </header>
+                        <div class="filter-content">
+                            <ul class="links">
+                                <li><a href="/contact-us">Contact Us</a></li>
+                                <li><a href="/info/reservation">Reservation info</a></li>
+                            </ul>
+                        </div>
+                        </article>
+                    </div>
+                </div>
             </div>
             <div class="col-md-9">
                 <div class="nav-info">

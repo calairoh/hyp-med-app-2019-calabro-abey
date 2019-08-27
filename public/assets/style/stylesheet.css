@@ -359,6 +359,10 @@
     font-weight: 400;
 }
 
+.reservation-info{
+    padding: 0 10px;
+}
+
 .contact-form{
     text-align: center;
     padding: 20px;
