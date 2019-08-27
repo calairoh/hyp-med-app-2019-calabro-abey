@@ -102,8 +102,12 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
     res.sendFile(path.join(__dirname + '/public/pages/account/reservations.html'));
   }); 
 
-  app.use('/about-us', function(req, res, next){
-    res.sendFile(path.join(__dirname + '/public/pages/singles/about-us.html'));
+  app.use('/contact-us', function(req, res, next){
+    res.sendFile(path.join(__dirname + '/public/pages/singles/contact-us.html'));
+  });
+
+  app.use('/info/reservation', function(req, res, next){
+    res.sendFile(path.join(__dirname + '/public/pages/singles/reservation-info.html'));
   });
 
   app.use('/notfound', function(req, res, next){

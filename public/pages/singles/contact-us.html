@@ -5,7 +5,7 @@
       <link type="text/css" rel="stylesheet" href="/assets/style/stylesheet.css">
       
       <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-      <title>Festival - About us</title>
+      <title>Festival - Contact us</title>
     </head>
     <body>
       <div class="row">
@@ -32,7 +32,7 @@
                 <a class="nav-link" href="/performers">Performers</a>
             </li>
             <li class="nav-item about-us-nav">
-                <a class="nav-link active" href="/about-us">About us</a>
+                <a class="nav-link active" href="/contact-us">Contact us</a>
                 
                 <span class="sr-only">
                   (current)
@@ -82,51 +82,26 @@
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb bg-light">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">About us</li>
+                <li class="breadcrumb-item active" aria-current="page">Contact us</li>
               </ol>
             </nav>
           </div>
-          <div class="row about-us-row">
-                <div class="block-row">
-                    <div class="block-img">
-                        <img src="https://via.placeholder.com/250" width="250px" height="250px" alt="Who we are"/>
-                    </div>
-                    <div class="block-text">
-                        <a class="block-title">Title</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore 
-                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
-                        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse 
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in 
-                        culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-                </div>
-                <div class="block-row">
-                    <div class="block-text">
-                        <a class="block-title">Title</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore 
-                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
-                        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse 
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in 
-                        culpa qui officia deserunt mollit anim id est laborum.</p>
-                        </div>                
-                        <div class="block-img">
-                          <img src="https://via.placeholder.com/250" width="250px" height="250px" alt="Where we are"/>
-                        </div>
-                </div>
-                <div class="block-row">
-                    <div class="block-img">
-                            <img src="https://via.placeholder.com/250" width="250px" height="250px" alt="Buy with us"/>
-                    </div>
-                    <div class="block-text">
-                        <a class="block-title">Title</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore 
-                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
-                        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse 
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in 
-                        culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-                </div>                
-            </div>
+          <div class="row contact-us">
+            <span class="title block-title">Contact us</span>
+            <span class="subtitle">If have any dubt, please fill the following form and our team will
+              contact you as soon as possible </span>
+            <form action="/contact-us?sent=1" class="contact-form">
+              <input type="text" class="form-control required" placeholder="Name" />
+              <input type="email" class="form-control required mail" placeholder="Email" />
+              <input type="text" class="form-control required" placeholder="Subject" />
+              <textarea rows="5" class="form-control required" placeholder="Name"></textarea>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="ck-privacy">
+                <label class="form-check-label privacy" for="ck-privacy">I agree to the processing of my personal data</label>
+              </div>              
+              <input type="submit" class="btn btn-primary" value="Send" />
+            </form>
+          </div>
         </div>
       </div>
     </body>

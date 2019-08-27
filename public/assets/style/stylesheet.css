@@ -315,8 +315,58 @@
     font-variant-caps: small-caps;
 }
 
-.about-us-row{
-    padding: 0 20px;
+.contact-us, .reservation-info{
+    margin: auto;
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+.title{
+    width: 100%;
+    margin: auto;
+    text-align: center;
+}
+
+.contact-form input:not([type='checkbox']), .contact-form textarea, .contact-form .checkbox-input{
+    margin: 5px auto;
+    width: 80%;
+}
+
+.contact-form input[type=submit]{
+    margin-top: 10px !important;
+}
+
+.contact-us > .subtitle{
+    width: 100%;
+    text-align: center;
+    color: #555;
+    padding: 10px;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.contact-form .privacy{
+    text-align: center;
+    color: #555;
+    font-size: 0.75rem;
+    font-weight: 400;
+}
+
+.reservation-info .par{
+    width: 100%;
+    color: #555;
+    padding: 10px;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.contact-form{
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+}
+
+.form-check{
+    margin: 15px auto;
 }
 
 .month-container{
