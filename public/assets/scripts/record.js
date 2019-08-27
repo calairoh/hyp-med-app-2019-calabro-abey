@@ -138,14 +138,16 @@ function setUpPaging(total, limit){
 
     $('.pagination').html(' ');
 
-    for(var i = 0; i < pages; i++){
-        var html = $('.generic-page-number').html();
+    if(pages > 1){
+        for(var i = 0; i < pages; i++){
+            var html = $('.generic-page-number').html();
 
-        html = html.replace('{value}', i);
-        html = html.replace('{page}', i + 1);
-        html = html.replace('{active}', (i == page) ? 'active' : '');
+            html = html.replace('{value}', i);
+            html = html.replace('{page}', i + 1);
+            html = html.replace('{active}', (i == page) ? 'active' : '');
 
-        $('.pagination').append(html);
+            $('.pagination').append(html);
+        }
     }
 }
 
@@ -175,6 +177,8 @@ function presentEvents(json, type){
             $('.related-records .card-container .listing-result').append(presentation);
         }
     } else if(type == "event"){
+        initOnThisDayEvents(json.date, json.id);
+
         var presentation = $('.generic-record').html();
 
         var date = new Date(json.date);
@@ -200,6 +204,40 @@ function presentEvents(json, type){
 
         setupBreadCrumb(json.name);
     }
+}
+
+function initOnThisDayEvents(d, id){
+    var date = new Date(d);
+    var strDate = dateToDbFormat(date);
+
+    $.ajax({
+        url: '/v1/event/findByDate',
+        method: 'GET',
+        data:{
+            start: strDate,
+            end: strDate
+        },
+        success: function(json){
+            for(var i = 0; i < json.length; i++){
+                if(json[i].id != id){
+                    var presentation = $('.generic-event').html();
+        
+                    presentation = presentation.replace('{imageSrc}', json[i].image);
+                    presentation = presentation.replace('{name}', json[i].name);
+                    presentation = presentation.replace('{alt}', json[i].name);
+                    presentation = presentation.replace('{href}', "/events/event/" + json[i].id);
+        
+                    $('.on-this-day .card-container .listing-result').append(presentation);
+                }
+            }
+
+            if(json.length === 0){
+                $('.on-this-day .messages').removeClass('hidden');                
+            }
+        }, error: function(){
+            $('.on-this-day .messages').removeClass('hidden'); 
+        }
+    })
 }
 
 function presentSeminar(json, type, offset, limit){
