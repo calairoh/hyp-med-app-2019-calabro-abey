@@ -116,6 +116,9 @@
     min-height: 180px;
     object-fit: scale-down;
 }
+.card{
+    min-height: 300px;
+}
 
 .links{
     padding-top: 15px;
