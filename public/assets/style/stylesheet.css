@@ -116,7 +116,7 @@
     min-height: 180px;
     object-fit: scale-down;
 }
-.card{
+.card-listing-item, .related-record-card{
     min-height: 300px;
 }
 
