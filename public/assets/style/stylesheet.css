@@ -112,6 +112,11 @@
     padding: 5%;
 }
 
+.card-img-top{
+    min-height: 180px;
+    object-fit: scale-down;
+}
+
 .links{
     padding-top: 15px;
 }

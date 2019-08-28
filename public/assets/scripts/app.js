@@ -51,7 +51,7 @@ function createPerformersCard($content, json){
         var html = $('.generic-card').html();
 
         html = html.replace('{Title}', json[i].name + ' '+ json[i].surname);
-        html = html.replace('{Description}', json[i].bio);
+        //html = html.replace('{Description}', json[i].bio);
         html = html.replace('{type}', 'performer');
         html = html.replace('{id}', json[i].id);
         html = html.replace('{imageSrc}', json[i].photo);
@@ -70,7 +70,7 @@ function createEventsCard($content, json){
         var html = $('.generic-card').html();
 
         html = html.replace('{Title}', json[i].name);
-        html = html.replace('{Description}', json[i].description);
+        //html = html.replace('{Description}', json[i].description);
         html = html.replace('{type}', 'event');
         html = html.replace('{id}', json[i].id);
         html = html.replace('{imageSrc}', json[i].image);
