@@ -117,7 +117,7 @@
     object-fit: scale-down;
 }
 .card-listing-item, .related-record-card{
-    min-height: 300px;
+    height: 300px;
 }
 
 .links{
