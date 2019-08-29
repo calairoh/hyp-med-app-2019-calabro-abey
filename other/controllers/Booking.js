@@ -13,20 +13,26 @@ module.exports.findByUser = function findByUser (req, res, next) {
       utils.writeJson(res, response);
     });
   } else {
-    var msg = { msg: "no logged" }
+    var msg = { code: 500, msg: "no logged" }
     utils.writeJson(res, msg);
   }
-  
 };
 
 module.exports.add = function add (req, res, next) {
   var ID = req.swagger.params['ID'].value;
 
-  Booking.add(req.session.userId, ID)
+  if(req.session.loggedin === true){
+    Booking.add(req.session.userId, ID)
     .then(function (response) {
       utils.writeJson(res, response);
     })
     .catch(function (response) {
       utils.writeJson(res, response);
     });
+  } else {
+    var msg = { code: 500, msg: "no logged" }
+    utils.writeJson(res, msg);
+  }
+
+  
 };
