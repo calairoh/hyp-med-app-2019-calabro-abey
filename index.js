@@ -117,11 +117,7 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
 
   app.use('/notfound', function(req, res, next){
     res.sendFile(path.join(__dirname + '/public/pages/errors/404.html'));
-  });
-
-  app.use('/backend', function(req, res, next){
-    res.sendFile(path.join(__dirname + '/public/pages/backend/main.html'));
-  });
+  });  
 
   app.use('/backend/spec.yaml', function(req, res, next){
     res.sendFile(path.join(__dirname + '/other/api/swagger/spec.yaml'));
@@ -129,6 +125,10 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
 
   app.use('/backend/app.zip', function(req, res, next){
     res.sendFile(path.join(__dirname + '/public/assets/downloads/app.zip'));
+  });
+
+  app.use('/backend/*', function(req, res, next){
+    res.sendFile(path.join(__dirname + '/public/pages/backend/main.html'));
   });
 
   app.use('*', function(req, res, next){
