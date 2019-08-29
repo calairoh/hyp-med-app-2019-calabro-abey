@@ -47,17 +47,6 @@ module.exports.deleteUser = function deleteUser (req, res, next) {
     });
 };
 
-module.exports.getUserByName = function getUserByName (req, res, next) {
-  var username = req.swagger.params['username'].value;
-  User.getUserByName(username)
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
-
 module.exports.getUserLoggedInfo = function getUserLoggedInfo(req, res, next){
   if(req.session.loggedin === true){
     User.getUserByName(req.session.username)
@@ -115,28 +104,10 @@ module.exports.logoutUser = function logoutUser (req, res, next) {
   req.session.username = undefined;
 
   var msg = {
+    code: 200,
     msg: "Logout executed"
   };
 
   utils.writeJson(res, msg);
-
-  /*User.logoutUser()
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });*/
 };
 
-module.exports.updateUser = function updateUser (req, res, next) {
-  var username = req.swagger.params['username'].value;
-  var body = req.swagger.params['body'].value;
-  User.updateUser(username,body)
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
