@@ -25,9 +25,14 @@ var options = {
   useStubs: process.env.NODE_ENV === 'development' // Conditionally turn on stubs (mock mode)
 };
 
+var uiOptions = {
+  swaggerUi: '/backend/swaggerui'
+}
+
 // The Swagger document (require it, build it programmatically, fetch it from a URL, ...)
-var spec = fs.readFileSync(path.join(__dirname,'other/api/swagger/swagger.yaml'), 'utf8');
+var spec = fs.readFileSync(path.join(__dirname,'other/api/swagger/spec.yaml'), 'utf8');
 var swaggerDoc = jsyaml.safeLoad(spec);
+
 
 // Cookie
 app.use(cookieParser());
@@ -46,7 +51,7 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
   app.use(middleware.swaggerRouter(options));
 
   // Serve the Swagger documents and Swagger UI
-  app.use(middleware.swaggerUi());
+  app.use(middleware.swaggerUi(uiOptions));
 
   app.use(serveStatic(__dirname + "/public"));
 
@@ -112,6 +117,18 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
 
   app.use('/notfound', function(req, res, next){
     res.sendFile(path.join(__dirname + '/public/pages/errors/404.html'));
+  });  
+
+  app.use('/backend/spec.yaml', function(req, res, next){
+    res.sendFile(path.join(__dirname + '/other/api/swagger/spec.yaml'));
+  });
+
+  app.use('/backend/app.zip', function(req, res, next){
+    res.sendFile(path.join(__dirname + '/public/assets/downloads/app.zip'));
+  });
+
+  app.use('/backend/*', function(req, res, next){
+    res.sendFile(path.join(__dirname + '/public/pages/backend/main.html'));
   });
 
   app.use('*', function(req, res, next){

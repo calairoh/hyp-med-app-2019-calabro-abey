@@ -1,0 +1,147 @@
+<h1 class="code-line" data-line-start=0 data-line-end=1 ><a id="Documentation_of_the_Backend_part_0"></a>Documentation of the Backend part</h1>
+<blockquote>
+<p class="has-line-data" data-line-start="1" data-line-end="2">Deliverable D1</p>
+</blockquote>
+<h2 class="code-line" data-line-start=2 data-line-end=3 ><a id="General_group_information_2"></a>General group information</h2>
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<th>Member n.</th>
+<th>Role</th>
+<th>First name</th>
+<th>Last Name</th>
+<th>Matricola</th>
+<th>Email address</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>administrator</td>
+<td>Davide</td>
+<td>Calabrò</td>
+<td>866882</td>
+<td><a href="mailto:davide.calabro@mail.polimi.it">davide.calabro@mail.polimi.it</a></td>
+</tr>
+<tr>
+<td>2</td>
+<td>member</td>
+<td>Jitendra</td>
+<td>Abey Gunawardena</td>
+<td>866524</td>
+<td><a href="mailto:jitendra.abey@mail.polimi.it">jitendra.abey@mail.polimi.it</a></td>
+</tr>
+</tbody>
+</table>
+<h2 class="code-line" data-line-start=8 data-line-end=9 ><a id="Links_to_other_deliverables_8"></a>Links to other deliverables</h2>
+<ul>
+<li class="has-line-data" data-line-start="9" data-line-end="11">Deliverable D0: the web application is accessible at <a href="https://hyp-project-calabro-abey.herokuapp.com/">this<br>
+address</a>.</li>
+<li class="has-line-data" data-line-start="11" data-line-end="14">Deliverable D2: the YAML or JSON file containing the specification<br>
+of the app API can be found at <a href="https://hyp-project-calabro-abey.herokuapp.com/backend/spec.yaml">this<br>
+address</a>.</li>
+<li class="has-line-data" data-line-start="14" data-line-end="16">Deliverable D3: the SwaggerUI page of the same API is available at<br>
+<a href="https://hyp-project-calabro-abey.herokuapp.com/backend/swaggerui">this address</a>.</li>
+<li class="has-line-data" data-line-start="16" data-line-end="18">Deliverable D4: the source code of D0 is available as a zip file at<br>
+<a href="https://hyp-project-calabro-abey.herokuapp.com/backend/app.zip">this address</a>.</li>
+<li class="has-line-data" data-line-start="18" data-line-end="23">Deliverable D5: the address of the online source control repository<br>
+is available <a href="https://github.com/calairoh/hyp-med-app-2019-calabro-abey">this address</a>. We hereby<br>
+declare that this is a private repository and, upon request, we will<br>
+give access to the instructors.</li>
+</ul>
+<h3 class="code-line" data-line-start=23 data-line-end=24 ><a id="Introduction_23"></a>Introduction</h3>
+<p class="has-line-data" data-line-start="24" data-line-end="27">Before starting with backend documentation, we decided to make a little introduction to explain why we take some decisions in the web application develop.<br>
+In particular, we start to say that one of the component of our team, Davide Calabrò, is a worker-student and he works as Back-End Web Developer, basically in .NET enviroment. That’s why, as you will can see in the document, we used some methodologies and approchies which were not explained in the lectures.<br>
+Moreover, we want to highlight that we focused on create a light and very consistent web app. We didn’t use time to create a lot of attributes to the entities - <em>for example, Performer entity has an ID, Name, Surname, Bio, Photo and no more</em>  or a develop a lot of unrequested features, because we wanted to create an application that works in every scenario, making a good usability in case of error, like our <em>page 404</em>, and having a well studied layout and design.</p>
+<h2 class="code-line" data-line-start=28 data-line-end=29 ><a id="Specification_28"></a>Specification</h2>
+<h3 class="code-line" data-line-start=29 data-line-end=30 ><a id="Web_Architecture_29"></a>Web Architecture</h3>
+<p class="has-line-data" data-line-start="30" data-line-end="31">In the design phase, we decided to create a very simple and modular structure. As you can see from the image above, the structure is composed by 3 parts:</p>
+<ul>
+<li class="has-line-data" data-line-start="31" data-line-end="32">The Data Layer: it’s responsable of manage the database behind the web app. That layer is entirely in the API side and no one method outside this part accesses the DB.</li>
+<li class="has-line-data" data-line-start="32" data-line-end="33">The Application Layer: it’s responsable of manage all the non-API requests of the application, manage the sessions info and respond with the HTML pages.</li>
+<li class="has-line-data" data-line-start="33" data-line-end="35">The Presentation Layer: it’s responsable of draw the right contents into the pages. This part is mainly client-side, in the sense that to avoid the server-side render, we used a simple technique that fills the content of the page by calling the API from the JS, with AJAX.</li>
+</ul>
+<p class="has-line-data" data-line-start="35" data-line-end="37">For explain better why our application doesn’t use server side rendering, we use a simple example.<br>
+When an event page is called, the Application Layer responds with a static HTML page, which means that the page contains all the static component (all hidden for the moment) that can be needed. Once the page is loaded, the JS file start to fill the page calling the API via AJAX and draw the result into the static HTML components and then make them visible.</p>
+<h3 class="code-line" data-line-start=38 data-line-end=39 ><a id="API_38"></a>API</h3>
+<h4 class="code-line" data-line-start=39 data-line-end=40 ><a id="REST_compliance_39"></a>REST compliance</h4>
+<p class="has-line-data" data-line-start="40" data-line-end="43">In the API design we decided, once again, to make a very simple structure. The main concept is to have few requests type and combine them to have more complex requests.<br>
+All the API methods are usefull, we created only the requests we needed.<br>
+A simple example is the listing page of the event. We decided to have a “continuing filtering”, so we can dynamically choose a subset of types, simply check or uncheck the filters in the page. The request is always the same, and this is done for every type checked. When all the requests are completed, the AJAX caller takes all the results and combine them to have finally the subset of events.</p>
+<h4 class="code-line" data-line-start=44 data-line-end=45 ><a id="API_Error_management_44"></a>API Error management</h4>
+<p class="has-line-data" data-line-start="45" data-line-end="49">Initially, we started to develop a large quantity of message and codes in order to better manage the errors generated when, for example, an ID doesn’t exist. Anyway, quickly we noticed that weren’t the smartest solution, because the mainteinance was starting to be tricky.<br>
+For that reason we simply decide to not respond with a specific error, but in most cases with null response or, when needed, a specific message response model, in order to write a message with the error, but always with an <em>HTTP 200</em> code response, and then manage all these cases in the <em>AJAX success</em> function.<br>
+We know that probably this solution to reduce error management complexity doesn’t sound good, but we simply assessed that it was uselessly tricky considering our goals.<br>
+Moreover, with this approach we can easily divide infrastructure problem and API problems. The first will catch by the <em>error</em> side of the <em>AJAX</em> request, meanwhile the second will catch from the <em>success</em> side and then, based on the response content, understand if the result is valid or not.</p>
+<h4 class="code-line" data-line-start=50 data-line-end=51 ><a id="OpenAPI_Resource_models_50"></a>OpenAPI Resource models</h4>
+<p class="has-line-data" data-line-start="51" data-line-end="55">In the resource models we created basically the entities we have in ER diagram. We have, for sure, the models of the strong entities, so we have <em>event, seminar, performer</em> and <em>user</em>.<br>
+We have then the <em>booking</em> model that is responsable to represent the relation between the user and the event they’ve reserved.<br>
+We have finally a support model, the <em>ResponseModel</em> that is responsable to represent the result of the request, such as the response code and the response message. Basically this model is used only in case of unhadler error or <em>POST</em> request, like create user.<br>
+In order to better fit with the frontend we created some models extentions, such as <em>EventPerformer, EventSeminar, PerformerEventSeminar</em>, which contain also information about linked entities.</p>
+<h3 class="code-line" data-line-start=56 data-line-end=57 ><a id="Data_model_56"></a>Data model</h3>
+<p class="has-line-data" data-line-start="57" data-line-end="60">Mainly the data model in API maps the ER diagram, and so the tables in DB. This is particulary true for the strong entities, like <em>event, seminar, performer</em> and <em>user</em>. In those models, basically, we don’t have particular differences, apart for the add of one or two support columns, which are usefull to avoid useless requests. For example we created a support <em>EventSeminar</em> model that contains also the column <em>SeminarName</em> to avoid do another request to retrieve the name of the linked seminar, if exists.<br>
+In the same way we created the entities <em>EventPerformer</em> and <em>PerformerEventSeminar</em>, with some column added for have a respond that better fit the use we will do after the API response.<br>
+For the <em>booking</em> model the map with the <em>booking</em> table is identical.</p>
+<h2 class="code-line" data-line-start=61 data-line-end=62 ><a id="Implementation_61"></a>Implementation</h2>
+<h3 class="code-line" data-line-start=62 data-line-end=63 ><a id="Tools_used_62"></a>Tools used</h3>
+<p class="has-line-data" data-line-start="63" data-line-end="66">Basically we used the tools suggest us from the teachers in the lectures. The main programming language is, obviously, <em>JavaScript</em>. As you can read in the previous sections, we used a lot the <em>AJAX calls</em> in order to get content for the pages, and also we largely used <em>JQuery</em> as plugin to draw and manages HTML components.<br>
+For the database part we used <em>pgAdmin</em> as query tool and, obviously, <em>SQL</em> language for the queries.<br>
+For the rest we haven’t used any other tools or languages.</p>
+<h3 class="code-line" data-line-start=67 data-line-end=68 ><a id="Discussion_67"></a>Discussion</h3>
+<h4 class="code-line" data-line-start=69 data-line-end=70 ><a id="WebApp_adherence_to_OpenAPI_specification_and_tests_69"></a>WebApp adherence to OpenAPI specification and tests</h4>
+<p class="has-line-data" data-line-start="70" data-line-end="71">In order to having a develop driven by the API, we started to design and develop first the OpenAPI and DB part. Before starting develop the API implementation and frontend part, we test all the OpenAPI specs contained in the <em>spec.yaml</em> and check if we had all the requests we needed. After that, we implemented all the backend methods and DB needed in the API part. We test it manually, but having a specific set of cases to submit to the OpenAPI methods. We are sure that the app adheres to the provided OpenAPI specification because this one has been developed after all the API part, so the development was driven by the API specs. After that, obviously, we test the adherence to OpenAPI specification once again, but this time from the all methods which call the API (from <em>AJAX</em>)</p>
+<h4 class="code-line" data-line-start=72 data-line-end=73 ><a id="WebApp_adherence_to_common_practices_to_partition_a_RESTbased_web_application_72"></a>WebApp adherence to common practices to partition a REST-based web application</h4>
+<p class="has-line-data" data-line-start="73" data-line-end="74">We are sure that our app adheres to common practices to partition a REST-based web application because in the static assets the application data part is parameterized with placeholder, and only on client-side the page is completed, as you can read in the previous section, with the <em>AJAX</em> calls.</p>
+<h4 class="code-line" data-line-start=75 data-line-end=76 ><a id="Session_state_75"></a>Session state</h4>
+<p class="has-line-data" data-line-start="76" data-line-end="79">Let’s start by saying that the sessions are managed only in the <em>User</em> controller. All the user info, such us login status, are managed via API. There is mainly one method, that is <em>/user/logged</em>, that returns the info about the current logged user, if exists, or a specific message if there isn’t a logged user.<br>
+Basically, every page that need to know the user status will call this method to retrieve user info, or only to know if someone is logged.<br>
+After that, there are other controls on the session object in some methods, specially in <em>booking</em> part in order to avoid anonymously reservation or other illegal operations.</p>
+<h4 class="code-line" data-line-start=80 data-line-end=81 ><a id="Data_model_management_80"></a>Data model management</h4>
+<p class="has-line-data" data-line-start="81" data-line-end="82">For the data model management we have chosen to use a relational database. In particular we used the one suggested in the lecture, that is <em>PostGRE SQL</em>. As you can read in previous sections we use <em>pgAdmin</em> as management tool.</p>
+<h2 class="code-line" data-line-start=83 data-line-end=84 ><a id="Other_information_83"></a>Other information</h2>
+<h3 class="code-line" data-line-start=84 data-line-end=85 ><a id="Task_assignment_84"></a>Task assignment</h3>
+<p class="has-line-data" data-line-start="85" data-line-end="87">As we said in the introduction, we decided to split the three main part of the develop. Davide mainly carred about the programming part, specially the backend part, meanwhile Jitendra carred about the design and the usability part for our web app, but also looking the usability report part.<br>
+In particular, we can divide our work in these parts and percentages:</p>
+<blockquote>
+<p class="has-line-data" data-line-start="87" data-line-end="88">Davide worked on:</p>
+</blockquote>
+<ul>
+<li class="has-line-data" data-line-start="88" data-line-end="89">back end implementation (100%)</li>
+<li class="has-line-data" data-line-start="89" data-line-end="90">back end design (50%)</li>
+<li class="has-line-data" data-line-start="90" data-line-end="91">front end implementation (50%)</li>
+<li class="has-line-data" data-line-start="91" data-line-end="92">front end design (mockup, IDM diagrams, etc.) (30%)</li>
+<li class="has-line-data" data-line-start="92" data-line-end="93">database design (50%)</li>
+<li class="has-line-data" data-line-start="93" data-line-end="94">usability design (10%)</li>
+<li class="has-line-data" data-line-start="94" data-line-end="95">usability report (10%)</li>
+<li class="has-line-data" data-line-start="95" data-line-end="96">test OpenAPI and web app (10%)</li>
+</ul>
+<blockquote>
+<p class="has-line-data" data-line-start="96" data-line-end="97">Jitendra worked on:</p>
+</blockquote>
+<ul>
+<li class="has-line-data" data-line-start="97" data-line-end="98">back end design (50%)</li>
+<li class="has-line-data" data-line-start="98" data-line-end="99">front end implementation (50%)</li>
+<li class="has-line-data" data-line-start="99" data-line-end="100">front end design (mockup, IDM diagrams, etc.) (70%)</li>
+<li class="has-line-data" data-line-start="100" data-line-end="101">database design (50%)</li>
+<li class="has-line-data" data-line-start="101" data-line-end="102">usability design (90%)</li>
+<li class="has-line-data" data-line-start="102" data-line-end="103">usability report (90%)</li>
+<li class="has-line-data" data-line-start="103" data-line-end="105">test OpenAPI and web app (90%)</li>
+</ul>
+<p class="has-line-data" data-line-start="105" data-line-end="107">Basically, we worked together in class in order to help each other in some parts. Davide helps Jitendra on the programming part and then Jitendra helps Davide to study the usability and how design an interface.<br>
+Obviously, every time we needed to apport some change to the project, we discussed it all together and, via chat and git, we have always kept the other informed about what was being done.</p>
+<h3 class="code-line" data-line-start=108 data-line-end=109 ><a id="Analysis_of_existing_API_108"></a>Analysis of existing API</h3>
+<p class="has-line-data" data-line-start="109" data-line-end="110">For the API we started by considering Davide’s experience. In particular he worked with some API services, in particular Google Analytics and Google Search Console REST API, but the API service Davide looks mainly was the HubSpot API. So, resuming:</p>
+<blockquote>
+<ul>
+<li class="has-line-data" data-line-start="110" data-line-end="111">We took partial inspiration from API HubSpot API because it had the modular and simple structure we were looking for</li>
+<li class="has-line-data" data-line-start="111" data-line-end="112">We took partial inspiration from Google service (Analytics and Search Console) mainly for the JSON response structure</li>
+</ul>
+</blockquote>
+<h3 class="code-line" data-line-start=113 data-line-end=114 ><a id="Learning_outcome_113"></a>Learning outcome</h3>
+<p class="has-line-data" data-line-start="114" data-line-end="115">Each of us learning a lot in this project, we can resume in:</p>
+<blockquote>
+<p class="has-line-data" data-line-start="115" data-line-end="119"><strong>Davide</strong>: I found out a new world in web app development, because I always have programmed in .NET enviroment that is very different in many ways, starting from the server-side rendering with Razor. Moreover, I learned a lot on the design of usability part.<br>
+Mainly caused by the typical division into departments in a company, I often ignored the graphic’s job and its important. I learned that the colors and the usability for disabled people are very important and you to consider it in the design part.<br>
+<strong>Jitendra</strong>: This was my first time getting deeply involved with web applications development. I literally knew nothing about the tools we needed to start this project but I took quite a liking towards the designing side of the development (especially the front end technologies and the usability).<br>
+By getting to know HTML and CSS I learnt how a web app frontend works, by practising Javascript I learnt how it interacts with the backend and by doing usability tests and inspections I learnt what is needed in a website and how to display it in the best possible way.</p>
+</blockquote>

@@ -4,13 +4,12 @@ info:
   description: "This is the festival server for manage events, performers and seminars"
   version: "1.0.0"
   title: "Festival store"
-  termsOfService: "http://abey-calabro.heroku.com"
   contact:
     email: "apiteam@abey-calabro.heroku.com"
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "localhost:8080"
+host: "https://hyp-project-calabro-abey.herokuapp.com"
 basePath: "/v1"
 tags:
 - name: "Event"
@@ -65,47 +64,6 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Event"
-        400:
-          description: "Invalid types value"
-      x-swagger-router-controller: "Event"
-  /event/findByName:
-    get:
-      tags:
-      - "Event"
-      summary: "Finds event by name"
-      description: "Return all the events that match the passed name"
-      operationId: "findByName"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "name"
-        in: "query"
-        description: "The name of the event you are looking for"
-        required: true
-        type: "string"
-      - name: "offset"
-        in: "query"
-        description: "The number of objects to skip"
-        required: false
-        type: "integer"
-        format: "int32"
-        minimum: 0
-      - name: "limit"
-        in: "query"
-        description: "The number of objects to take"
-        required: false
-        type: "integer"
-        format: "int32"
-        minimum: 1
-      responses:
-        200:
-          description: "Successful operation"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Event"
-        400:
-          description: "Invalid name value"
       x-swagger-router-controller: "Event"
   /event/findByDate:
     get:
@@ -149,9 +107,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Event"
-        400:
-          description: "Invalid date range value"
+              $ref: "#/definitions/EventPerformer"
       x-swagger-router-controller: "Event"
   /event/findByPerformer:
     get:
@@ -189,9 +145,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Event"
-        400:
-          description: "Invalid performer ID"
+              $ref: "#/definitions/EventPerformer"
       x-swagger-router-controller: "Event"
   /event/findBySeminar:
     get:
@@ -230,8 +184,6 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Event"
-        400:
-          description: "Invalid seminar ID"
       x-swagger-router-controller: "Event"
   /event/{ID}:
     get:
@@ -253,11 +205,7 @@ paths:
         200:
           description: "successful operation"
           schema:
-            $ref: "#/definitions/Event"
-        400:
-          description: "Invalid ID"
-        404:
-          description: "Event not found"
+            $ref: "#/definitions/EventSeminar"
       x-swagger-router-controller: "Event"
   /events:
     get:
@@ -287,7 +235,9 @@ paths:
         200:
           description: "successfull operation"
           schema:
-            $ref: "#/definitions/Event"
+            type: "array"
+            items:
+              $ref: "#/definitions/Event"
       x-swagger-router-controller: "Event"
   /performers:
     get:
@@ -342,11 +292,9 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Performer"
-        400:
-          description: "Event ID not valid"
-        404:
-          description: "Event not found"
+              type: "array"
+              items:
+                $ref: "#/definitions/PerformerEventSeminar"
       x-swagger-router-controller: "Performer"
   /performer/{id}:
     get:
@@ -370,10 +318,6 @@ paths:
           description: "Successfull operation"
           schema:
             $ref: "#/definitions/Performer"
-        400:
-          description: "ID not valid"
-        404:
-          description: "Performer not found"
       x-swagger-router-controller: "Performer"
   /seminars:
     get:
@@ -403,83 +347,9 @@ paths:
         200:
           description: "successfull operation"
           schema:
-            $ref: "#/definitions/Seminar"
-      x-swagger-router-controller: "Seminar"
-  /seminar/findByName:
-    get:
-      tags:
-      - "Seminar"
-      summary: "Get seminar by name"
-      description: "Return all the seminars that match the passed name"
-      operationId: "getByName"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "name"
-        in: "query"
-        description: "The name to filter by"
-        required: true
-        type: "string"
-      - name: "offset"
-        in: "query"
-        description: "The number of objects to skip"
-        required: false
-        type: "integer"
-        format: "int32"
-        minimum: 0
-      - name: "limit"
-        in: "query"
-        description: "The number of objects to take"
-        required: false
-        type: "integer"
-        format: "int32"
-        minimum: 1
-      responses:
-        200:
-          description: "successfull operation"
-          schema:
-            $ref: "#/definitions/Seminar"
-        400:
-          description: "Invalid seminar name"
-      x-swagger-router-controller: "Seminar"
-  /seminar/findByEvent:
-    get:
-      tags:
-      - "Seminar"
-      summary: "Get the seminar by discussed event"
-      description: "Return the seminar in which is discussed a specific artist event"
-      operationId: "findByEvent"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "ID"
-        in: "query"
-        description: "The event ID"
-        required: true
-        type: "string"
-      - name: "offset"
-        in: "query"
-        description: "The number of objects to skip"
-        required: false
-        type: "integer"
-        format: "int32"
-        minimum: 0
-      - name: "limit"
-        in: "query"
-        description: "The number of objects to take"
-        required: false
-        type: "integer"
-        format: "int32"
-        minimum: 1
-      responses:
-        200:
-          description: "successfull operation"
-          schema:
-            $ref: "#/definitions/Seminar"
-        400:
-          description: "Invalid ID"
-        404:
-          description: "Event not found"
+            type: "array"
+            items:
+              $ref: "#/definitions/Seminar"
       x-swagger-router-controller: "Seminar"
   /seminar/{ID}:
     get:
@@ -503,10 +373,6 @@ paths:
           description: "Successfull operation"
           schema:
             $ref: "#/definitions/Seminar"
-        400:
-          description: "ID not valid"
-        404:
-          description: "Seminar not found"
       x-swagger-router-controller: "Seminar"
   /booking/findByUser:
     get:
@@ -520,8 +386,6 @@ paths:
       responses:
         200:
           description: "successful operation"
-        500:
-          description: "No user logged"
       x-swagger-router-controller: "Booking"
   /booking/add/{ID}:
     post:
@@ -542,12 +406,6 @@ paths:
       responses:
         200:
           description: "successful operation"
-        400:
-          description: "Invalid event ID"
-        404:
-          description: "Event not found"
-        500:
-          description: "No user logged"
       x-swagger-router-controller: "Booking"
   /user:
     post:
@@ -605,8 +463,6 @@ paths:
           description: "successful operation"
           schema:
             type: "string"
-        400:
-          description: "Invalid username/password supplied"
       x-swagger-router-controller: "User"
   /user/logout:
     get:
@@ -622,32 +478,35 @@ paths:
         default:
           description: "successful operation"
       x-swagger-router-controller: "User"
-  /user/{username}:
-    get:
-      tags:
-      - "User"
-      summary: "Get user by user name"
-      description: ""
-      operationId: "getUserByName"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "username"
-        in: "path"
-        description: "The name that needs to be fetched. Use user1 for testing. "
-        required: true
+definitions:
+  PerformerEventSeminar:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      photo:
         type: "string"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/User"
-        400:
-          description: "Invalid username supplied"
-        404:
-          description: "User not found"
-      x-swagger-router-controller: "User"
-definitions:  
+      bio:
+        type: "string"
+      name:
+        type: "string"
+      surname:
+        type: "string"
+      eventId:
+        type: "integer"
+        format: "int64"
+      seminarId:
+        type: "integer"
+        format: "int64"
+    example:
+      photo: "Photo"
+      bio: "Umberto Eco was born in Italy"
+      name: "Umberto"
+      surname: "Eco"
+      id: 1
+      eventId: 1
+      seminarId: 1  
   Performer:
     type: "object"
     properties:
@@ -676,6 +535,9 @@ definitions:
       password:
         type: "string"
         format: "password"
+    example:      
+      username: "admin"
+      password: "admin"
   User:
     type: "object"
     properties:
@@ -715,6 +577,30 @@ definitions:
       id: 6
       email: "email"
       username: "username"
+  EventSeminar:
+    type: "object"
+    properties:
+      ID:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      image:
+        type: "string"
+      name:
+        type: "string"
+      location:
+        type: "string"
+      date:
+        type: "string"
+        format: "date"
+      description:
+        type: "string"
+      seminarId:
+        type: "integer"
+        format: "int32"
+      seminarName:
+        type: "string"
   Event:
     type: "object"
     properties:
@@ -734,10 +620,42 @@ definitions:
         format: "date"
       description:
         type: "string"
-      performers:
-        type: "array"
-        items:
-          $ref: "#/definitions/Performer"
+      seminarId:
+        type: "integer"
+        format: "int32"
+  EventPerformer:
+    type: "object"
+    properties:
+      ID:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      image:
+        type: "string"
+      name:
+        type: "string"
+      location:
+        type: "string"
+      date:
+        type: "string"
+        format: "date"
+      description:
+        type: "string"
+      seminarId:
+        type: "integer"
+        format: "int32"
+      performerId:
+        type: "integer"
+        format: "int64"
+      photo:
+        type: "string"
+      bio:
+        type: "string"
+      performerName:
+        type: "string"
+      performerSurname:
+        type: "string"
   Booking:
     type: "object"
     properties:
@@ -771,5 +689,5 @@ definitions:
       code:
         type: "integer"
         format: "int32"
-      message:
+      msg:
         type: "string"

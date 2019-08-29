@@ -3,19 +3,6 @@
 var utils = require('../utils/writer.js');
 var Event = require('../service/EventService');
 
-module.exports.findByName = function findByName (req, res, next) {
-  var name = req.swagger.params['name'].value;
-  var offset = req.swagger.params['offset'].value;
-  var limit = req.swagger.params['limit'].value;
-  Event.findByName(name, offset, limit)
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
-
 module.exports.findByType = function findByType(req, res, next){
   var type = req.swagger.params['type'].value;
 
