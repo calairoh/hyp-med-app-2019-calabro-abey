@@ -4,13 +4,12 @@ info:
   description: "This is the festival server for manage events, performers and seminars"
   version: "1.0.0"
   title: "Festival store"
-  termsOfService: "http://abey-calabro.heroku.com"
   contact:
     email: "apiteam@abey-calabro.heroku.com"
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "localhost:8080"
+host: "https://hyp-project-calabro-abey.herokuapp.com"
 basePath: "/v1"
 tags:
 - name: "Event"
