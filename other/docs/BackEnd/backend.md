@@ -23,7 +23,8 @@ give access to the instructors.
 
 ### Introduction
 Before starting with backend documentation, we decided to make a little introduction to explain why we take some decisions in the web application develop.<br>
-In particular, we start to say that one of the component of our team, Davide Calabrò, is a worker-student and he works as Back-End Web Developer, basically in .NET enviroment. That's why, as you will can see in the document, we used some methodologies and approchies that they wern't explained in the lectures. 
+In particular, we start to say that one of the component of our team, Davide Calabrò, is a worker-student and he works as Back-End Web Developer, basically in .NET enviroment. That's why, as you will can see in the document, we used some methodologies and approchies that they wern't explained in the lectures. <br>
+Moreover we want to highlight that we focused on create a light and very consistent web app. We didn't use time to create a lot of attributes to the entities - <i> for example, Performer entity has an ID, Name, Surname, Bio, Photo and no more</i> because we wanted to create an application that works in every scenario, making a good usability in case of error, like our <i>page 404</i> and having a well studied usability. Infact, we dedicated about 40 hours only in the mockup, IDM, database and usability design, in order to try to spend less time once we started in programming and develop the app.
 
 ## Specification
 ### Web Architecture
