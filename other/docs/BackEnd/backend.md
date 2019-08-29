@@ -80,7 +80,7 @@ For the data model management we choose to use a relation database. In particula
 
 ## Other information
 ### Task assignment
-As we said in the introduction, we decided to split the three main part of the develop. Davide mainly carred about the programming part, especially the backend part, insted Jitendra carred about the desing and the usability part for our web app, but also looking the usability report part.
+As we said in the introduction, we decided to split the three main part of the develop. Davide mainly carred about the programming part, especially the backend part, insted Jitendra carred about the design and the usability part for our web app, but also looking the usability report part.
 In particular, we can divide our work in these parts and percentages:
 > Davide worked on:
 - back end implementation (100%)
@@ -111,3 +111,5 @@ For the API we started by considering Davide's experience. In particular he work
 Each of us learning a lot in this project, we can resume in:
 > <b>Davide</b>: I found out a new world in web app development, because I always have programmed in .NET enviroment that is very different in many ways, starting from the server-side rendering with Razor. Moreover, I learned a lot on the design of usability part. <br>
 Mainly caused by the typical division into departments in a company, I often ignored the graphic's job and its important. I learned that the colors and the usability for disabled people are very important and you to consider it in the design part.<br> 
+> <b>Jitendra</b>: This was my first time getting deeply involved with web applications development. I literally knew nothing about the tools we needed to start this project but I took quite a liking towards the designing side of the development (especially the front end technologies and the usability).<br>
+By getting to know HTML and CSS I learnt how a web app frontend works, by practising Javascript I learnt how it interacts with the backend and by doing usability tests and inspections I learnt what is needed in a website and how to display it in the best possible way.<br>
