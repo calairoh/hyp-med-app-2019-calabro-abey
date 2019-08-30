@@ -51,6 +51,19 @@ exports.getAll = function(offset, limit) {
  **/
 exports.findByDate = function(start, end ,offset, limit) {
   return sqlDb("event")
+        .select("event.id", 
+                "event.name", 
+                "event.date", 
+                "event.location", 
+                "event.image", 
+                "event.description", 
+                "event.type", 
+                "event.seminarId",
+                "performer.id", 
+                { performerName: "performer.name"},
+                { performerSurname: "performer.name"},
+                "performer.photo",
+                "performer.bio")
         .innerJoin("performerEvent", "performerEvent.eventId", "event.id")
         .innerJoin("performer", "performer.id", "performerEvent.performerId")
         .where("event.date", ">=", start)
@@ -142,21 +155,4 @@ exports.findBySeminar = function(id, offset, limit){
         .where("event.seminarId", id)
         .offset(offset)
         .limit(limit);
-}
-
-function buildEvents(events){
-  for(var i = 0; i < events.length; i++){
-    var performers = sqlDb("performerEvent")
-                    .select('performer.id', 'performer.name', 'performer.surname', 'performer.bio', 'performer.photo')
-                    .innerJoin('performer', 'performer.id', 'performerEvent.performerId')
-                    .where('eventId', events[i].id);
-    
-                    console.log(performers);
-    for(var j = 0; j < performers.length; j++){
-      events.performers.push(performers[j]);
-    }
-    console.log(events);
-  }
-
-  return events;
 }
