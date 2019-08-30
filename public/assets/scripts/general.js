@@ -1,6 +1,7 @@
 $(document).ready(function(){
     initUser();
     logout();
+    initContactPageMessage();
 });
 
 function initUser(){
@@ -42,4 +43,12 @@ function dateToDbFormat(d){
     var date = new Date(d);
 
     return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+}
+
+function initContactPageMessage(){
+    var url = location.href;
+    if(url.includes('contact-us?sent=1')){
+        $('.sent').removeClass('hidden');
+        $('.sent').parent().removeClass('hidden');
+    }
 }

@@ -94,15 +94,26 @@
               </ol>
             </nav>
           </div>
+          <div class="messages hidden">
+              <div class="message error">  
+              </div>
+          </div>
+
+          <div class="messages hidden">            
+            <div class="message sent hidden">
+              You request has been received. You will be contact by our staff as soon as possible!
+            </div>
+          </div>
+          
           <div class="row contact-us">
             <span class="title block-title">Contact us</span>
             <span class="subtitle">If have any dubt, please fill the following form and our team will
               contact you as soon as possible </span>
             <form action="/contact-us?sent=1" class="contact-form">
-              <input type="text" class="form-control required" placeholder="Name" />
-              <input type="email" class="form-control required mail" placeholder="Email" />
-              <input type="text" class="form-control required" placeholder="Subject" />
-              <textarea rows="5" class="form-control required" placeholder="Name"></textarea>
+              <input type="text" data-name="name" class="form-control required" placeholder="Name" />
+              <input type="email" data-name="email" class="form-control required mail" placeholder="Email" />
+              <input type="text" data-name="subject" class="form-control required" placeholder="Subject" />
+              <textarea rows="5" data-name="request" class="form-control required" placeholder="Your request"></textarea>
               <div class="form-check">
                 <input type="checkbox" class="form-check-input" id="ck-privacy">
                 <label class="form-check-label privacy" for="ck-privacy">I agree to the processing of my personal data</label>
@@ -117,7 +128,7 @@
     <script src="/assets/contents/jquery-3.4.1.js" type="text/javascript"></script>
     <script src="/assets/contents/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="/assets/scripts/app.js" type="text/javascript"></script>
-    <script src="/assets/scripts/utils.js" type="text/javascript"></script>
     <script src="/assets/scripts/general.js" type="text/javascript"></script>
+    <script src="/assets/scripts/validation.js" type="text/javascript"></script>
   
   </html>

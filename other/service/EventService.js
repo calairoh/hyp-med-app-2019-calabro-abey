@@ -40,25 +40,6 @@ exports.getAll = function(offset, limit) {
 
 
 /**
- * Finds event by name
- * Return all the events that match the passed name
- *
- * name String The name of the event you are looking for
- * offset Integer The number of objects to skip (optional)
- * limit Integer The number of objects to take (optional)
- * returns Event
- **/
-exports.findByName = function(name, offset, limit) {
-  return sqlDb("event")
-          .innerJoin("performerEvent", "performerEvent.eventId", "event.id")
-          .innerJoin("performer", "performer.id", "performerEvent.performerId")
-          .where("event.name", "like", "%" + name + "%")
-          .offset(offset)
-          .limit(limit);
-}
-
-
-/**
  * Finds events by date
  * Returns all the events that will be presented in the passed date range
  *
@@ -113,6 +94,19 @@ exports.getTypes = function(){
  */
 exports.findByPerformer = function(id, offset, limit){
   return sqlDb("event")
+  .select("event.id", 
+          "event.name", 
+          "event.date", 
+          "event.location", 
+          "event.image", 
+          "event.description", 
+          "event.type", 
+          "event.seminarId",
+          "performer.id", 
+          { performerName: "performer.name"},
+          { performerSurname: "performer.name"},
+          "performer.photo",
+          "performer.bio")
         .innerJoin("performerEvent", "performerEvent.eventId", "event.id")
         .innerJoin("performer", "performer.id", "performerEvent.performerId")
         .where("performer.id", id)

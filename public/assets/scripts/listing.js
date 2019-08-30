@@ -17,7 +17,6 @@ function initListing(){
         case "events":{
             initEventsListing();
             initFilterCheckbox();
-            $('.filter-checkbox').change();
             setupBreadCrumb("Events");
             break;            
         }
@@ -130,6 +129,9 @@ function insertFilters(json, $container){
     var url = new URL(location.href);
     var type = url.searchParams.get("type");
     $('#' + type).prop( "checked", true);
+    
+    //Triggero il change
+    $('.filter-checkbox').change();
 }
 
 function getEvents(){
