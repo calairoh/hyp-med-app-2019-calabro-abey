@@ -115,6 +115,10 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
     res.sendFile(path.join(__dirname + '/public/pages/singles/reservation-info.html'));
   });
 
+  app.use('/info', function(req, res, next){
+    res.sendFile(path.join(__dirname + '/public/pages/singles/festival-info.html'));
+  });
+
   app.use('/notfound', function(req, res, next){
     res.sendFile(path.join(__dirname + '/public/pages/errors/404.html'));
   });  
