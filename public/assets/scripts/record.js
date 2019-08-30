@@ -108,7 +108,7 @@ function initSeminarPresentation(){
         method: 'GET',
         success: function(json){
             if(json != undefined)
-                presentSeminar(json[0], "seminar");
+                presentSeminar(json, "seminar");
             else
                 initCurrentNotFounds();
         }
