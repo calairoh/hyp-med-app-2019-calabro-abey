@@ -548,6 +548,10 @@
     height: 150px;
 }
 
+.listing-result{
+    display: flex;
+}
+
 footer{    
     position: fixed;
     left: 0;
