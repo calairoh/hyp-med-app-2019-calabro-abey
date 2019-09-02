@@ -166,12 +166,11 @@ function initChangeListingPage(){
 
         $.ajax({
            url: href,
-           method: 'POST',
+           method: 'GET',
            data: {
                id: Id
            }, 
            success: function(json) {
-
                 if(url.includes("performer")){
                     presentEvents(json, "performer", page, limit);
                 } else if(url.includes("seminar")){
