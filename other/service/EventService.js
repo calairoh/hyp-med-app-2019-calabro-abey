@@ -60,7 +60,7 @@ exports.findByDate = function(start, end ,offset, limit) {
                 "event.type", 
                 "event.seminarId")
         .where("event.date", ">=", start)
-        .andWhere("event.date", "<", end)
+        .andWhere("event.date", "<=", end)
         .offset(offset)
         .limit(limit);
 }
