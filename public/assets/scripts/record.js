@@ -159,18 +159,18 @@ function initChangeListingPage(){
         var page = $(this).data('value');
         var limit = $('.listing-result').data('limit');
         $('.listing-result').html('');
-        $('.listing-result').data('page', page);
-        var url = $('.listing-result').data('url');
+        $('.listing-result').data('page', page);        
+        var url = location.href;
+        var href = $('.record').data('related-url');
         var Id = url.split('/')[url.split('/').length - 1];
 
         $.ajax({
-           url: url,
+           url: href,
            method: 'POST',
            data: {
                id: Id
            }, 
            success: function(json) {
-               var url = location.href;
 
                 if(url.includes("performer")){
                     presentEvents(json, "performer", page, limit);
