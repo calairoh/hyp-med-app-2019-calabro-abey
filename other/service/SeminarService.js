@@ -29,7 +29,7 @@ exports.seminarsDbSetup = function(database) {
  * ID String The seminar ID
  * returns Seminar
  **/
-exports.getByID = function(id) {
+exports.getSeminarByID = function(id) {
   return sqlDb("seminar")
     .where('id', id);
 }
@@ -75,7 +75,7 @@ exports.findByEvent = function(id, offset, limit) {
  * limit Integer The number of objects to take (optional)
  * returns Seminars
  **/
-exports.getAll = function(offset, limit) {
+exports.getAllPerformers = function(offset, limit) {
   return sqlDb("seminar")
         .offset(offset)
         .limit(limit);

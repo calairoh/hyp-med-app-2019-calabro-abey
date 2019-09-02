@@ -32,7 +32,7 @@ exports.eventsDbSetup = function(database) {
  * limit Integer The number of objects to take (optional)
  * returns Event
  **/
-exports.getAll = function(offset, limit) {
+exports.getAllEvents = function(offset, limit) {
     return sqlDb("event")
           .offset(offset)
           .limit(limit);
@@ -134,7 +134,7 @@ exports.findByPerformer = function(id, offset, limit){
  * id Integer The event ID
  * returns Event
  */
-exports.getByID = function(id){
+exports.getEventByID = function(id){
   return sqlDb("event")
         .select("event.id", "event.name", "event.date", "event.location", "event.image", "event.description", "event.type", "event.seminarId", { seminarName: "seminar.name"})
         .leftJoin("seminar", "seminar.id", "event.seminarId")

@@ -29,7 +29,7 @@ exports.performersDbSetup = function(database) {
  * limit Integer The number of objects to take (optional)
  * returns Perfomer
  **/
-exports.getAll = function(offset, limit) {
+exports.getAllPerformers = function(offset, limit) {
   return sqlDb("performer")
         .offset(offset)
         .limit(limit);
@@ -60,7 +60,7 @@ exports.findByEvent = function(id, offset, limit) {
  * ID The performer ID
  * returns Perfomer
  **/
-exports.getByID = function(id) {
+exports.getPerformerByID = function(id) {
   return sqlDb("performer")
         .where('id', id);
 }

@@ -192,7 +192,7 @@ paths:
       - "Event"
       summary: "Find event by ID"
       description: "Returns the single event with the passed ID"
-      operationId: "getByID"
+      operationId: "getEventByID"
       produces:
       - "application/json"
       parameters:
@@ -214,7 +214,7 @@ paths:
       - "Event"
       summary: "Get all events"
       description: "Return all events in the store"
-      operationId: "getAll"
+      operationId: "getAllEvents"
       produces:
       - "application/json"
       parameters:
@@ -246,7 +246,7 @@ paths:
       - "Performer"
       summary: "Get all performers"
       description: "Return all performers in the store"
-      operationId: "getAll"
+      operationId: "getAllPerformers"
       produces:
       - "application/json"
       parameters:
@@ -303,7 +303,7 @@ paths:
       - "Performer"
       summary: "Get performer by ID"
       description: "Return performer by ID"
-      operationId: "getByID"
+      operationId: "getPerformerByID"
       produces:
       - "application/json"
       parameters:
@@ -326,7 +326,7 @@ paths:
       - "Seminar"
       summary: "Get all seminars"
       description: "Return all seminars in the store"
-      operationId: "getAll"
+      operationId: "getAllSeminars"
       produces:
       - "application/json"
       parameters:
@@ -358,7 +358,7 @@ paths:
       - "Seminar"
       summary: "Get seminar by ID"
       description: "Return seminar by ID"
-      operationId: "getByID"
+      operationId: "getSeminarByID"
       produces:
       - "application/json"
       parameters:
