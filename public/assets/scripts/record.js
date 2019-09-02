@@ -244,12 +244,15 @@ function presentSeminar(json, type, offset, limit){
     if(type == "seminar"){
         var presentation = $('.generic-record').html();
 
+        var startDate = new Date(json.start);
+        var endDate = new Date(json.end);
+
         presentation = presentation.replace('{Title}', json.name);
         presentation = presentation.replace('{image}', json.image);
         presentation = presentation.replace('{description}', json.description);
         presentation = presentation.replace('{location}', json.location);
-        presentation = presentation.replace('{start}', json.start);
-        presentation = presentation.replace('{end}', json.end);
+        presentation = presentation.replace('{start}', startDate.toDateString());
+        presentation = presentation.replace('{end}', endDate.toDateString());
 
         $('.current-presentation').append(presentation);
 
