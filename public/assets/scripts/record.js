@@ -164,7 +164,7 @@ function initChangeListingPage(){
     });
 }
 
-function presentEvents(json, type, offset, length){
+function presentEvents(json, type, offset, limit){
     if(type == "performer" || type == "seminar"){
         var max = min(json.length, offset + limit);
         for(var i = offset; i < max; i++){
