@@ -41,6 +41,8 @@ paths:
             type: "array"
             items:
               type: "string"
+        500:
+          description: "Internal Server Error"
       x-swagger-router-controller: "Event"
   /event/findByType:
     get:
@@ -64,6 +66,8 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Event"
+        500:
+          description: "Internal Server Error"
       x-swagger-router-controller: "Event"
   /event/findByDate:
     get:
@@ -103,11 +107,15 @@ paths:
         minimum: 1
       responses:
         200:
-          description: "successful operation"
+          description: "Successful operation"
           schema:
             type: "array"
             items:
               $ref: "#/definitions/Event"
+        400:
+          description: "Invalid offset or limit value"
+        500:
+          description: "Internal Server Error"
       x-swagger-router-controller: "Event"
   /event/findByPerformer:
     get:
@@ -146,6 +154,10 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/EventPerformer"
+        400:
+          description: "Invalid offset or limit value"
+        500:
+          description: "Internal Server Error"
       x-swagger-router-controller: "Event"
   /event/findBySeminar:
     get:
@@ -184,6 +196,10 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Event"
+        400:
+          description: "Invalid offset or limit value"
+        500:
+          description: "Internal Server Error"
       x-swagger-router-controller: "Event"
   /event/{ID}:
     get:
@@ -206,6 +222,8 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/EventSeminar"
+        500:
+          description: "Internal Server Error"
       x-swagger-router-controller: "Event"
   /events:
     get:
@@ -238,6 +256,10 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Event"
+        400:
+          description: "Invalid offset or limit value"
+        500:
+          description: "Internal Server Error"
       x-swagger-router-controller: "Event"
   /performers:
     get:
@@ -268,6 +290,10 @@ paths:
           description: "successfull operation"
           schema:
             $ref: "#/definitions/Performer"
+        400:
+          description: "Invalid offset or limit value"
+        500:
+          description: "Internal Server Error"
       x-swagger-router-controller: "Performer"
   /performer/findByEvent:
     get:
@@ -295,6 +321,8 @@ paths:
               type: "array"
               items:
                 $ref: "#/definitions/PerformerEventSeminar"
+        500:
+          description: "Internal Server Error"
       x-swagger-router-controller: "Performer"
   /performer/{id}:
     get:
@@ -318,6 +346,8 @@ paths:
           description: "Successfull operation"
           schema:
             $ref: "#/definitions/Performer"
+        500:
+          description: "Internal Server Error"
       x-swagger-router-controller: "Performer"
   /seminars:
     get:
@@ -350,6 +380,10 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Seminar"
+        400:
+          description: "Invalid offset or limit value"
+        500:
+          description: "Internal Server Error"
       x-swagger-router-controller: "Seminar"
   /seminar/{ID}:
     get:
@@ -373,6 +407,8 @@ paths:
           description: "Successfull operation"
           schema:
             $ref: "#/definitions/Seminar"
+        500:
+          description: "Internal Server Error"
       x-swagger-router-controller: "Seminar"
   /booking/findByUser:
     get:
@@ -386,6 +422,14 @@ paths:
       responses:
         200:
           description: "successful operation"
+          schema:
+            type: "array"
+            items: 
+              $ref: "#/definitions/Seminar"
+        400:
+          description: "Invalid offset or limit value"
+        500:
+          description: "Internal Server Error"
       x-swagger-router-controller: "Booking"
   /booking/add/{ID}:
     post:
@@ -406,6 +450,8 @@ paths:
       responses:
         200:
           description: "successful operation"
+        500:
+          description: "Internal Server Error"
       x-swagger-router-controller: "Booking"
   /user:
     post:
@@ -424,8 +470,10 @@ paths:
         schema:
           $ref: "#/definitions/User"
       responses:
-        default:
-          description: "successful operation"
+        200:
+          description: "Successful operation"
+        500:
+          description: "Internal Server Error"
       x-swagger-router-controller: "User"
   /user/logged:
     get:
@@ -441,6 +489,8 @@ paths:
           description: "successful operation"
           schema:
             type: "string"
+        500:
+          description: "Internal Server Error"
       x-swagger-router-controller: "User"
   /user/login:
     post:
@@ -463,6 +513,8 @@ paths:
           description: "successful operation"
           schema:
             type: "string"
+        500:
+          description: "Internal Server Error"
       x-swagger-router-controller: "User"
   /user/logout:
     get:
@@ -475,8 +527,10 @@ paths:
       - "application/json"
       parameters: []
       responses:
-        default:
+        200:
           description: "successful operation"
+        500:
+          description: "Internal Server Error"
       x-swagger-router-controller: "User"
 definitions:
   PerformerEventSeminar:

@@ -81,6 +81,9 @@ function initReservationPageEvent(json){
 function initReservationPagePerformers(json){
     for(var i = 0; i < json.length; i++){
         $('.summary-event-performer').append(json[i].name + ' ' + json[i].surname);
+
+        if(i < json.length - 2)
+        $('.summary-event-performer').append(', ');
     }
 }
 
