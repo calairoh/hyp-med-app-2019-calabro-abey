@@ -35,39 +35,6 @@ exports.getSeminarByID = function(id) {
 }
 
 /**
- * Get seminar by name
- * Return all the seminars that match the passed name
- *
- * name String The name to filter by
- * offset Integer The number of objects to skip (optional)
- * limit Integer The number of objects to take (optional)
- * returns Seminars
- **/
-exports.findByName = function(name, offset, limit) {
-  return sqlDb("seminar")
-    .where('name', 'like', '%' + name + '%')
-    .offset(offset)
-    .limit(limit);
-}
-
-/**
- * Get seminar by event
- * Return all the seminars that match the passed name
- *
- * ID Integer The event ID
- * offset Integer The number of objects to skip (optional)
- * limit Integer The number of objects to take (optional)
- * returns Seminars
- **/
-exports.findByEvent = function(id, offset, limit) {
-  return sqlDb("seminar")
-    .innerjoin("event", "event.seminarId", "seminar.id")
-    .where('event.id', id)
-    .offset(offset)
-    .limit(limit);
-}
-
-/**
  * Get all seminars
  * Return all seminars in the store
  *
@@ -75,7 +42,7 @@ exports.findByEvent = function(id, offset, limit) {
  * limit Integer The number of objects to take (optional)
  * returns Seminars
  **/
-exports.getAllPerformers = function(offset, limit) {
+exports.getAllSeminars = function(offset, limit) {
   return sqlDb("seminar")
         .offset(offset)
         .limit(limit);
