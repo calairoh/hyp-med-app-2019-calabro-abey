@@ -58,14 +58,7 @@ exports.findByDate = function(start, end ,offset, limit) {
                 "event.image", 
                 "event.description", 
                 "event.type", 
-                "event.seminarId",
-                "performer.id", 
-                { performerName: "performer.name"},
-                { performerSurname: "performer.name"},
-                "performer.photo",
-                "performer.bio")
-        .innerJoin("performerEvent", "performerEvent.eventId", "event.id")
-        .innerJoin("performer", "performer.id", "performerEvent.performerId")
+                "event.seminarId")
         .where("event.date", ">=", start)
         .andWhere("event.date", "<", end)
         .offset(offset)

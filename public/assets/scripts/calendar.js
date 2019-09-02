@@ -67,6 +67,7 @@ function drawEvents(json){
         var date = new Date(json[i].date);
         calendarRecord = calendarRecord.replace('{date}', date.toDateString());
         calendarRecord = calendarRecord.replace('{event}', json[i].name);
+        calendarRecord = calendarRecord.replace('{title}', json[i].name);
         calendarRecord = calendarRecord.replace('{type}', json[i].type);
         calendarRecord = calendarRecord.replace('{eventHref}', "/events/event/" + json[i].id);
         calendarRecord = calendarRecord.replace('{typeHref}', "/events?type=" + json[i].type);

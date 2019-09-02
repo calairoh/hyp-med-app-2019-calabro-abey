@@ -107,7 +107,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/EventPerformer"
+              $ref: "#/definitions/Event"
       x-swagger-router-controller: "Event"
   /event/findByPerformer:
     get:
