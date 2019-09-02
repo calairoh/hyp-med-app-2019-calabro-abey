@@ -52,7 +52,7 @@ module.exports.findByPerformer = function findByPerformer (req, res, next) {
     });
 };
 
-module.exports.getByID = function getByID (req, res, next) {
+module.exports.getEventByID = function getByID (req, res, next) {
   var ID = req.swagger.params['ID'].value;
   
   Event.getByID(ID)
@@ -64,7 +64,7 @@ module.exports.getByID = function getByID (req, res, next) {
     });
 };
 
-module.exports.getAll = function getAll(req, res, next){
+module.exports.getAllEvents = function getAll(req, res, next){
   var offset = req.swagger.params['offset'].value;
   var limit = req.swagger.params['limit'].value;
   

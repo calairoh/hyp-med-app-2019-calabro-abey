@@ -3,7 +3,7 @@
 var utils = require('../utils/writer.js');
 var Seminar = require('../service/SeminarService');
 
-module.exports.getAll = function getAll (req, res, next) {
+module.exports.getAllSeminars = function getAll (req, res, next) {
   var offset = req.swagger.params['offset'].value;
   var limit = req.swagger.params['limit'].value;
 
@@ -16,7 +16,7 @@ module.exports.getAll = function getAll (req, res, next) {
     });
 };
 
-module.exports.getByID = function getByID(req, res, next){
+module.exports.getSeminarByID = function getByID(req, res, next){
   var id = req.swagger.params['ID'].value;
 
   Seminar.getByID(id)

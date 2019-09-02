@@ -3,7 +3,7 @@
 var utils = require('../utils/writer.js');
 var Performer = require('../service/PerformerService');
 
-module.exports.getAll = function getAll (req, res, next) {
+module.exports.getAllPerformers = function getAll (req, res, next) {
   var offset = req.swagger.params['offset'].value;
   var limit = req.swagger.params['limit'].value;
 
@@ -16,7 +16,7 @@ module.exports.getAll = function getAll (req, res, next) {
     });
 };
 
-module.exports.getByID = function getByID (req, res, next) {
+module.exports.getPerformerByID = function getByID (req, res, next) {
   var id = req.swagger.params['id'].value;
   Performer.getByID(id)
     .then(function (response) {
