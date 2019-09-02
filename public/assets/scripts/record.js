@@ -156,6 +156,7 @@ function setUpPaging(total, limit){
 
 function initChangeListingPage(){
     $(document).on('click', '.js-listing-page', function(){
+        var $elems = $('.js-listing-page');
         var page = $(this).data('value');
         var limit = $('.listing-result').data('limit');
         $('.listing-result').html('');
@@ -178,6 +179,13 @@ function initChangeListingPage(){
                 }  else if(url.includes("event")){
                     presentPerformers(json, "event", page, limit);
                 }
+
+                for(var i = 0; i < $elems.length; i++){
+                    if($elems.eq(i).data('value') != page)
+                        $elems.eq(i).removeClass('active');
+                    else
+                        $elems.eq(i).addClass('active');
+                }
             }
         });
     });
@@ -186,7 +194,7 @@ function initChangeListingPage(){
 function presentEvents(json, type, offset, limit){
     if(type == "performer" || type == "seminar"){
         var max = min(json.length, offset + limit);
-        for(var i = offset; i < max; i++){
+        for(var i = offset * limit; i < max; i++){
             var presentation = $('.generic-event').html();
 
             presentation = presentation.replace('{imageSrc}', json[i].image);
