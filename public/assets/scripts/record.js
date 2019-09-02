@@ -164,9 +164,10 @@ function initChangeListingPage(){
     });
 }
 
-function presentEvents(json, type){
+function presentEvents(json, type, offset, length){
     if(type == "performer" || type == "seminar"){
-        for(var i = 0; i < json.length; i++){
+        var max = min(json.length, offset + limit);
+        for(var i = offset; i < max; i++){
             var presentation = $('.generic-event').html();
 
             presentation = presentation.replace('{imageSrc}', json[i].image);
