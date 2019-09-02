@@ -55,7 +55,7 @@ module.exports.findByPerformer = function findByPerformer (req, res, next) {
 module.exports.getEventByID = function getByID (req, res, next) {
   var ID = req.swagger.params['ID'].value;
   
-  Event.getByID(ID)
+  Event.getEventByID(ID)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -68,7 +68,7 @@ module.exports.getAllEvents = function getAll(req, res, next){
   var offset = req.swagger.params['offset'].value;
   var limit = req.swagger.params['limit'].value;
   
-  Event.getAll(offset, limit)
+  Event.getAllEvents(offset, limit)
     .then(function (response) {
       utils.writeJson(res, response);
     })

@@ -7,7 +7,7 @@ module.exports.getAllPerformers = function getAll (req, res, next) {
   var offset = req.swagger.params['offset'].value;
   var limit = req.swagger.params['limit'].value;
 
-  Performer.getAll(offset, limit)
+  Performer.getAllPerformers(offset, limit)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -18,7 +18,7 @@ module.exports.getAllPerformers = function getAll (req, res, next) {
 
 module.exports.getPerformerByID = function getByID (req, res, next) {
   var id = req.swagger.params['id'].value;
-  Performer.getByID(id)
+  Performer.getPerformerByID(id)
     .then(function (response) {
       utils.writeJson(res, response[0]);
     })
