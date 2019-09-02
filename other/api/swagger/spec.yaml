@@ -425,7 +425,7 @@ paths:
           schema:
             type: "array"
             items: 
-              $ref: "#/definitions/Seminar"
+              $ref: "#/definitions/BookingEvent"
         400:
           description: "Invalid offset or limit value"
         500:
@@ -533,6 +533,16 @@ paths:
           description: "Internal Server Error"
       x-swagger-router-controller: "User"
 definitions:
+  BookingEvent:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      date:
+        type: "string"
+      name:
+        type: "string"
   PerformerEventSeminar:
     type: "object"
     properties:
@@ -591,7 +601,7 @@ definitions:
         format: "password"
     example:      
       username: "admin"
-      password: "admin"
+      password: "standard"
   User:
     type: "object"
     properties:
