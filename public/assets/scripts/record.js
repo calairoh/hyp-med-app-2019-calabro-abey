@@ -1,6 +1,10 @@
 $(document).ready(function(){
     var url = location.href;
 
+    init(url);    
+});
+
+function init(url){
     if(url.includes("performer")){
         initPerformerPresentation()
     } else if(url.includes("seminar")){
@@ -8,8 +12,7 @@ $(document).ready(function(){
     }  else if(url.includes("event")){
         initEventPresentation();
     }
-    
-});
+}
 
 function initRelatedNotFounds(){
     $('.related-records').addClass('hidden');
@@ -154,13 +157,30 @@ function setUpPaging(total, limit){
 function initChangeListingPage(){
     $(document).on('click', '.js-listing-page', function(){
         var page = $(this).data('value');
-        var limit = $('.listing-result').data('limit')
+        var limit = $('.listing-result').data('limit');
+        $('.listing-result').html('');
         $('.listing-result').data('page', page);
-        
-        var url = location.href;
+        var url = $('.listing-result').data('url');
         var Id = url.split('/')[url.split('/').length - 1];
 
-        getPerformerEvents(Id, page, limit);
+        $.ajax({
+           url: url,
+           method: 'POST',
+           data: {
+               id: Id
+           }, 
+           success: function(json) {
+               var url = location.href;
+
+                if(url.includes("performer")){
+                    presentEvents(json, "performer", page, limit);
+                } else if(url.includes("seminar")){
+                    presentEvents(json, "seminar", page, limit);
+                }  else if(url.includes("event")){
+                    presentPerformers(json, "event", page, limit);
+                }
+            }
+        });
     });
 }
 
