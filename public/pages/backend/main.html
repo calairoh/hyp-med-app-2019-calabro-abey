@@ -55,11 +55,12 @@ In particular, we start to say that one of the component of our team, Davide Cal
 Moreover, we want to highlight that we focused on create a light and very consistent web app. We didn’t use time to create a lot of attributes to the entities - <em>for example, Performer entity has an ID, Name, Surname, Bio, Photo and no more</em>  or a develop a lot of unrequested features, because we wanted to create an application that works in every scenario, making a good usability in case of error, like our <em>page 404</em>, and having a well studied layout and design.</p>
 <h2 class="code-line" data-line-start=28 data-line-end=29 ><a id="Specification_28"></a>Specification</h2>
 <h3 class="code-line" data-line-start=29 data-line-end=30 ><a id="Web_Architecture_29"></a>Web Architecture</h3>
-<p class="has-line-data" data-line-start="30" data-line-end="31">In the design phase, we decided to create a very simple and modular structure. As you can see from the image above, the structure is composed by 3 parts:</p>
+<img src="/assets/images/architecture.jpg" />
+<p class="has-line-data" data-line-start="30" data-line-end="31">In the design phase, we decided to create a very simple and modular structure. As you can see from the picture above, we didn't go so far from the architecture presented in the lecture and, in fact, the structure is composed by 3 parts:</p>
 <ul>
-<li class="has-line-data" data-line-start="31" data-line-end="32">The Data Layer: it’s responsable of manage the database behind the web app. That layer is entirely in the API side and no one method outside this part accesses the DB.</li>
-<li class="has-line-data" data-line-start="32" data-line-end="33">The Application Layer: it’s responsable of manage all the non-API requests of the application, manage the sessions info and respond with the HTML pages.</li>
-<li class="has-line-data" data-line-start="33" data-line-end="35">The Presentation Layer: it’s responsable of draw the right contents into the pages. This part is mainly client-side, in the sense that to avoid the server-side render, we used a simple technique that fills the content of the page by calling the API from the JS, with AJAX.</li>
+<li class="has-line-data" data-line-start="31" data-line-end="32">The Data Layer (black part): it’s responsable of manage the database behind the web app. That layer is entirely managed by the service side in the Application Layer and no one method outside this part accesses the DB.</li>
+<li class="has-line-data" data-line-start="32" data-line-end="33">The Application Layer (red part): it’s responsable of manage all the requests of the application, manage the sessions info and respond with the HTML pages.</li>
+<li class="has-line-data" data-line-start="33" data-line-end="35">The Presentation Layer (green part): it’s responsable of draw the right contents into the pages. This part is mainly client-side, in the sense that to avoid the server-side render, we used a simple technique that fills the content of the page by calling the API from the JS, with AJAX.</li>
 </ul>
 <p class="has-line-data" data-line-start="35" data-line-end="37">For explain better why our application doesn’t use server side rendering, we use a simple example.<br>
 When an event page is called, the Application Layer responds with a static HTML page, which means that the page contains all the static component (all hidden for the moment) that can be needed. Once the page is loaded, the JS file start to fill the page calling the API via AJAX and draw the result into the static HTML components and then make them visible.</p>
@@ -86,7 +87,7 @@ For the <em>booking</em> model the map with the <em>booking</em> table is identi
 <h3 class="code-line" data-line-start=62 data-line-end=63 ><a id="Tools_used_62"></a>Tools used</h3>
 <p class="has-line-data" data-line-start="63" data-line-end="66">Basically we used the tools suggest us from the teachers in the lectures. The main programming language is, obviously, <em>JavaScript</em>. As you can read in the previous sections, we used a lot the <em>AJAX calls</em> in order to get content for the pages, and also we largely used <em>JQuery</em> as plugin to draw and manages HTML components.<br>
 For the database part we used <em>pgAdmin</em> as query tool and, obviously, <em>SQL</em> language for the queries.<br>
-For the rest we haven’t used any other tools or languages.</p>
+Otherwise we haven’t used any other tools or languages.</p>
 <h3 class="code-line" data-line-start=67 data-line-end=68 ><a id="Discussion_67"></a>Discussion</h3>
 <h4 class="code-line" data-line-start=69 data-line-end=70 ><a id="WebApp_adherence_to_OpenAPI_specification_and_tests_69"></a>WebApp adherence to OpenAPI specification and tests</h4>
 <p class="has-line-data" data-line-start="70" data-line-end="71">In order to having a develop driven by the API, we started to design and develop first the OpenAPI and DB part. Before starting develop the API implementation and frontend part, we test all the OpenAPI specs contained in the <em>spec.yaml</em> and check if we had all the requests we needed. After that, we implemented all the backend methods and DB needed in the API part. We test it manually, but having a specific set of cases to submit to the OpenAPI methods. We are sure that the app adheres to the provided OpenAPI specification because this one has been developed after all the API part, so the development was driven by the API specs. After that, obviously, we test the adherence to OpenAPI specification once again, but this time from the all methods which call the API (from <em>AJAX</em>)</p>
@@ -133,8 +134,8 @@ Obviously, every time we needed to apport some change to the project, we discuss
 <p class="has-line-data" data-line-start="109" data-line-end="110">For the API we started by considering Davide’s experience. In particular he worked with some API services, in particular Google Analytics and Google Search Console REST API, but the API service Davide looks mainly was the HubSpot API. So, resuming:</p>
 <blockquote>
 <ul>
-<li class="has-line-data" data-line-start="110" data-line-end="111">We took partial inspiration from API HubSpot API because it had the modular and simple structure we were looking for</li>
-<li class="has-line-data" data-line-start="111" data-line-end="112">We took partial inspiration from Google service (Analytics and Search Console) mainly for the JSON response structure</li>
+<li class="has-line-data" data-line-start="110" data-line-end="111">We took partial inspiration from API HubSpot API because it had the modular and simple structure we were looking for <a href="https://developers.hubspot.com/docs/overview">Link here</a></li>
+<li class="has-line-data" data-line-start="111" data-line-end="112">We took partial inspiration from Google service (Analytics and Search Console) mainly for the JSON response structure <a href="https://developers.google.com/analytics/devguides/reporting/core/v4/">Link here</a></li>
 </ul>
 </blockquote>
 <h3 class="code-line" data-line-start=113 data-line-end=114 ><a id="Learning_outcome_113"></a>Learning outcome</h3>

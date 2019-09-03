@@ -135,6 +135,10 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
     res.sendFile(path.join(__dirname + '/public/pages/backend/main.html'));
   });
 
+  app.use('/backend', function(req, res, next){
+    res.sendFile(path.join(__dirname + '/public/pages/backend/main.html'));
+  });
+
   app.use('*', function(req, res, next){
     res.sendFile(path.join(__dirname + '/public/pages/errors/404.html'));
   });
