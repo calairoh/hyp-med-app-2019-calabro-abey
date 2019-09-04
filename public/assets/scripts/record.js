@@ -259,7 +259,7 @@ function initOnThisDayEvents(d, id){
                 }
             }
 
-            if(json.length === 0){
+            if(json.length === 1){
                 $('.on-this-day .messages').removeClass('hidden');                
             }
         }, error: function(){
